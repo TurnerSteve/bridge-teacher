@@ -1,9 +1,11 @@
 import { Hand, Suit, Rank, RankOrder, Direction} from "../types/enums";
 import { DealStruct} from "../types/types";
 
-export function generateDeal(): DealStruct {
+export function generateDeal(slots : number[]): DealStruct {
   // Initialize an array to represent the deck of cards (52 cards).
-  const deck: number[] = Array.from({ length: 52 }, (_, i) => i );
+  const slotTotal = slots.reduce((acc, val) => acc + val, 0);
+
+  const deck: number[] = Array.from({ length: slotTotal }, (_, i) => i );
   
   // Shuffle the deck using Fisher-Yates algorithm.
   for (let i = deck.length - 1; i > 0; i--) {
@@ -27,7 +29,7 @@ export function generateDeal(): DealStruct {
 
   // Place each card one at a time into an array for each suit in each hand
   // Place each card one at a time into an array for each suit in each hand
-  for (let i = 0; i < 52; i++) {
+  for (let i = 0; i < slotTotal; i++) {
     const card = deck[i]
 
     const direction : Direction = directions[i % 4];

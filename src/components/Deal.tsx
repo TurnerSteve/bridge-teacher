@@ -1,16 +1,18 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
-import { Direction } from "../bridge/types/enums";
+import { Direction } from "@/bridge/types/enums";
+import { DealStruct } from "@/bridge/types/types";
 import HandComponent from "./Hand";
 import { Button } from "./ui/button";
 
-import generateDeal from "@/bridge/deal-generators/partialDealGenerator";
-import { DealStruct } from "@/bridge/types/types";
-// import generateDeal from "@/bridge/deal-generators/rpDealGenerator";
-// import generateDeal from '@/bridge/deal-generators/frawdoDealGenerator';
-// import generateDeal from '@/bridge/deal-generators/fisherYatesDealGenerator';
+// Partial deal generator will generate 
+// slots [n1,n2,n3,n4] Cards n1=North, n2=East, n3=South, n4 West
+const slots = [13,13,13,13]
+ import generateDeal from "@/bridge/deal-generators/partialDealGenerator";
 
-const slots = [10,7,3,8]
+//  These random hand generators require  (n1=n2=n3=n4) defaulting to 13,13,13,13
+//  import generateDeal from '@/bridge/deal-generators/frawdoDealGenerator';
+//  import generateDeal from '@/bridge/deal-generators/fisherYatesDealGenerator';
 
 function DealComponent() {
   const [dealState, setDealState] = useState<DealStruct>();
@@ -22,14 +24,14 @@ function DealComponent() {
   }, []); // no dependancy since input did not chage
 
   useEffect(() => {
-    const slots = [13,13,13,13] ;
+    const slots = [8,8,8,8] ; // First deal only on startup
 
     calculateDeal(slots);
 
   },[calculateDeal]); // Empty dependency array ensures this runs only on mount
 
-   if (!dealState) {
-    return <div> Loading... </div> ; // Render fallback UI while state is uninitialized
+   if (!dealState) { // otherwise dealState wont be setup on first pass.
+    return <div> Loading... </div> ; // Render fallback UI ... Needs a Skeleton
   }
 
   return (
