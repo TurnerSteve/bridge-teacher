@@ -1,37 +1,44 @@
 "use client";
-import { useCallback, useEffect, useState } from "react";
-import { Direction } from "@/bridge/types/enums";
+import { useEffect, useState } from "react";
 import { DealStruct } from "@/bridge/types/types";
 import HandComponent from "./Hand";
 import { Button } from "./ui/button";
+import partialDeal from "@/bridge/deal-generators/partialDealGenerator";
+import fisherYatesDeal from "@/bridge/deal-generators/fisherYatesDealGenerator";
+import nsewDeal from "@/bridge/deal-generators/frawdoDealGenerator";
 
-// Partial deal generator will generate 
+import { Algo } from "@/bridge/types/enums";
+
+// Partial deal generator will generate
 // slots [n1,n2,n3,n4] Cards n1=North, n2=East, n3=South, n4 West
-const slots = [13,13,13,13]
- import generateDeal from "@/bridge/deal-generators/partialDealGenerator";
 
-//  These random hand generators require  (n1=n2=n3=n4) defaulting to 13,13,13,13
-//  import generateDeal from '@/bridge/deal-generators/frawdoDealGenerator';
-//  import generateDeal from '@/bridge/deal-generators/fisherYatesDealGenerator';
 
-function DealComponent() {
-  const [dealState, setDealState] = useState<DealStruct>();
 
-  const calculateDeal = useCallback((slots: number[]) => {
-    const deal: DealStruct = generateDeal(slots);
+// export interface DealCommandProps {
+//   algo: Algo;
+//   slots: number[];
+// }
+interface DealInputProps {
+  algo: Algo;
+  slots: number[];
+}
 
-    setDealState(deal);
-  }, []); // no dependancy since input did not chage
+export type DealResults = {
+  algo: Algo;
+  description: string;
+  deal: DealStruct;
+};
+
+
+function DealComponent( {algo, slots } : DealInputProps) {
+  const [dealState, setDealState] = useState<DealResults>();
 
   useEffect(() => {
-    const slots = [8,8,8,8] ; // First deal only on startup
+    setDealState(executeAlgo(algo, [8,8,8,8]));
+  }, [algo, slots]);
 
-    calculateDeal(slots);
-
-  },[calculateDeal]); // Empty dependency array ensures this runs only on mount
-
-   if (!dealState) { // otherwise dealState wont be setup on first pass.
-    return <div> Loading... </div> ; // Render fallback UI ... Needs a Skeleton
+  if (!dealState) {
+    return <div> Loading... </div>; // Render fallback UI ... Needs a Skeleton
   }
 
   return (
@@ -39,27 +46,49 @@ function DealComponent() {
       <Button
         className="mb-4 p-2 bg-blue-500 text-white rounded"
         onClick={() => {
-
-          calculateDeal(slots)}}
+          const newDeal = executeAlgo(algo, slots);
+          setDealState(newDeal);
+        }}
       >
         Redeal
       </Button>
       <div className="grid grid-cols-3 grid-rows-3 gap-4 w-full max-w-screen-xl">
         <div className="flex justify-center items-center row-start-1 col-start-2">
-          <HandComponent direction="North" hand={dealState[Direction.NORTH]} />
+          <HandComponent direction="North" hand={dealState.deal.North} />
         </div>
         <div className="flex justify-center items-center row-start-2 col-start-1">
-          <HandComponent direction="West" hand={dealState[Direction.WEST]} />
+          <HandComponent direction="West" hand={dealState.deal.West} />
         </div>
         <div className="flex justify-center items-center row-start-2 col-start-3">
-          <HandComponent direction="East" hand={dealState[Direction.EAST]} />
+          <HandComponent direction="East" hand={dealState.deal.East} />
         </div>
         <div className="flex justify-center items-center row-start-3 col-start-2">
-          <HandComponent direction="South" hand={dealState[Direction.SOUTH]} />
+          <HandComponent direction="South" hand={dealState.deal.South} />
         </div>
       </div>
     </div>
   );
+}
+
+let deal: DealResults;
+function executeAlgo(algo: Algo, slots: number[]): DealResults {
+  console.log(`Algorithm is "${algo}" decoding ${slots}`);
+
+  switch (algo) {
+    case Algo.FisherYates:
+      deal = fisherYatesDeal (slots);
+      break;
+    case Algo.Partial:
+      deal = partialDeal(slots);
+      break;
+    case Algo.NSEW:
+      deal = nsewDeal(slots);
+      break;
+    default:
+      break;
+  }
+  console.log(deal);
+  return deal;
 }
 
 export default DealComponent;

@@ -1,11 +1,21 @@
-import { Direction, Rank, Suit } from "@/bridge/types/enums";
+import { Algo, Direction, Rank, Suit } from "@/bridge/types/enums";
 import { DealStruct} from "@/bridge/types/types";
+import { DealResults } from "@/components/Deal";
 
 // Function to generate a random bridge deal
-function generateDeal(slots : number[]): DealStruct {
-  // Create a nx4-element array and fill it with 13 of each direction randomly
-  
-  const slotTotal = slots.reduce((acc, val) => acc + val, 0);
+function generateDeal(slots : number[]): DealResults {
+  // Initialize an array to represent the deck of cards (52 cards).
+  // Need to check slots are n1=n2=n3=n4 ()
+  // Otherwise default to 13 each for a full pack
+
+  let description = `N,S,E,W dealing algorithm for ${slots} cards per player`
+  let slotTotal = slots[0] * 4 ; 
+
+  if (slots[0] !!= slots[1] || slots[1] !!= slots[2] ||  slots[2] !!= slots[3]) {
+    slots = [13,13,13,13] ; // Default if something wrong
+    slotTotal = 52 ;
+    description =  `Bad distribution: defaulting to N,S,E,W dealing algorithm for ${slots} cards per player `;
+  }
 
   const directions : Direction[]  = Array(slotTotal).fill(null).map((_, i) => Object.values(Direction)[Math.floor(i / 13)]);
   const shuffledDirections : Direction[] = directions.sort(() => Math.random() - 0.5);
@@ -31,8 +41,9 @@ function generateDeal(slots : number[]): DealStruct {
 
     hands[direction][suit].push(rank);
   }
+  const algo = Algo.FisherYates ;
 
-  return hands;
+  return ({algo : algo, description : description, deal : hands});
 }
 
-export default generateDeal ;
+export default generateDeal

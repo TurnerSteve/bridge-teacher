@@ -1,24 +1,12 @@
 import { maxCodePage, randomBigInt } from "@/arithmetic/utils";
-import { Algo, Direction, Rank, Suit } from "../types/enums";
-import { DealStruct} from "../types/types";
-import { DealResults } from "@/components/Deal";
+import { Direction, Rank, Suit } from "../types/enums";
+import { DealStruct } from "../types/types";
 
-function partialDealGenerator(slots : number[]): DealResults {
-  // Initialize an array to represent a deck of up to cards (52 cards).
-  // The slots are n1=n2=n3=n4  cards per player ... Sum <= 52
-  // Otherwise default to 13 each for a full pack
+export interface Settings {
+  slotAlloc: number[];
+}
 
-  let description = `Partial "Pavlicek" dealing algorithm for ${slots} cards per player`
-
-  let slotTotal = slots[0 + slots[1] + slots[2] + slots[3]]
-  if (slotTotal > 52 || slotTotal < 0 ) {
-    slots = [13,13,13,13] ; // Default if something wrong
-    slotTotal = 52 ;
-    description = `Partial Pavlicek". Defaulting to ${slots} distribution`
-  }
-
-  console.log(description)
-
+function rpDealGenerator(slots : number[]): DealStruct {
   const lastPage = maxCodePage(slots); // Maximum integer needed to represent a deal
   const codePage = randomBigInt(lastPage); // Generate the unique "codepage"
 
@@ -33,10 +21,9 @@ function partialDealGenerator(slots : number[]): DealResults {
   // For a full pack the slots are [13,13,13,13]
 
   const seats: Direction[] = rpDecoder(slots, codePage);
-  
   const deal: DealStruct = seatDecoder(seats);
 
-  return ({algo : Algo.Partial , description : description, deal : deal});
+  return deal;
 }
 
 // Construct the 4 hands from the array of directions.
@@ -49,9 +36,10 @@ function seatDecoder(directions: Direction[]): DealStruct {
     [Direction.WEST]: { [Suit.SPADES]: [], [Suit.HEARTS]: [], [Suit.DIAMONDS]: [], [Suit.CLUBS]: [] }
   };
 
-  const packSize :number = directions.length ;
-
   // Place each card one at a time into an array for each suit in each hand
+
+  const packSize :number = directions.length ;
+  
   for (let i = 0; i < packSize; i++) {
     const direction : Direction = directions[i];
     const suit : Suit = Object.values(Suit)[Math.floor(i / 13)];
@@ -64,7 +52,12 @@ function seatDecoder(directions: Direction[]): DealStruct {
 
 function rpDecoder(slots: number[], codePage: bigint): Direction[] {
   const slotTotal = slots.reduce((acc, val) => acc + val, 0);
-  const slotsRemaining = [...slots]; // Take a copy since we dont want slots to change
+  const slotsRemaining = [...slots];
+
+  console.log(
+    `The [${slots}] == [N,E,S,W] partial deal decoding codePage [${codePage}] `
+  );
+
 
   let K = maxCodePage(slots);
   let pageIndex = codePage; // Indexes a fixed point in the remaining space --> ZERO
@@ -115,4 +108,4 @@ function rpDecoder(slots: number[], codePage: bigint): Direction[] {
   return directionAssignments;
 }
 
-export default partialDealGenerator;
+export default rpDealGenerator;

@@ -1,3 +1,9 @@
+export enum Algo 
+{
+  FisherYates = "FisherYates",
+  Partial = "Partial" ,
+  NSEW = "NSEW",
+}
 
 enum Direction {
   NORTH = "North",

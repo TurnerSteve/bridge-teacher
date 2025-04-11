@@ -1,9 +1,21 @@
-import { Hand, Suit, Rank, RankOrder, Direction} from "../types/enums";
+import { Algo, Hand, Suit, Rank, RankOrder, Direction} from "../types/enums";
 import { DealStruct} from "../types/types";
+import { DealResults } from "@/components/Deal";
 
-export function generateDeal(slots : number[]): DealStruct {
-  // Initialize an array to represent the deck of cards (52 cards).
-  const slotTotal = slots.reduce((acc, val) => acc + val, 0);
+export function generateDeal(slots : number[]): DealResults {
+  // Initialize an array to represent the deck of cards (up to) 52 cards).
+  // Need to check slots (cards dealt to each player) are n1=n2=n3=n4
+  // Otherwise default to 13 each for a full pack
+
+  // assumes all slots the same so we  can perform the algo.
+  let description = "Fisher Yates dealing algorithm for ${slots} cards per player"
+  let slotTotal = slots[0] * 4 ; 
+
+  if (slots[0] !== slots[1] || slots[1] !== slots[2] ||  slots[2] !== slots[3]) {
+    slots = [13,13,13,13] ; // Default if something wrong
+    slotTotal = 52 ;
+    description = "Bad distribution. Defaulting to Fisher Yates dealing algorithm for ${slots} distribution"
+  }
 
   const deck: number[] = Array.from({ length: slotTotal }, (_, i) => i );
   
@@ -40,7 +52,9 @@ export function generateDeal(slots : number[]): DealStruct {
   }
 
   const sortedHands = sortDeal(hands);
-  return sortedHands;
+  const algo = Algo.FisherYates ;
+
+  return ({algo : algo, description : description, deal : sortedHands});
 }
 export default generateDeal;
 
