@@ -1,9 +1,9 @@
 import { Algo, Direction, Rank, Suit } from "@/bridge/types/enums";
 import { DealStruct} from "@/bridge/types/types";
-import { DealResults } from "@/components/Deal";
+import { DealResult } from "@/components/Deal";
 
 // Function to generate a random bridge deal
-function generateDeal(slots : number[]): DealResults {
+function generateDeal(slots : number[]): DealResult {
   // Initialize an array to represent the deck of cards (52 cards).
   // Need to check slots are n1=n2=n3=n4 ()
   // Otherwise default to 13 each for a full pack
@@ -41,7 +41,7 @@ function generateDeal(slots : number[]): DealResults {
 
     hands[direction][suit].push(rank);
   }
-  const algo = Algo.FisherYates ;
+  const algo = Algo.NSEW ;
 
   return ({algo : algo, description : description, deal : hands});
 }

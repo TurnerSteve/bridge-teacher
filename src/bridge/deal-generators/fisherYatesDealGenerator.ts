@@ -1,8 +1,8 @@
 import { Algo, Hand, Suit, Rank, RankOrder, Direction} from "../types/enums";
 import { DealStruct} from "../types/types";
-import { DealResults } from "@/components/Deal";
+import { DealResult } from "@/components/Deal";
 
-export function generateDeal(slots : number[]): DealResults {
+export function generateDeal(slots : number[]): DealResult {
   // Initialize an array to represent the deck of cards (up to) 52 cards).
   // Need to check slots (cards dealt to each player) are n1=n2=n3=n4
   // Otherwise default to 13 each for a full pack

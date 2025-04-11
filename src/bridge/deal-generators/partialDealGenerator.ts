@@ -1,9 +1,9 @@
 import { maxCodePage, randomBigInt } from "@/arithmetic/utils";
 import { Algo, Direction, Rank, Suit } from "../types/enums";
 import { DealStruct} from "../types/types";
-import { DealResults } from "@/components/Deal";
+import { DealResult } from "@/components/Deal";
 
-function partialDealGenerator(slots : number[]): DealResults {
+function partialDealGenerator(slots : number[]): DealResult {
   // Initialize an array to represent a deck of up to cards (52 cards).
   // The slots are n1=n2=n3=n4  cards per player ... Sum <= 52
   // Otherwise default to 13 each for a full pack
@@ -14,17 +14,17 @@ function partialDealGenerator(slots : number[]): DealResults {
   if (slotTotal > 52 || slotTotal < 0 ) {
     slots = [13,13,13,13] ; // Default if something wrong
     slotTotal = 52 ;
-    description = `Partial Pavlicek". Defaulting to ${slots} distribution`
+    description = `Partial Pavlicek" dealing . Defaulting to ${slots} distribution`
   }
 
-  console.log(description)
+  // console.log(description)
 
   const lastPage = maxCodePage(slots); // Maximum integer needed to represent a deal
   const codePage = randomBigInt(lastPage); // Generate the unique "codepage"
 
   if (codePage > lastPage || codePage < 0) {
     throw new RangeError(
-      `Code Page [${codePage}] must be between 0 and [${lastPage}]`
+      `Code Page \[${codePage}\] must be between 0 and \[${lastPage}\]`
     );
   }
 

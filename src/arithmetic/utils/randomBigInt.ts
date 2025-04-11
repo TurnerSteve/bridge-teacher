@@ -33,8 +33,18 @@ export default function randomBigInt(max: bigint): bigint {
     rnd += rndArray[i];
   }
 
-  // 5. Check for failure (the random number being higher then max)
+  // 5. Check for failure (the random number being higher than max)
   // and retry if needed
   if (rnd >= max) return randomBigInt(max);
+  if (rnd < 0) return randomBigInt(max);
+
+  // if (rnd < 0) {
+  //   console.log ("Random number generator has created a negative number, so try again")
+    
+  //   console.log ("max =", max.toString(2))
+  //   console.log ("rnd =", rnd.toString(2))
+  //   return randomBigInt(max);
+  // }
+
   return rnd;
 }
