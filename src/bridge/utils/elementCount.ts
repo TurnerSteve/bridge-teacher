@@ -7,10 +7,10 @@ export default function elementCount(arr: Direction[]): {
   const elementCount: {
     [key in Direction]: number;
   } = {
-    [Direction.NORTH]: 0,
-    [Direction.SOUTH]: 0,
-    [Direction.EAST]: 0,
-    [Direction.WEST]: 0,
+    [Direction.North]: 0,
+    [Direction.South]: 0,
+    [Direction.East]: 0,
+    [Direction.West]: 0,
   };
 
   // Count occurrences of each element

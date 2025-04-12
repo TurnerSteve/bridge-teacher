@@ -38,5 +38,6 @@ import { Dealer, Vulnerability } from "@/bridge/types/enums";
     return lookupTable[boardIndex - 1];
   }
 
-  export default getTrayInfo ;
+  export default getTrayInfo
+  export type { LookupEntry }
   

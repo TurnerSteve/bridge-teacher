@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Algo } from "@/bridge/types/enums";
-import { Card } from "./ui/card";
+import { Card, CardContent, CardHeader } from "./ui/card";
 
 // Props for the child component
 interface DealerAlgoRadioButtonsProps {
@@ -24,29 +24,31 @@ export function DealerAlgoRadioButtons({
   };
 
   return (
-    <Card>
-      <h1 className="text-lg font-bold mb-4">Dealing Algo Selector</h1>
-      <RadioGroup
-        value={selectedOption}
-        onValueChange={handleChange} // Call handleChange when a radio button is selected
-        className="space-y-2"
-      >
-        {/* Option 1 */}
-        <div className="flex items-center space-x-2">
-          <RadioGroupItem value={Algo.PARTIAL} id="option-1" />
-          <Label htmlFor="option-1">Pavlicek (Partial)</Label>
-        </div>
-        {/* Option 2 */}
-        <div className="flex items-center space-x-2">
-          <RadioGroupItem value={Algo.FISHERYATES} id="option-2" />
-          <Label htmlFor="option-2">Fisher-Yates</Label>
-        </div>
-        {/* Option 3 */}
-        <div className="flex items-center space-x-2">
-          <RadioGroupItem value={Algo.HOMEGROWN} id="option-3" />
-          <Label htmlFor="option-3">Home grown </Label>
-        </div>
-      </RadioGroup>
+    <Card className="w-full min-h">
+      <CardHeader className="py-0 border-1">Dealing Algo</CardHeader>
+      <CardContent className="p-0 border-1">
+        <RadioGroup
+          value={selectedOption}
+          onValueChange={handleChange} // Call handleChange when a radio button is selected
+          className="space-y-2"
+        >
+          {/* Option 1 */}
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value={Algo.PARTIAL} id="option-1" />
+            <Label htmlFor="option-1">Pavlicek (Partial)</Label>
+          </div>
+          {/* Option 2 */}
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value={Algo.FISHERYATES} id="option-2" />
+            <Label htmlFor="option-2">Fisher-Yates</Label>
+          </div>
+          {/* Option 3 */}
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value={Algo.HOMEGROWN} id="option-3" />
+            <Label htmlFor="option-3">Home grown </Label>
+          </div>
+        </RadioGroup>
+      </CardContent>
     </Card>
   );
 }

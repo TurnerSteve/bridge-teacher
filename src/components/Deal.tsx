@@ -1,10 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
 import { DealStruct } from "@/bridge/types/types";
-import HandComponent from "./Hand";
+
 
 /// Shadcn components
 import { Button } from "@/components/ui/button";
+import { Card } from "./ui/card";
 
 import partialDeal from "@/bridge/deal-generators/partialDealGenerator";
 import fisherYatesDeal from "@/bridge/deal-generators/fisherYatesDealGenerator";
@@ -12,7 +13,10 @@ import nsewDeal from "@/bridge/deal-generators/frawdoDealGenerator";
 
 import { Algo } from "@/bridge/types/enums";
 import { DealerAlgoRadioButtons } from "./DealerAlgoRadioButtons";
-import { Card } from "./ui/card";
+
+
+import TrayComponent from "./Tray";
+import HandComponent from "./Hand";
 
 // Partial deal generator will generate
 // slots [n1,n2,n3,n4] Cards n1=North, n2=East, n3=South, n4 West
@@ -56,8 +60,8 @@ function DealComponent({ slots }: DealInputProps) {
   }
 
   useEffect(() => {
-    console.log(`The first deal is a partial "${Algo.PARTIAL}" of size [4,4,4,4]`);
-    const deal: DealResult = executeAlgo(Algo.PARTIAL, [4, 4, 4, 4]);
+    console.log(`The first deal is a partial "${Algo.PARTIAL}" of size [11,6,15,5]`);
+    const deal: DealResult = executeAlgo(Algo.PARTIAL, [11, 6, 9, 5]);
     appendDeal(deal.algo, deal.description, deal.deal);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -76,7 +80,7 @@ function DealComponent({ slots }: DealInputProps) {
             <HandComponent direction="North" hand={dealStored.deal.North} />
           </div>
           <div className="flex justify-center items-center row-start-1 col-start-3">
-            <Card >
+            <Card className="w-full">
               Redeal controller
           <Button
           className="mb-4 p-2 bg-blue-500 text-white rounded"
@@ -91,6 +95,9 @@ function DealComponent({ slots }: DealInputProps) {
           </div>
           <div className="flex justify-center items-center row-start-2 col-start-1">
             <HandComponent direction="West" hand={dealStored.deal.West} />
+          </div>
+          <div className="flex justify-center items-center row-start-2 col-start-2">
+            <TrayComponent boardId={dealCountStore} />
           </div>
           <div className="flex justify-center items-center row-start-2 col-start-3">
             <HandComponent direction="East" hand={dealStored.deal.East} />
