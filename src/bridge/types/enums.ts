@@ -1,8 +1,9 @@
 export enum Algo 
 {
-  FisherYates = "FisherYates",
-  Partial = "Partial" ,
-  NSEW = "NSEW",
+  FISHERYATES = "Fisher-Yates",
+  PARTIAL = "Partial Pavlicek" ,
+  HOMEGROWN = "Home Grown",
+  null = "Null Algo"
 }
 
 enum Direction {

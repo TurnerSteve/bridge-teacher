@@ -36,7 +36,7 @@ function partialDealGenerator(slots : number[]): DealResult {
   
   const deal: DealStruct = seatDecoder(seats);
 
-  return ({algo : Algo.Partial , description : description, deal : deal});
+  return ({algo : Algo.PARTIAL , description : description, deal : deal});
 }
 
 // Construct the 4 hands from the array of directions.

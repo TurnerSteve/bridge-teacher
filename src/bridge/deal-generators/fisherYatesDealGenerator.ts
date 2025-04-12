@@ -52,9 +52,8 @@ export function generateDeal(slots : number[]): DealResult {
   }
 
   const sortedHands = sortDeal(hands);
-  const algo = Algo.FisherYates ;
 
-  return ({algo : algo, description : description, deal : sortedHands});
+  return ({algo : Algo.FISHERYATES, description : description, deal : sortedHands});
 }
 export default generateDeal;
 

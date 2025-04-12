@@ -41,9 +41,8 @@ function generateDeal(slots : number[]): DealResult {
 
     hands[direction][suit].push(rank);
   }
-  const algo = Algo.NSEW ;
 
-  return ({algo : algo, description : description, deal : hands});
+  return ({algo : Algo.HOMEGROWN, description : description, deal : hands});
 }
 
 export default generateDeal
