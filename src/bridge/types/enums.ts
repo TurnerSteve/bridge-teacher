@@ -1,32 +1,47 @@
-export enum Algo 
+enum Algo 
 {
   FISHERYATES = "Fisher-Yates",
   PARTIAL = "Partial Pavlicek" ,
   HOMEGROWN = "Home Grown",
-  null = "Null Algo"
+  NULL = "Null Algo"
 }
 
 enum Direction {
-  NORTH = "North",
-  EAST = "East",
-  SOUTH = "South",
-  WEST = "West"
+  North = "North",
+  East = "East",
+  South = "South",
+  West = "West"
 }
 // Probably dont meed Direction and Deal
 
 enum Hand{
-  NORTH = Direction.NORTH,
-  EAST = Direction.EAST,
-  SOUTH = Direction.SOUTH,
-  WEST = Direction.WEST
+  North = Direction.North,
+  East = Direction.East,
+  South = Direction.South,
+  West = Direction.West
+}
+
+// Define the enumerated types
+enum Vulnerability {
+  None = "None",
+  NS = "N-S",
+  EW = "E-W",
+  Both = "Both",
+}
+
+enum Dealer {
+  North = Direction.North,
+  East = Direction.East,
+  South = Direction.South,
+  West = Direction.West,
 }
 
 // Enum for Suits (with suit icons)
 enum Suit {
-  SPADES = "♠",   // Suit symbol for Spades
-  HEARTS = "\u2665",   // Suit symbol for Hearts
-  DIAMONDS = "♦", // Suit symbol for Diamonds
-  CLUBS = "♣"     // Suit symbol for Clubs
+  Spades = "♠",   // Suit symbol for Spades
+  Hearts = "\u2665",   // Suit symbol for Hearts
+  Diamonds = "♦", // Suit symbol for Diamonds
+  Clubs = "♣"     // Suit symbol for Clubs
 }
 
 enum Rank {
@@ -63,5 +78,6 @@ const RankOrder: Record<Rank, number> = {
   [Rank.TWO]: 13,
 };
 
-export { Rank, Suit, Hand, Direction}
-export { RankOrder } 
+export { Rank, Suit, Hand, Direction, Dealer, Vulnerability}
+export { RankOrder }
+export { Algo } 

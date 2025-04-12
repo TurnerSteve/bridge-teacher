@@ -31,10 +31,10 @@ export function generateDeal(slots : number[]): DealResult {
   // Cards in order of rank AKQ
 
   const hands: DealStruct = {
-    [Direction.NORTH]: { [Suit.SPADES]: [], [Suit.HEARTS]: [], [Suit.DIAMONDS]: [], [Suit.CLUBS]: [] },
-    [Direction.EAST]: { [Suit.SPADES]: [], [Suit.HEARTS]: [], [Suit.DIAMONDS]: [], [Suit.CLUBS]: [] },
-    [Direction.SOUTH]: { [Suit.SPADES]: [], [Suit.HEARTS]: [], [Suit.DIAMONDS]: [], [Suit.CLUBS]: [] },
-    [Direction.WEST]: { [Suit.SPADES]: [], [Suit.HEARTS]: [], [Suit.DIAMONDS]: [], [Suit.CLUBS]: [] }
+    [Direction.North]: { [Suit.Spades]: [], [Suit.Hearts]: [], [Suit.Diamonds]: [], [Suit.Clubs]: [] },
+    [Direction.East]: { [Suit.Spades]: [], [Suit.Hearts]: [], [Suit.Diamonds]: [], [Suit.Clubs]: [] },
+    [Direction.South]: { [Suit.Spades]: [], [Suit.Hearts]: [], [Suit.Diamonds]: [], [Suit.Clubs]: [] },
+    [Direction.West]: { [Suit.Spades]: [], [Suit.Hearts]: [], [Suit.Diamonds]: [], [Suit.Clubs]: [] }
   };
 
   const directions = Object.values(Direction)

@@ -43,10 +43,10 @@ function partialDealGenerator(slots : number[]): DealResult {
 function seatDecoder(directions: Direction[]): DealStruct {
 
   const hands: DealStruct = {
-    [Direction.NORTH]: { [Suit.SPADES]: [], [Suit.HEARTS]: [], [Suit.DIAMONDS]: [], [Suit.CLUBS]: [] },
-    [Direction.EAST]: { [Suit.SPADES]: [], [Suit.HEARTS]: [], [Suit.DIAMONDS]: [], [Suit.CLUBS]: [] },
-    [Direction.SOUTH]: { [Suit.SPADES]: [], [Suit.HEARTS]: [], [Suit.DIAMONDS]: [], [Suit.CLUBS]: [] },
-    [Direction.WEST]: { [Suit.SPADES]: [], [Suit.HEARTS]: [], [Suit.DIAMONDS]: [], [Suit.CLUBS]: [] }
+    [Direction.North]: { [Suit.Spades]: [], [Suit.Hearts]: [], [Suit.Diamonds]: [], [Suit.Clubs]: [] },
+    [Direction.East]: { [Suit.Spades]: [], [Suit.Hearts]: [], [Suit.Diamonds]: [], [Suit.Clubs]: [] },
+    [Direction.South]: { [Suit.Spades]: [], [Suit.Hearts]: [], [Suit.Diamonds]: [], [Suit.Clubs]: [] },
+    [Direction.West]: { [Suit.Spades]: [], [Suit.Hearts]: [], [Suit.Diamonds]: [], [Suit.Clubs]: [] }
   };
 
   const packSize :number = directions.length ;
@@ -56,6 +56,7 @@ function seatDecoder(directions: Direction[]): DealStruct {
     const direction : Direction = directions[i];
     const suit : Suit = Object.values(Suit)[Math.floor(i / 13)];
     const rank : Rank = Object.values(Rank)[i % 13];
+    
     hands[direction][suit].push(rank);
   }
 
@@ -81,7 +82,7 @@ function rpDecoder(slots: number[], codePage: bigint): Direction[] {
       // Found in Quadrant 1
       slotsRemaining[0]--;
       K = X1;
-      directionAssignments[index] = Direction.NORTH;
+      directionAssignments[index] = Direction.North;
       continue;
     }
 
@@ -91,7 +92,7 @@ function rpDecoder(slots: number[], codePage: bigint): Direction[] {
       // Found in Quadrant 2
       slotsRemaining[1]--;
       K = X2;
-      directionAssignments[index] = Direction.EAST;
+      directionAssignments[index] = Direction.East;
       continue;
     }
 
@@ -101,7 +102,7 @@ function rpDecoder(slots: number[], codePage: bigint): Direction[] {
       // Found in Quadrant 3
       slotsRemaining[2]--;
       K = X3;
-      directionAssignments[index] = Direction.SOUTH;
+      directionAssignments[index] = Direction.South;
       continue;
     }
     // Default to Quadrant 4
@@ -109,7 +110,7 @@ function rpDecoder(slots: number[], codePage: bigint): Direction[] {
     pageIndex -= X3;
     slotsRemaining[3]--;
     K = X4;
-    directionAssignments[index] = Direction.WEST;
+    directionAssignments[index] = Direction.West;
   }
 
   return directionAssignments;

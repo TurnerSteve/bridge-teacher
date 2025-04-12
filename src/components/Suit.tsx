@@ -9,10 +9,10 @@ interface SuitProps {
 function SuitComponent({ suit, cards }: SuitProps) {
 
   const suitColors = {
-    [Suit.SPADES]: 'text-black',
-    [Suit.HEARTS]: 'text-red-500',
-    [Suit.DIAMONDS]: 'text-red-500',
-    [Suit.CLUBS]: 'text-black'
+    [Suit.Spades]: 'text-black',
+    [Suit.Hearts]: 'text-red-500',
+    [Suit.Diamonds]: 'text-red-500',
+    [Suit.Clubs]: 'text-black'
   };
 
   // Combine suit symbol, a space, and card ranks, or add a dash if no cards are present

@@ -1,17 +1,17 @@
 
 import { Direction, Rank, Suit, Hand} from "./enums";
 type HandStruct = {
-    [Suit.SPADES]: Rank[];
-    [Suit.HEARTS]: Rank[];
-    [Suit.DIAMONDS]: Rank[];
-    [Suit.CLUBS]: Rank[];
+    [Suit.Spades]: Rank[];
+    [Suit.Hearts]: Rank[];
+    [Suit.Diamonds]: Rank[];
+    [Suit.Clubs]: Rank[];
   }
   
 type DealStruct = {
-    [Hand.NORTH]: HandStruct;
-    [Hand.EAST]: HandStruct;
-    [Hand.SOUTH]: HandStruct;
-    [Hand.WEST]: HandStruct;
+    [Hand.North]: HandStruct;
+    [Hand.East]: HandStruct;
+    [Hand.South]: HandStruct;
+    [Hand.West]: HandStruct;
 }
 
 export type {HandStruct, DealStruct}
