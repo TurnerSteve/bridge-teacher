@@ -25,12 +25,12 @@ export function DealerAlgoRadioButtons({
 
   return (
     <Card className="w-full min-h">
-      <CardHeader className="py-0 border-1">Dealing Algo</CardHeader>
-      <CardContent className="p-0 border-1">
+      <CardHeader className="py-0 border-0">Dealing Algo</CardHeader>
+      <CardContent className="p-0 border-0">
         <RadioGroup
           value={selectedOption}
           onValueChange={handleChange} // Call handleChange when a radio button is selected
-          className="space-y-2"
+          className=" pl-5"
         >
           {/* Option 1 */}
           <div className="flex items-center space-x-2">

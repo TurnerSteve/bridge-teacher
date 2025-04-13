@@ -80,7 +80,7 @@ function DealComponent({ slots }: DealInputProps) {
             <HandComponent direction="North" hand={dealStored.deal.North} />
           </div>
           <div className="flex justify-center items-center row-start-1 col-start-3">
-            <Card className="w-full">
+            <Card className="w-full px-5">
               Redeal controller
           <Button
           className="mb-4 p-2 bg-blue-500 text-white rounded"
