@@ -1,7 +1,7 @@
 import { maxCodePage, randomBigInt } from "@/arithmetic/utils";
 import { Algo, Direction, Rank, Suit } from "../types/enums";
-import { DealStruct} from "../types/types";
-import { DealResult } from "@/components/Deal";
+import { createEmptyDealStruct, DealStruct} from "../types/types";
+import { DealResult } from "@/components/SingleDeal";
 
 function partialDealGenerator(slots : number[]): DealResult {
   // Initialize an array to represent a deck of up to cards (52 cards).
@@ -42,12 +42,7 @@ function partialDealGenerator(slots : number[]): DealResult {
 // Construct the 4 hands from the array of directions.
 function seatDecoder(directions: Direction[]): DealStruct {
 
-  const hands: DealStruct = {
-    [Direction.North]: { [Suit.Spades]: [], [Suit.Hearts]: [], [Suit.Diamonds]: [], [Suit.Clubs]: [] },
-    [Direction.East]: { [Suit.Spades]: [], [Suit.Hearts]: [], [Suit.Diamonds]: [], [Suit.Clubs]: [] },
-    [Direction.South]: { [Suit.Spades]: [], [Suit.Hearts]: [], [Suit.Diamonds]: [], [Suit.Clubs]: [] },
-    [Direction.West]: { [Suit.Spades]: [], [Suit.Hearts]: [], [Suit.Diamonds]: [], [Suit.Clubs]: [] }
-  };
+  const hands: DealStruct = createEmptyDealStruct();
 
   const packSize :number = directions.length ;
 

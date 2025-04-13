@@ -1,6 +1,6 @@
 import { maxCodePage, randomBigInt } from "@/arithmetic/utils";
 import { Direction, Rank, Suit } from "../types/enums";
-import { DealStruct } from "../types/types";
+import { createEmptyDealStruct, DealStruct } from "../types/types";
 
 export interface Settings {
   slotAlloc: number[];
@@ -29,12 +29,7 @@ function rpDealGenerator(slots : number[]): DealStruct {
 // Construct the 4 hands from the array of directions.
 function seatDecoder(directions: Direction[]): DealStruct {
 
-  const hands: DealStruct = {
-    [Direction.North]: { [Suit.Spades]: [], [Suit.Hearts]: [], [Suit.Diamonds]: [], [Suit.Clubs]: [] },
-    [Direction.East]: { [Suit.Spades]: [], [Suit.Hearts]: [], [Suit.Diamonds]: [], [Suit.Clubs]: [] },
-    [Direction.South]: { [Suit.Spades]: [], [Suit.Hearts]: [], [Suit.Diamonds]: [], [Suit.Clubs]: [] },
-    [Direction.West]: { [Suit.Spades]: [], [Suit.Hearts]: [], [Suit.Diamonds]: [], [Suit.Clubs]: [] }
-  };
+  const hands: DealStruct = createEmptyDealStruct();
 
   // Place each card one at a time into an array for each suit in each hand
 

@@ -1,6 +1,6 @@
 import { Algo, Hand, Suit, Rank, RankOrder, Direction} from "../types/enums";
-import { DealStruct} from "../types/types";
-import { DealResult } from "@/components/Deal";
+import { createEmptyDealStruct, DealStruct} from "../types/types";
+import { DealResult } from "@/components/SingleDeal";
 
 export function generateDeal(slots : number[]): DealResult {
   // Initialize an array to represent the deck of cards (up to) 52 cards).
@@ -30,12 +30,7 @@ export function generateDeal(slots : number[]): DealResult {
   // North, East, South and west is the default order.
   // Cards in order of rank AKQ
 
-  const hands: DealStruct = {
-    [Direction.North]: { [Suit.Spades]: [], [Suit.Hearts]: [], [Suit.Diamonds]: [], [Suit.Clubs]: [] },
-    [Direction.East]: { [Suit.Spades]: [], [Suit.Hearts]: [], [Suit.Diamonds]: [], [Suit.Clubs]: [] },
-    [Direction.South]: { [Suit.Spades]: [], [Suit.Hearts]: [], [Suit.Diamonds]: [], [Suit.Clubs]: [] },
-    [Direction.West]: { [Suit.Spades]: [], [Suit.Hearts]: [], [Suit.Diamonds]: [], [Suit.Clubs]: [] }
-  };
+  const hands: DealStruct = createEmptyDealStruct();
 
   const directions = Object.values(Direction)
 

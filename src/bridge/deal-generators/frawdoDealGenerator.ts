@@ -1,6 +1,6 @@
 import { Algo, Direction, Rank, Suit } from "@/bridge/types/enums";
-import { DealStruct} from "@/bridge/types/types";
-import { DealResult } from "@/components/Deal";
+import { createEmptyDealStruct, DealStruct} from "@/bridge/types/types";
+import { DealResult } from "@/components/SingleDeal";
 
 // Function to generate a random bridge deal
 function generateDeal(slots : number[]): DealResult {
@@ -20,12 +20,8 @@ function generateDeal(slots : number[]): DealResult {
   const directions : Direction[]  = Array(slotTotal).fill(null).map((_, i) => Object.values(Direction)[Math.floor(i / 13)]);
   const shuffledDirections : Direction[] = directions.sort(() => Math.random() - 0.5);
 
-  const hands: DealStruct = {
-    [Direction.North]: { [Suit.Spades]: [], [Suit.Hearts]: [], [Suit.Diamonds]: [], [Suit.Clubs]: [] },
-    [Direction.East]: { [Suit.Spades]: [], [Suit.Hearts]: [], [Suit.Diamonds]: [], [Suit.Clubs]: [] },
-    [Direction.South]: { [Suit.Spades]: [], [Suit.Hearts]: [], [Suit.Diamonds]: [], [Suit.Clubs]: [] },
-    [Direction.West]: { [Suit.Spades]: [], [Suit.Hearts]: [], [Suit.Diamonds]: [], [Suit.Clubs]: [] }
-  };
+  const hands: DealStruct = createEmptyDealStruct();
+
   // Map card numbers to Rank enum values
   // const rankMap : Rank[] = [
   //   Rank.ACE, Rank.KING, Rank.QUEEN, Rank.JACK, Rank.TEN,

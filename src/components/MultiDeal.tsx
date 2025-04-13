@@ -7,9 +7,7 @@ import { DealStruct } from "@/bridge/types/types";
 import { Button } from "@/components/ui/button";
 import { Card } from "./ui/card";
 
-import partialDeal from "@/bridge/deal-generators/partialDealGenerator";
-import fisherYatesDeal from "@/bridge/deal-generators/fisherYatesDealGenerator";
-import nsewDeal from "@/bridge/deal-generators/frawdoDealGenerator";
+
 
 import { Algo } from "@/bridge/types/enums";
 import { DealerAlgoRadioButtons } from "./DealerAlgoRadioButtons";

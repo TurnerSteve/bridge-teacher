@@ -7,7 +7,7 @@ interface TrayProps {
 
 function TrayComponent({boardId} : TrayProps) {
 
-   const board : LookupEntry | undefined = getTrayInfo(boardId % 16) ;
+   const board : LookupEntry | undefined = getTrayInfo(boardId) ;
 
 ;  return (
     <Card className="w-full px-5">

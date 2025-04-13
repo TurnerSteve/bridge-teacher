@@ -27,15 +27,15 @@ import { Dealer, Vulnerability } from "@/bridge/types/enums";
   ];
   
   // Function to get the information for a given board index
-  function getTrayInfo(boardIndex: number): LookupEntry | undefined {
+  function getTrayInfo(boardNumber: number): LookupEntry | undefined {
     // Ensure the index is valid (1 to 16)
-    if (boardIndex < 1 || boardIndex > 16) {
-      console.error("Invalid board index. Must be between 1 and 16.");
+    if (boardNumber < 1 ) {
+      console.error("Invalid board number. Must be between 1 and 16.");
       return undefined;
     }
-  
+    
     // Return the corresponding entry (adjust for 0-based array indexing)
-    return lookupTable[boardIndex - 1];
+    return lookupTable[(boardNumber - 1) % 16];
   }
 
   export default getTrayInfo
