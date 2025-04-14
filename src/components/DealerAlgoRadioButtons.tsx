@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Algo } from "@/bridge/types/enums";
@@ -13,6 +13,7 @@ export function DealerAlgoRadioButtons({
   onOptionChange,
 }: DealerAlgoRadioButtonsProps) {
   // State to manage the selected option locally
+  // My not need to store locally. Stored also in global.
   const [selectedOption, setSelectedOption] = useState<Algo>(Algo.PARTIAL);
 
   // Handle change event for radio button selections

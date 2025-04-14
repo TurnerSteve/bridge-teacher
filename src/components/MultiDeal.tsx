@@ -1,28 +1,17 @@
-"use client";
-import { useEffect, useState } from "react";
+
 import { DealStruct } from "@/bridge/types/types";
-
-
-/// Shadcn components
-import { Button } from "@/components/ui/button";
-import { Card } from "./ui/card";
-
-
 
 import { Algo } from "@/bridge/types/enums";
 import { DealerAlgoRadioButtons } from "./DealerAlgoRadioButtons";
 
-
 import TrayComponent from "./Tray";
 import HandComponent from "./Hand";
+import { useGlobalState } from "@/app/DealContext";
+import DealSelectorComponent from "./DealSelector";
+import { useState } from "react";
+import { StoredDeal } from "./SingleDeal";
+import MultiDealGenerator from "./MultiDealGenerator";
 
-// Partial deal generator will generate
-// slots [n1,n2,n3,n4] Cards n1=North, n2=East, n3=South, n4 West
-
-// export interface DealCommandProps {
-//   algo: Algo;
-//   slots: number[];
-// }
 interface DealInputProps {
   slots: number[];
 }
@@ -33,75 +22,53 @@ export type DealResult = {
   deal: DealStruct;
 };
 
-export type StoredDeal = {
-  dealId: number;
-  algo: Algo;
-  description: string;
-  deal: DealStruct;
-};
+function MultiDealComponent({ slots }: DealInputProps) {
+  const [dealId, setDealId] = useState(0);
+  const {setDealingAlgo} = useGlobalState();
+  const { storedDeals } = useGlobalState();
 
-function DealComponent({ slots }: DealInputProps) {
-  const [dealStored, setDeal] = useState<StoredDeal>();
-  const [dealCountStore, setDealCount] = useState<number>(0);
-  const [dealerAlgoStore, setDealerAlgo] = useState<Algo>(Algo.PARTIAL);
 
   // Function to handle state update from the child
   function handleDealerAlgoChange(newAlgo: Algo) {
-    setDealerAlgo(newAlgo);
+    setDealingAlgo(newAlgo);
     console.log(`Algo changed to "${newAlgo}"`);
   }
 
-  function appendDeal(algo: Algo, description: string, deal: DealStruct) {
-    setDeal({ dealId: dealCountStore + 1, algo: algo, description, deal });
-    setDealCount(dealCountStore + 1);
-    console.log(`Appending Deal ${dealCountStore + 1} which uses algo "${algo}"`);
-  }
+  // We have dealt an empty deal for oproper initialisation
+  // This is deal[0] which on statup is an empty deal
+  const dealsSoFar = storedDeals.length - 1; 
+  console.log(`We have dealt ${dealsSoFar} boards so far in this session)`);
 
-  useEffect(() => {
-    console.log(`The first deal is a partial "${Algo.PARTIAL}" of size [11,6,15,5]`);
-    const deal: DealResult = executeAlgo(Algo.PARTIAL, [11, 6, 9, 5]);
-    appendDeal(deal.algo, deal.description, deal.deal);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  if (!dealStored) {
-    return <div> Loading... </div>; // Render fallback UI ... Needs a Skeleton
+  if (!storedDeals) {
+    return <div> Loading {storedDeals} deals... </div>; // Render fallback UI ... Needs a Skeleton
   }
+  const deal : StoredDeal = storedDeals[dealId] ;
+
   return (
     <>
       <div className="flex flex-col items-center justify-center min-h-screen w-full">
         <div className="grid grid-cols-3 grid-rows-3 gap-4 w-full max-w-screen-xl">
           <div className="flex justify-center items-center row-start-1 col-start-1">
             <DealerAlgoRadioButtons onOptionChange={handleDealerAlgoChange} />
+            <DealSelectorComponent maxDeal={dealsSoFar} onUpdateDealId={setDealId}/>
           </div>
           <div className="flex justify-center items-center row-start-1 col-start-2">
-            <HandComponent direction="North" hand={dealStored.deal.North} />
+            <HandComponent direction="North" hand={deal.deal.North} />
           </div>
           <div className="flex justify-center items-center row-start-1 col-start-3">
-            <Card className="w-full px-5">
-              Redeal controller
-          <Button
-          className="mb-4 p-2 bg-blue-500 text-white rounded"
-          onClick={() => {
-            const deal: DealResult = executeAlgo(dealerAlgoStore, slots);
-            appendDeal(deal.algo, deal.description, deal.deal);
-          }}
-        >
-          Redeal
-        </Button>
-        </Card>
+            <MultiDealGenerator slots={slots} />
           </div>
           <div className="flex justify-center items-center row-start-2 col-start-1">
-            <HandComponent direction="West" hand={dealStored.deal.West} />
+            <HandComponent direction="West" hand={deal.deal.West} />
           </div>
           <div className="flex justify-center items-center row-start-2 col-start-2">
-            <TrayComponent boardId={dealCountStore} />
+            <TrayComponent boardId={dealId} />
           </div>
           <div className="flex justify-center items-center row-start-2 col-start-3">
-            <HandComponent direction="East" hand={dealStored.deal.East} />
+            <HandComponent direction="East" hand={deal.deal.East} />
           </div>
           <div className="flex justify-center items-center row-start-3 col-start-2">
-            <HandComponent direction="South" hand={dealStored.deal.South} />
+            <HandComponent direction="South" hand={deal.deal.South} />
           </div>
         </div>
       </div>
@@ -109,27 +76,4 @@ function DealComponent({ slots }: DealInputProps) {
   );
 }
 
-function executeAlgo(algo: Algo, slots: number[]): DealResult {
-  console.log(`Executing algo "${algo}" to decode \[${slots}\] slots`);
-
-  let deal: DealResult;
-
-  switch (algo) {
-    case Algo.FISHERYATES:
-      deal = fisherYatesDeal(slots);
-      break;
-    case Algo.PARTIAL:
-      deal = partialDeal(slots);
-      break;
-    case Algo.HOMEGROWN:
-      deal = nsewDeal(slots);
-      break;
-    default:
-      deal = nsewDeal([0, 0, 0, 0]);
-      break;
-  }
-
-  return deal;
-}
-
-export default DealComponent;
+export default MultiDealComponent;

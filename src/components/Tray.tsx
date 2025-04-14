@@ -2,12 +2,12 @@ import { getTrayInfo , LookupEntry} from '@/bridge/utils';
 import { Card, CardHeader } from './ui/card';
 
 interface TrayProps {
-    boardId: number;
+    boardId: number ;
   }
 
 function TrayComponent({boardId} : TrayProps) {
 
-   const board : LookupEntry | undefined = getTrayInfo(boardId) ;
+   const board : LookupEntry  = getTrayInfo(boardId) ;
 
 ;  return (
     <Card className="w-full px-5">
