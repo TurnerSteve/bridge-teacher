@@ -62,7 +62,7 @@ function MultiDealComponent({ slots }: DealInputProps) {
             <HandComponent direction="West" hand={deal.deal.West} />
           </div>
           <div className="flex justify-center items-center row-start-2 col-start-2">
-            <CentreBoard boardId={dealId} />
+            <CentreBoard boardId={dealId} size={200}/>
           </div>
           <div className="flex justify-center items-center row-start-2 col-start-3">
             <HandComponent direction="East" hand={deal.deal.East} />

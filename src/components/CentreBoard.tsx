@@ -2,17 +2,20 @@ import { Dealer, Vulnerability } from "@/bridge/types/enums";
 import { getTrayInfo, LookupEntry } from "@/bridge/utils";
 
 type Props = {
-  boardId: number; // The current dealer
+  boardId : number; // The current dealer
+  size? : number ; //Size of the SVG in pixels (default: 100)
 };
 
 export function CentreBoard(props: Props) {
-  const { boardId } = props;
+  const { boardId , size = 100} = props;
 
   const board: LookupEntry = getTrayInfo(boardId);
   const vul = board.vulnerability;
   const dealer = board.dealer;
 
-  console.log(`The Centre board ${boardId} = ${vul} ${dealer}`);
+  const fontSize = 30; // Font for central number
+  const centerX = 50; // SVG width center
+  const centerY = 50; // sVG height center
 
   // Determine arrow visibility and color based on dealer and vulnerability
   const getArrow = () => {
@@ -64,7 +67,7 @@ export function CentreBoard(props: Props) {
             fill="white"
             fontSize="8"
             fontWeight="bold"
-            textAnchor="middle"
+            textAnchor="middle" 
           >
             DEALER
           </text>
@@ -76,7 +79,7 @@ export function CentreBoard(props: Props) {
             fill="white"
             fontSize="8"
             fontWeight="bold"
-            textAnchor="middle"
+            textAnchor="middle" 
           >
             DEALER
           </text>
@@ -93,6 +96,7 @@ export function CentreBoard(props: Props) {
             fontSize="8"
             fontWeight="bold"
             textAnchor="middle"
+            dominantBaseline="middle"           
             transform="rotate(90, 95, 50)"
           >
             DEALER
@@ -106,6 +110,7 @@ export function CentreBoard(props: Props) {
             fontSize="8"
             fontWeight="bold"
             textAnchor="middle"
+            dominantBaseline="middle"  
             transform="rotate(-90, 5, 50)"
           >
             DEALER
@@ -117,8 +122,8 @@ export function CentreBoard(props: Props) {
 
   return (
     <svg
-      width="100"
-      height="100"
+      width={size}
+      height={size}
       viewBox="0 0 100 100"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -127,13 +132,12 @@ export function CentreBoard(props: Props) {
 
       {/* Central Number */}
       <text
-        x="50"
-        y="55"
+        x={centerX}
+        y={centerY + fontSize / 3}
         fill="black"
-        fontSize="30"
+        fontSize={fontSize}
         fontWeight="bold"
         textAnchor="middle"
-        alignmentBaseline="middle"
       >
         {boardId}
       </text>
