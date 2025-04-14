@@ -4,13 +4,13 @@ import { DealStruct } from "@/bridge/types/types";
 import { Algo } from "@/bridge/types/enums";
 import { DealerAlgoRadioButtons } from "./DealerAlgoRadioButtons";
 
-import TrayComponent from "./Tray";
 import HandComponent from "./Hand";
 import { useGlobalState } from "@/app/DealContext";
 import DealSelectorComponent from "./DealSelector";
 import { useState } from "react";
 import { StoredDeal } from "./SingleDeal";
 import MultiDealGenerator from "./MultiDealGenerator";
+import { CentreBoard } from "./CentreBoard";
 
 interface DealInputProps {
   slots: number[];
@@ -62,7 +62,7 @@ function MultiDealComponent({ slots }: DealInputProps) {
             <HandComponent direction="West" hand={deal.deal.West} />
           </div>
           <div className="flex justify-center items-center row-start-2 col-start-2">
-            <TrayComponent boardId={dealId} />
+            <CentreBoard boardId={dealId} />
           </div>
           <div className="flex justify-center items-center row-start-2 col-start-3">
             <HandComponent direction="East" hand={deal.deal.East} />

@@ -7,6 +7,7 @@ enum Algo
 }
 
 enum Direction {
+  Null ="",
   North = "North",
   East = "East",
   South = "South",
@@ -15,26 +16,31 @@ enum Direction {
 // Probably dont meed Direction and Deal
 
 enum Hand{
+  Null = Direction.Null,
   North = Direction.North,
   East = Direction.East,
   South = Direction.South,
   West = Direction.West
 }
 
+enum Dealer {
+  Null = Direction.Null,
+  North = Direction.North,
+  East = Direction.East,
+  South = Direction.South,
+  West = Direction.West,
+}
+
+
 // Define the enumerated types
 enum Vulnerability {
+  Null = "",
   None = "None",
   NS = "N-S",
   EW = "E-W",
   Both = "Both",
 }
 
-enum Dealer {
-  North = Direction.North,
-  East = Direction.East,
-  South = Direction.South,
-  West = Direction.West,
-}
 
 // Enum for Suits (with suit icons)
 enum Suit {
