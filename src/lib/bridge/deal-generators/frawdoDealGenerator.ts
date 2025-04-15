@@ -1,6 +1,8 @@
-import { Algo, Direction, Rank, Suit } from "@/bridge/types/enums";
-import { createEmptyDealStruct, DealStruct} from "@/bridge/types/types";
-import { DealResult } from "@/components/SingleDeal";
+
+import { DealResult } from "@/app/single-deal/page";
+import { createEmptyDealStruct } from "@/lib/constants";
+import { Algo, Direction, Rank, Suit } from "@/lib/enums";
+import { DealStruct } from "@/lib/types";
 
 // Function to generate a random bridge deal
 function generateDeal(slots : number[]): DealResult {

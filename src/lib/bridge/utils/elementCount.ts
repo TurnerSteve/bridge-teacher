@@ -1,11 +1,10 @@
-import { Direction } from "@/bridge/types/enums";
+import { Direction } from "@/lib/enums";
 
 
 export default function elementCount(arr: Direction[]): {
   [key in Direction ]: number;
 } {
-  const elementCount: {
-    [key in Direction]: number;
+  const elementCount: {[key in Direction]: number;
   } = {
     [Direction.North]: 0,
     [Direction.South]: 0,

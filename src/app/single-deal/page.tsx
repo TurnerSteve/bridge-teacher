@@ -1,12 +1,12 @@
-import { DealStruct } from "@/bridge/types/types";
+"use client"
+import { DealerAlgoRadioButtons } from "../../components/DealerAlgoRadioButtons";
 
-import { Algo } from "@/bridge/types/enums";
-import { DealerAlgoRadioButtons } from "./DealerAlgoRadioButtons";
-
-import Tray from "./Tray";
-import HandComponent from "./Hand";
-import SingleDealController from "./SingleDealGenerator";
-import { useGlobalState } from "@/app/DealContext";
+import Tray from "../../components/Tray";
+import HandComponent from "../../components/Hand";
+import SingleDealController from "../../components/SingleDealGenerator";
+import { useGlobalState } from "@/context/GlobalStateProvider";
+import { Algo } from "@/lib/enums";
+import { DealStruct } from "@/lib/types";
 
 // Partial deal generator will generate
 // slots [n1,n2,n3,n4] Cards n1=North, n2=East, n3=South, n4 West

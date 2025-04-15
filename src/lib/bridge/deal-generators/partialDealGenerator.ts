@@ -1,7 +1,9 @@
-import { maxCodePage, randomBigInt } from "@/arithmetic/utils";
-import { Algo, Direction, Rank, Suit } from "../types/enums";
-import { createEmptyDealStruct, DealStruct} from "../types/types";
-import { DealResult } from "@/components/SingleDeal";
+
+import { maxCodePage, randomBigInt } from "@/lib/utils/math";
+import { Algo, Direction, Rank, Suit } from "../../enums";
+import { DealResult } from "@/app/single-deal/page";
+import { DealStruct } from "@/lib/types";
+import { createEmptyDealStruct } from "@/lib/constants";
 
 function partialDealGenerator(slots : number[]): DealResult {
   // Initialize an array to represent a deck of up to cards (52 cards).
@@ -10,7 +12,7 @@ function partialDealGenerator(slots : number[]): DealResult {
 
   let description = `Partial "Pavlicek" dealing algorithm for ${slots} cards per player`
 
-  let slotTotal = slots[0 + slots[1] + slots[2] + slots[3]]
+  let slotTotal = slots[0] + slots[1] + slots[2] + slots[3]
   if (slotTotal > 52 || slotTotal < 0 ) {
     slots = [13,13,13,13] ; // Default if something wrong
     slotTotal = 52 ;

@@ -3,11 +3,9 @@ enum Algo
   FISHERYATES = "Fisher-Yates",
   PARTIAL = "Partial Pavlicek" ,
   HOMEGROWN = "Home Grown",
-  NULL = "Null Algo"
 }
 
 enum Direction {
-  Null ="",
   North = "North",
   East = "East",
   South = "South",
@@ -16,7 +14,6 @@ enum Direction {
 // Probably dont meed Direction and Deal
 
 enum Hand{
-  Null = Direction.Null,
   North = Direction.North,
   East = Direction.East,
   South = Direction.South,
@@ -24,7 +21,6 @@ enum Hand{
 }
 
 enum Dealer {
-  Null = Direction.Null,
   North = Direction.North,
   East = Direction.East,
   South = Direction.South,
@@ -34,13 +30,11 @@ enum Dealer {
 
 // Define the enumerated types
 enum Vulnerability {
-  Null = "",
   None = "None",
   NS = "N-S",
   EW = "E-W",
   Both = "Both",
 }
-
 
 // Enum for Suits (with suit icons)
 enum Suit {
@@ -66,24 +60,5 @@ enum Rank {
     TWO = '2'
   }
 
-  // Define the custom order for Rank as a mapping
-  // cannot sort enumerated string types by index
-const RankOrder: Record<Rank, number> = {
-  [Rank.ACE]: 1,
-  [Rank.KING]: 2,
-  [Rank.QUEEN]: 3,
-  [Rank.JACK]: 4,
-  [Rank.TEN]: 5,
-  [Rank.NINE]: 6,
-  [Rank.EIGHT]: 7,
-  [Rank.SEVEN]: 8,
-  [Rank.SIX]: 9,
-  [Rank.FIVE]: 10,
-  [Rank.FOUR]: 11,
-  [Rank.THREE]: 12,
-  [Rank.TWO]: 13,
-};
-
 export { Rank, Suit, Hand, Direction, Dealer, Vulnerability}
-export { RankOrder }
 export { Algo } 

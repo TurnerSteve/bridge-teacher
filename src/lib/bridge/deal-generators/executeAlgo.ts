@@ -1,8 +1,7 @@
-import partialDeal from "@/bridge/deal-generators/partialDealGenerator";
-import fisherYatesDeal from "@/bridge/deal-generators/fisherYatesDealGenerator";
-import nsewDeal from "@/bridge/deal-generators/frawdoDealGenerator";
-import { DealResult } from "@/components/SingleDeal";
-import { Algo } from "../types/enums";
+
+import { DealResult } from "@/app/single-deal/page";
+import { Algo } from "../../enums";
+import { partialDeal, fisherYatesDeal, nsewDeal } from ".";
 
 function executeAlgo(algo: Algo, slots: number[]): DealResult {
     console.log(`Executing algo "${algo}" to decode \[${slots}\] slots`);

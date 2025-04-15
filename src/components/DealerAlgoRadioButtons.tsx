@@ -1,8 +1,10 @@
+"use client"
 import { useState } from "react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import { Algo } from "@/bridge/types/enums";
+
 import { Card, CardContent, CardHeader } from "./ui/card";
+import { Algo } from "@/lib/enums";
 
 // Props for the child component
 interface DealerAlgoRadioButtonsProps {

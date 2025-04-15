@@ -1,4 +1,5 @@
-import { Suit, Rank } from "@/bridge/types/enums";
+import { Rank, Suit } from "@/lib/enums";
+
 
 interface SuitProps {
   suit: Suit;

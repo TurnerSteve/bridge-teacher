@@ -1,5 +1,6 @@
-import { Dealer, Vulnerability } from "@/bridge/types/enums";
-import { getTrayInfo, LookupEntry } from "@/bridge/utils";
+import { getTrayInfo, LookupEntry } from "@/lib/bridge/utils";
+import { Dealer, Vulnerability } from "@/lib/enums";
+
 
 type Props = {
   boardId : number; // The current dealer
@@ -13,7 +14,7 @@ export function CentreBoard(props: Props) {
   const vul = board.vulnerability;
   const dealer = board.dealer;
 
-  const fontSize = 30; // Font for central number
+  const fontSize = 20; // Font for central number
   const centerX = 50; // SVG width center
   const centerY = 50; // sVG height center
 
@@ -30,19 +31,19 @@ export function CentreBoard(props: Props) {
 
     const arrowProps = {
       stroke: color,
-      fill: "none",
+      fill: color,
       strokeWidth: 2,
     };
 
     switch (dealer) {
       case Dealer.North:
-        return <polygon points="50,10 60,30 40,30" {...arrowProps} />;
+        return <polygon points="50,12 70,25 30,25" {...arrowProps} />;
       case Dealer.East:
-        return <polygon points="90,50 70,40 70,60" {...arrowProps} />;
+        return <polygon points="88,50 75,30 75,70" {...arrowProps} />;
       case Dealer.South:
-        return <polygon points="50,90 60,70 40,70" {...arrowProps} />;
+        return <polygon points="50,88 70,75 30,75" {...arrowProps} />;
       case Dealer.West:
-        return <polygon points="10,50 30,40 30,60" {...arrowProps} />;
+        return <polygon points="12,50 25,30 25,70" {...arrowProps} />;
       default:
         return null;
     }

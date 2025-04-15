@@ -1,20 +1,19 @@
-
-import { DealStruct } from "@/bridge/types/types";
-
-import { Algo } from "@/bridge/types/enums";
-import { DealerAlgoRadioButtons } from "./DealerAlgoRadioButtons";
-
-import HandComponent from "./Hand";
-import { useGlobalState } from "@/app/DealContext";
-import DealSelectorComponent from "./DealSelector";
+"use client"
+import DealSelectorComponent from "@/components/DealSelector";
+import { useGlobalState } from "@/context/GlobalStateProvider";
+import { Algo } from "@/lib/enums";
+import { DealStruct } from "@/lib/types";
 import { useState } from "react";
-import { StoredDeal } from "./SingleDeal";
-import MultiDealGenerator from "./MultiDealGenerator";
-import { CentreBoard } from "./CentreBoard";
+import HandComponent from "@/components/Hand";
+import MultiDealGenerator from "@/components/MultiDealGenerator";
+import { CentreBoard } from "@/components/CentreBoard";
+import { DealerAlgoRadioButtons } from "@/components/DealerAlgoRadioButtons";
+import { StoredDeal } from "../single-deal/page";
 
-interface DealInputProps {
-  slots: number[];
-}
+
+// interface DealInputProps {
+//   slots: number[];
+// }
 
 export type DealResult = {
   algo: Algo;
@@ -22,12 +21,12 @@ export type DealResult = {
   deal: DealStruct;
 };
 
-function MultiDealComponent({ slots }: DealInputProps) {
+function MultiDealComponent() {
   const [dealId, setDealId] = useState(0);
   const {setDealingAlgo} = useGlobalState();
   const { storedDeals } = useGlobalState();
 
-
+  const slots = [13,13,13,13]
   // Function to handle state update from the child
   function handleDealerAlgoChange(newAlgo: Algo) {
     setDealingAlgo(newAlgo);
@@ -66,6 +65,9 @@ function MultiDealComponent({ slots }: DealInputProps) {
           </div>
           <div className="flex justify-center items-center row-start-2 col-start-3">
             <HandComponent direction="East" hand={deal.deal.East} />
+          </div>
+          <div className="flex justify-center items-center row-start-3 col-start-1">
+            Dealing  Algo : {deal.algo}
           </div>
           <div className="flex justify-center items-center row-start-3 col-start-2">
             <HandComponent direction="South" hand={deal.deal.South} />

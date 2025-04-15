@@ -1,4 +1,5 @@
-import { Dealer, Vulnerability } from "@/bridge/types/enums";
+import { Dealer, Vulnerability } from "@/lib/enums";
+
 
 // Define the lookup table entry type
 type LookupEntry = {
@@ -8,7 +9,6 @@ type LookupEntry = {
 
 // Create the lookup table
 const lookupTable: LookupEntry[] = [
-  { vulnerability: Vulnerability.Null, dealer: Dealer.Null }, // Board 0
   { vulnerability: Vulnerability.None, dealer: Dealer.North }, // Board 1
   { vulnerability: Vulnerability.NS, dealer: Dealer.East }, // Board 2
   { vulnerability: Vulnerability.EW, dealer: Dealer.South }, // Board 3
@@ -34,10 +34,7 @@ function getTrayInfo(boardNumber: number): LookupEntry {
     throw new RangeError(
       `Cannot have board number [${boardNumber}]. Must be between 1 and 16.`
     );
-  if (boardNumber === 0) {
-    console.log(
-      `WARNING : Board number [0] has no associated dealer and Vulnerability`
-    );
+  if (boardNumber === 0) { // pretend it is board 1
     return lookupTable[0];
   }
 

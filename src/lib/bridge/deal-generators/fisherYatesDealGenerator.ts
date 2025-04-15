@@ -1,6 +1,7 @@
-import { Algo, Hand, Suit, Rank, RankOrder, Direction} from "../types/enums";
-import { createEmptyDealStruct, DealStruct} from "../types/types";
-import { DealResult } from "@/components/SingleDeal";
+import { createEmptyDealStruct, RankOrder } from "@/lib/constants";
+import { Algo, Hand, Suit, Rank, Direction} from "../../enums";
+import { DealStruct} from "../../types";
+import { DealResult } from "@/app/single-deal/page";
 
 export function generateDeal(slots : number[]): DealResult {
   // Initialize an array to represent the deck of cards (up to) 52 cards).

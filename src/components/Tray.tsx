@@ -1,4 +1,5 @@
-import { getTrayInfo , LookupEntry} from '@/bridge/utils';
+
+import { getTrayInfo, LookupEntry } from '@/lib/bridge/utils';
 import { Card, CardHeader } from './ui/card';
 
 interface TrayProps {

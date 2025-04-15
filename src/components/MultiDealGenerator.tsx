@@ -5,11 +5,11 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import { DealResult, StoredDeal } from "./SingleDeal";
-import executeAlgo from "@/bridge/deal-generators/executeAlgo";
-import { useGlobalState } from "@/app/DealContext";
+import { DealResult, StoredDeal } from "../app/single-deal/page";
+import { useGlobalState } from "@/context/GlobalStateProvider";
 import { useState } from "react";
 import { NumberDropdown } from "./NumberDropdown";
+import executeAlgo from "@/lib/bridge/deal-generators/executeAlgo";
 
 interface Props {
   slots: number[];

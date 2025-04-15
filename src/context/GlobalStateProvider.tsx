@@ -1,5 +1,6 @@
-import { Algo } from "@/bridge/types/enums";
-import { StoredDeal } from "@/components/SingleDeal";
+
+"use client"
+import { StoredDeal } from "@/app/single-deal/page";
 import {
   createContext,
   Dispatch,
@@ -8,7 +9,9 @@ import {
   useContext,
   useState,
 } from "react";
-import { createEmptyDealStruct } from "@/bridge/types/types";
+import { createEmptyDealStruct } from "@/lib/constants";
+import { Algo } from "@/lib/enums";
+
 
 // Step 1: Define the Context Type
 interface GlobalStateContextType {

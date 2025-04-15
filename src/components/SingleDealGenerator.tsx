@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { DealResult } from "./SingleDeal";
-import executeAlgo from "@/bridge/deal-generators/executeAlgo";
-import { useGlobalState } from "@/app/DealContext";
+import { DealResult } from "../app/single-deal/page";
+import { useGlobalState } from "@/context/GlobalStateProvider";
+import executeAlgo from "@/lib/bridge/deal-generators/executeAlgo";
 
 
 interface Props {

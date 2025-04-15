@@ -1,19 +1,10 @@
-"use client";
-
-import DealComponent from "@/components/MultiDeal";
-import { GlobalStateProvider } from "./DealContext";
-
 
 // App Component
-export default function App() {
+  export default function HomePage() {
   return (
-    <GlobalStateProvider>
-      <div className="flex justify-center items-center">
-        <DealComponent slots={[13, 13, 13, 13]} />
-        {/* All deals will be whole but we can set partials between 0 and 13 */}
-      </div>
-    </GlobalStateProvider>
+    <div>
+        <h1 className="text-4xl font-bold">Welcome to My Bridge Dealing App</h1>
+        <p className="mt-4">Select an option from the navbar above.</p>
+    </div>
   );
 }
-
-
