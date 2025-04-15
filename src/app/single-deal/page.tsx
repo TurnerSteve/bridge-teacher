@@ -1,13 +1,12 @@
 "use client"
 
-
-import Tray from "../../components/dealDisplay/Tray";
 import HandComponent from "../../components/dealDisplay/Hand";
 import SingleDealController from "./SingleDealGenerator";
 import { useGlobalData } from "@/context/DataContextProvider";
 import { Algo } from "@/lib/enums";
 import { DealStruct } from "@/lib/types";
 import { useGlobalSettings } from "@/context/SettingsContextProvider";
+import { CentreBoard } from "@/components/dealDisplay/CentreBoard";
 
 // Partial deal generator will generate
 // slots [n1,n2,n3,n4] Cards n1=North, n2=East, n3=South, n4 West
@@ -59,7 +58,7 @@ function DealComponent() {
             <HandComponent direction="West" hand={storedDeal.deal.West} />
           </div>
           <div className="flex justify-center items-center row-start-2 col-start-2">
-            <Tray boardId={dealCount} />
+            <CentreBoard boardId={dealCount} size={200}/>
           </div>
           <div className="flex justify-center items-center row-start-2 col-start-3">
             <HandComponent direction="East" hand={storedDeal.deal.East} />

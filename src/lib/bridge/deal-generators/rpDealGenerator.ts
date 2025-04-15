@@ -1,6 +1,8 @@
-import { maxCodePage, randomBigInt } from "@/arithmetic/utils";
+
+import { maxCodePage, randomBigInt } from "@/lib/math";
 import { Direction, Rank, Suit } from "../../enums";
-import { createEmptyDealStruct, DealStruct } from "../../types";
+import {  DealStruct } from "../../types";
+import { createEmptyDealStruct } from "@/lib/constants";
 
 export interface Settings {
   slotAlloc: number[];

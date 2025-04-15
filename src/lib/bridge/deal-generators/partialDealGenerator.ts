@@ -1,10 +1,11 @@
-import { maxCodePage, randomBigInt } from "@/lib/utils/math";
+
 import { Algo, Direction, Rank, Suit } from "../../enums";
 import { DealResult } from "@/app/single-deal/page";
 import { DealStruct } from "@/lib/types";
 import { createEmptyDealStruct } from "@/lib/constants";
+import { maxCodePage, randomBigInt } from "@/lib/math";
 
-function partialDealGenerator(slots: number[]): DealResult {
+export default function partialDealGenerator(slots: number[]): DealResult {
   // Initialize an array to represent a deck of up to cards (52 cards).
   // The slots are n1=n2=n3=n4  cards per player ... Sum <= 52
   // Otherwise default to 13 each for a full pack
@@ -112,4 +113,3 @@ function rpDecoder(slots: number[], codePage: bigint): Direction[] {
   return directionAssignments;
 }
 
-export default partialDealGenerator;

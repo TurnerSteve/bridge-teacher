@@ -1,7 +1,9 @@
 
 import { DealResult } from "@/app/single-deal/page";
 import { Algo } from "../../enums";
-import { partialDeal, fisherYatesDeal, nsewDeal } from ".";
+import { fisherYatesDeal, nsewDeal } from ".";
+import partialDealGenerator from "./partialDealGenerator";
+
 
 function executeAlgo(algo: Algo, slots: number[]): DealResult {
     console.log(`Executing algo "${algo}" to decode \[${slots}\] slots`);
@@ -13,7 +15,7 @@ function executeAlgo(algo: Algo, slots: number[]): DealResult {
         deal = fisherYatesDeal(slots);
         break;
       case Algo.PARTIAL:
-        deal = partialDeal(slots);
+        deal = partialDealGenerator(slots);
         break;
       case Algo.HOMEGROWN:
         deal = nsewDeal(slots);
