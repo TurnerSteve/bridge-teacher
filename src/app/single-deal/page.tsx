@@ -1,12 +1,13 @@
 "use client"
-import { DealerAlgoRadioButtons } from "../../components/DealerAlgoRadioButtons";
 
-import Tray from "../../components/Tray";
-import HandComponent from "../../components/Hand";
-import SingleDealController from "../../components/SingleDealGenerator";
-import { useGlobalState } from "@/context/GlobalStateProvider";
+
+import Tray from "../../components/dealDisplay/Tray";
+import HandComponent from "../../components/dealDisplay/Hand";
+import SingleDealController from "./SingleDealGenerator";
+import { useGlobalData } from "@/context/DataContextProvider";
 import { Algo } from "@/lib/enums";
 import { DealStruct } from "@/lib/types";
+import { useGlobalSettings } from "@/context/SettingsContextProvider";
 
 // Partial deal generator will generate
 // slots [n1,n2,n3,n4] Cards n1=North, n2=East, n3=South, n4 West
@@ -33,16 +34,9 @@ export type StoredDeal = {
 };
 
 function DealComponent({ slots }: DealInputProps) {
-  const {storedDeal} = useGlobalState();
-  const {dealCount} = useGlobalState();
-  const {dealingAlgo, setDealingAlgo} = useGlobalState();
-
-  // Function to handle global state update from the child
-  // The child can do this but this may not be correct.
-  function handleAlgoChange(newAlgo: Algo) {
-    setDealingAlgo(newAlgo);
-    console.log(`Algo changed to "${newAlgo}"`);
-  }
+  const {storedDeal} = useGlobalData();
+  const {dealCount} = useGlobalData();
+  const {dealingAlgo } = useGlobalSettings();
 
 
       // We probably dont need to do a deal here. Just initialise an empty deal
@@ -62,9 +56,6 @@ function DealComponent({ slots }: DealInputProps) {
       <div className="flex flex-col items-center justify-center min-h-screen w-full">
         [{dealingAlgo}] dealing Algo 
         <div className="grid grid-cols-3 grid-rows-3 gap-4 w-full max-w-screen-xl">
-          <div className="flex justify-center items-center row-start-1 col-start-1">
-            <DealerAlgoRadioButtons onOptionChange={handleAlgoChange} />
-          </div>
           <div className="flex justify-center items-center row-start-1 col-start-2">
             <HandComponent direction="North" hand={storedDeal.deal.North} />
           </div>

@@ -1,18 +1,16 @@
-import { useState } from "react";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
+"use client"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { useGlobalSettings } from "@/context/SettingsContextProvider";
 
-type NumberDropdownProps = {
-    onNumberSelect: (number: number) => void; // Callback function to pass the selected number to the parent
-  };
+ function UpdateBoardsPerSet() {
 
-export function NumberDropdown({ onNumberSelect }: NumberDropdownProps) {
-  const [selectedNumber, setLocalSelectedNumber] = useState<number | null>(null);
+  const { boardsPerDealset, setBoardsPerDealset} = useGlobalSettings();
 
+  const selectedNumber = boardsPerDealset 
   const numbers = [32,64,128,1024,10000,]; // The set of numbers to choose from
 
   const handleSelect = (number: number) => {
-    setLocalSelectedNumber(number); // Update local state
-    onNumberSelect(number); // Notify the parent
+    setBoardsPerDealset(number); // Notify the Global store
   };
 
   return (
@@ -36,3 +34,5 @@ export function NumberDropdown({ onNumberSelect }: NumberDropdownProps) {
     </div>
   );
 }
+
+export default UpdateBoardsPerSet

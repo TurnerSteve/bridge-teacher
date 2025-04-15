@@ -1,18 +1,18 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { DealResult } from "../app/single-deal/page";
-import { useGlobalState } from "@/context/GlobalStateProvider";
+import { DealResult } from "./page";
+import { useGlobalData } from "@/context/DataContextProvider";
 import executeAlgo from "@/lib/bridge/deal-generators/executeAlgo";
-
+import { useGlobalSettings } from "@/context/SettingsContextProvider";
 
 interface Props {
   slots: number[];
 }
 
 function SingleDealController({ slots }: Props) {
-  const { dealingAlgo } = useGlobalState();
-  const { setStoredDeal } = useGlobalState();
-  const { dealCount, setDealCount } = useGlobalState();
+  const { dealingAlgo } = useGlobalSettings();
+  const { setStoredDeal } = useGlobalData();
+  const { dealCount, setDealCount } = useGlobalData();
 
   const setDeal = () => {
     const deal: DealResult = executeAlgo(dealingAlgo, slots);

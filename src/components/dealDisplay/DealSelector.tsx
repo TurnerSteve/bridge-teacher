@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button"; // Import ShadCN button component
+import { Badge } from "@/components/ui/badge"
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from "lucide-react"; // Import icons
 
 interface DealSelectorProps {
@@ -30,7 +31,7 @@ const DealSelectorComponent = ({maxDeal, onUpdateDealId} : DealSelectorProps) =>
   return (
     <div className="flex flex-col items-center space-y-4">
       {/* Display Deal Number selected */}
-      <div className="text-2xl font-bold">{dealId}</div>
+      <div className="text-2xl font-bold">Deal Selector</div>
 
       {/* Buttons for Counter Control */}
       <div className="flex space-x-2">
@@ -43,6 +44,10 @@ const DealSelectorComponent = ({maxDeal, onUpdateDealId} : DealSelectorProps) =>
         <Button onClick={decrement} variant="outline" disabled={dealId == MIN_INT}>
           <ChevronLeft className="w-5 h-5" />
         </Button>
+
+        <Badge  variant="outline">
+          {dealId}
+        </Badge>
 
         {/* Increment */}
         <Button onClick={increment} variant="outline" disabled={dealId == MAX_INT}>

@@ -1,37 +1,29 @@
 "use client"
-import { useState } from "react";
+
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-
-import { Card, CardContent, CardHeader } from "./ui/card";
 import { Algo } from "@/lib/enums";
+import { useGlobalSettings } from "@/context/SettingsContextProvider";
 
-// Props for the child component
-interface DealerAlgoRadioButtonsProps {
-  onOptionChange: (value: Algo) => void; // Callback function from parent
-}
 
-export function DealerAlgoRadioButtons({
-  onOptionChange,
-}: DealerAlgoRadioButtonsProps) {
+export function UpdateSelectedDealingAlgo() {
   // State to manage the selected option locally
   // My not need to store locally. Stored also in global.
-  const [selectedOption, setSelectedOption] = useState<Algo>(Algo.PARTIAL);
+
+  const { dealingAlgo, setDealingAlgo} = useGlobalSettings();
 
   // Handle change event for radio button selections
   const handleChange = (value: string) => {
     const enumValue = value as Algo;
 
-    setSelectedOption(enumValue); // Update local state
-    onOptionChange(enumValue); // Pass the value up to the parent
+    setDealingAlgo(enumValue); // Update global state
+
   };
 
   return (
-    <Card className="w-full min-h">
-      <CardHeader className="py-0 border-0">Dealing Algo</CardHeader>
-      <CardContent className="p-0 border-0">
+    <div>
         <RadioGroup
-          value={selectedOption}
+          value={dealingAlgo}
           onValueChange={handleChange} // Call handleChange when a radio button is selected
           className=" pl-5"
         >
@@ -51,7 +43,7 @@ export function DealerAlgoRadioButtons({
             <Label htmlFor="option-3">Home grown </Label>
           </div>
         </RadioGroup>
-      </CardContent>
-    </Card>
+      </div>
   );
 }
+export default UpdateSelectedDealingAlgo;

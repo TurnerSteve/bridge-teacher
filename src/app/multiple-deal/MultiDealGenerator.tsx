@@ -5,28 +5,22 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import { DealResult, StoredDeal } from "../app/single-deal/page";
-import { useGlobalState } from "@/context/GlobalStateProvider";
+import { DealResult, StoredDeal } from "../single-deal/page";
+import { useGlobalData } from "@/context/DataContextProvider";
 import { useState } from "react";
-import { NumberDropdown } from "./NumberDropdown";
+
 import executeAlgo from "@/lib/bridge/deal-generators/executeAlgo";
+import { useGlobalSettings } from "@/context/SettingsContextProvider";
 
 interface Props {
   slots: number[];
 }
 
 function MultiDealGenerator({ slots }: Props) {
-  const { dealingAlgo } = useGlobalState();
-  const { storedDeals, addStoredDeal } = useGlobalState();
+
+  const { storedDeals, addStoredDeal } = useGlobalData();
+  const { dealingAlgo, boardsPerDealset} = useGlobalSettings() ;
   const [dealTime, setDealTime] = useState<string>("None");
-
-  const [totalDeals, setTotalDeals] = useState<number>(0);
-
-  // Callback to handle the selected number
-  const handleTotalDeals = (number: number) => {
-    setTotalDeals(number); // Update the state in the parent
-    console.log(`Number selected in parent: ${number}`); // Example: Log it to the console
-  };
 
   const addDeal = () => {
     const deal: DealResult = executeAlgo(dealingAlgo, slots);
@@ -44,7 +38,7 @@ function MultiDealGenerator({ slots }: Props) {
 
   const addDeals = () => {
     const startTime: number = performance.now();
-    for (let index = 0; index < totalDeals; index++) {
+    for (let index = 0; index < boardsPerDealset ; index++) {
       addDeal();
     }
     const dealingTime: number = performance.now() - startTime;
@@ -57,11 +51,11 @@ function MultiDealGenerator({ slots }: Props) {
     <div className="w-full px-5">
       <Card className="w-full px-5">
         <CardHeader>
-          Deal {totalDeals} boards. Currently [{storedDeals.length - 1}] deals
+          Deal {boardsPerDealset} boards. Currently [{storedDeals.length - 1}] deals
         </CardHeader>
         <CardContent className="flex items-center gap-2">
           <span><ButtonElement addDeals={addDeals} />  </span>
-          <span><NumberDropdown onNumberSelect={handleTotalDeals} /></span>
+
         </CardContent>
         <CardFooter>
           <div>{timeString}</div>

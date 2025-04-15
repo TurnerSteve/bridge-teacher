@@ -38,7 +38,7 @@ function getTrayInfo(boardNumber: number): LookupEntry {
     return lookupTable[0];
   }
 
-  return lookupTable[((boardNumber - 1) % 16) + 1];
+  return lookupTable[((boardNumber - 1) % 16) ];
 }
 
 export default getTrayInfo;

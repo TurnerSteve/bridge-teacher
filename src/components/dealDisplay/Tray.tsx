@@ -1,6 +1,6 @@
 
 import { getTrayInfo, LookupEntry } from '@/lib/bridge/utils';
-import { Card, CardHeader } from './ui/card';
+import { Card, CardHeader } from '../ui/card';
 
 interface TrayProps {
     boardId: number ;

@@ -1,6 +1,7 @@
 
 "use client"
 import { StoredDeal } from "@/app/single-deal/page";
+import { Algo } from "@/lib/enums";
 import {
   createContext,
   Dispatch,
@@ -10,11 +11,9 @@ import {
   useState,
 } from "react";
 import { createEmptyDealStruct } from "@/lib/constants";
-import { Algo } from "@/lib/enums";
-
 
 // Step 1: Define the Context Type
-interface GlobalStateContextType {
+interface GlobalDataContextType {
   count: number;
   setCount: Dispatch<SetStateAction<number>>;
 
@@ -28,28 +27,25 @@ interface GlobalStateContextType {
   dealCount: number;
   setDealCount: Dispatch<SetStateAction<number>>;
 
-  dealingAlgo: Algo;
-  setDealingAlgo: Dispatch<SetStateAction<Algo>>;
 }
 
 // Create the Context with a default value of null
-const GlobalStateContext = createContext<GlobalStateContextType | undefined>(
+const GlobalDataContext = createContext<GlobalDataContextType | undefined>(
   undefined
 );
 
 // Step 2: Create a Provider Component
-type GlobalStateProviderProps = {
+type GlobalDataProviderProps = {
   children: ReactNode;
 };
 
-export function GlobalStateProvider({ children }: GlobalStateProviderProps) {
+export function GlobalDataProvider({ children }: GlobalDataProviderProps) {
   const [count, setCount] = useState<number>(0);
   const [storedDeal, setStoredDeal] = useState<StoredDeal>(
     createEmptyStoredDeal
   );
   const [storedDeals, setStoredDeals] = useState<StoredDeal[]>([createEmptyStoredDeal()]);
   const [dealCount, setDealCount] = useState<number>(0);
-  const [dealingAlgo, setDealingAlgo] = useState<Algo>(Algo.PARTIAL);
 
   // Function to add a single deal to the array
   const addStoredDeal = (newDeal: StoredDeal) => {
@@ -57,7 +53,7 @@ export function GlobalStateProvider({ children }: GlobalStateProviderProps) {
   };
 
   return (
-    <GlobalStateContext.Provider
+    <GlobalDataContext.Provider
       value={{
         count,
         setCount,
@@ -68,20 +64,18 @@ export function GlobalStateProvider({ children }: GlobalStateProviderProps) {
         storedDeals,
         setStoredDeals,
         addStoredDeal,
-        dealingAlgo,
-        setDealingAlgo,
       }}
     >
       {children}
-    </GlobalStateContext.Provider>
+    </GlobalDataContext.Provider>
   );
 }
 
 // Step 3: Custom Hook to Use Global State
-export function useGlobalState() {
-  const context = useContext(GlobalStateContext);
+export function useGlobalData() {
+  const context = useContext(GlobalDataContext);
   if (!context) {
-    throw new Error("useGlobalState must be used within a GlobalStateProvider");
+    throw new Error("useGlobalData must be used within a GlobalDataProvider");
   }
   return context;
 }

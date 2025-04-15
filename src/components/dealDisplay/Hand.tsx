@@ -1,7 +1,7 @@
 
 import { Rank, Suit } from '@/lib/enums';
 import SuitComponent from './Suit';
-import { Card } from './ui/card';   // Shadcn card
+import { Card } from '../ui/card';   // Shadcn card
 
 interface HandProps {
   direction: string;

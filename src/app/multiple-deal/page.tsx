@@ -1,13 +1,14 @@
 "use client"
-import DealSelectorComponent from "@/components/DealSelector";
-import { useGlobalState } from "@/context/GlobalStateProvider";
+import DealSelectorComponent from "@/components/dealDisplay/DealSelector";
+import { useGlobalData } from "@/context/DataContextProvider";
+import { useGlobalSettings } from "@/context/SettingsContextProvider";
+
 import { Algo } from "@/lib/enums";
 import { DealStruct } from "@/lib/types";
 import { useState } from "react";
-import HandComponent from "@/components/Hand";
-import MultiDealGenerator from "@/components/MultiDealGenerator";
-import { CentreBoard } from "@/components/CentreBoard";
-import { DealerAlgoRadioButtons } from "@/components/DealerAlgoRadioButtons";
+import HandComponent from "@/components/dealDisplay/Hand";
+import MultiDealGenerator from "@/app/multiple-deal/MultiDealGenerator";
+import { CentreBoard } from "@/components/dealDisplay/CentreBoard";
 import { StoredDeal } from "../single-deal/page";
 
 
@@ -23,16 +24,13 @@ export type DealResult = {
 
 function MultiDealComponent() {
   const [dealId, setDealId] = useState(0);
-  const {setDealingAlgo} = useGlobalState();
-  const { storedDeals } = useGlobalState();
 
-  const slots = [13,13,13,13]
-  // Function to handle state update from the child
-  function handleDealerAlgoChange(newAlgo: Algo) {
-    setDealingAlgo(newAlgo);
-    console.log(`Algo changed to "${newAlgo}"`);
-  }
+  const { storedDeals } = useGlobalData();
+  const { dealingSlots } = useGlobalSettings();
+  
 
+  // const slots = [13,13,13,13]
+ 
   // We have dealt an empty deal for oproper initialisation
   // This is deal[0] which on statup is an empty deal
   const dealsSoFar = storedDeals.length - 1; 
@@ -48,14 +46,13 @@ function MultiDealComponent() {
       <div className="flex flex-col items-center justify-center min-h-screen w-full">
         <div className="grid grid-cols-3 grid-rows-3 gap-4 w-full max-w-screen-xl">
           <div className="flex justify-center items-center row-start-1 col-start-1">
-            <DealerAlgoRadioButtons onOptionChange={handleDealerAlgoChange} />
             <DealSelectorComponent maxDeal={dealsSoFar} onUpdateDealId={setDealId}/>
           </div>
           <div className="flex justify-center items-center row-start-1 col-start-2">
             <HandComponent direction="North" hand={deal.deal.North} />
           </div>
           <div className="flex justify-center items-center row-start-1 col-start-3">
-            <MultiDealGenerator slots={slots} />
+            <MultiDealGenerator slots={dealingSlots} />
           </div>
           <div className="flex justify-center items-center row-start-2 col-start-1">
             <HandComponent direction="West" hand={deal.deal.West} />
