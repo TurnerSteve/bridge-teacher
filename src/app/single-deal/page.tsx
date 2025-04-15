@@ -12,14 +12,6 @@ import { useGlobalSettings } from "@/context/SettingsContextProvider";
 // Partial deal generator will generate
 // slots [n1,n2,n3,n4] Cards n1=North, n2=East, n3=South, n4 West
 
-// export interface DealCommandProps {
-//   algo: Algo;
-//   slots: number[];
-// }
-interface DealInputProps {
-  slots: number[];
-}
-
 export type DealResult = {
   algo: Algo;
   description: string;
@@ -33,11 +25,12 @@ export type StoredDeal = {
   deal: DealStruct ;
 };
 
-function DealComponent({ slots }: DealInputProps) {
+function DealComponent() {
   const {storedDeal} = useGlobalData();
   const {dealCount} = useGlobalData();
   const {dealingAlgo } = useGlobalSettings();
 
+   const { dealingSlots } = useGlobalSettings();
 
       // We probably dont need to do a deal here. Just initialise an empty deal
   // useEffect(() => {
@@ -60,7 +53,7 @@ function DealComponent({ slots }: DealInputProps) {
             <HandComponent direction="North" hand={storedDeal.deal.North} />
           </div>
           <div className="flex justify-center items-center row-start-1 col-start-3">
-            <SingleDealController slots={slots} />
+            <SingleDealController slots={dealingSlots} />
           </div>
           <div className="flex justify-center items-center row-start-2 col-start-1">
             <HandComponent direction="West" hand={storedDeal.deal.West} />

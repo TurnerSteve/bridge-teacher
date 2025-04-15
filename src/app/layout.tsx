@@ -19,7 +19,7 @@ type RootLayoutProps = {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
-      <body className="min-h-screen flex flex-col">
+      <body className="height: 100% margin: h-0 overflow-y-auto">
         <Theme>
           <GlobalSettingsProvider>
             <GlobalDataProvider>
@@ -27,12 +27,12 @@ export default function RootLayout({ children }: RootLayoutProps) {
               <NavBar />
 
               {/* Main Content */}
-              <main className="flex-grow container mx-auto p-4">
+              <main className="flex-grow min-height: 100vh">
                 {children}
               </main>
 
               {/* Footer (optional) */}
-              <footer className="bg-blue-800 text-white text-center py-4">
+              <footer className="bg-blue-600 text-white text-center p-4">
                 <p>© 2025 Bridgequarter. All rights reserved.</p>
               </footer>
             </GlobalDataProvider>

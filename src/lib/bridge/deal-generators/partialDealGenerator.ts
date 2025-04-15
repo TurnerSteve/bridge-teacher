@@ -1,22 +1,22 @@
-
 import { maxCodePage, randomBigInt } from "@/lib/utils/math";
 import { Algo, Direction, Rank, Suit } from "../../enums";
 import { DealResult } from "@/app/single-deal/page";
 import { DealStruct } from "@/lib/types";
 import { createEmptyDealStruct } from "@/lib/constants";
 
-function partialDealGenerator(slots : number[]): DealResult {
+function partialDealGenerator(slots: number[]): DealResult {
   // Initialize an array to represent a deck of up to cards (52 cards).
   // The slots are n1=n2=n3=n4  cards per player ... Sum <= 52
   // Otherwise default to 13 each for a full pack
 
-  let description = `Partial "Pavlicek" dealing algorithm for ${slots} cards per player`
+  let description = `Partial "Pavlicek" dealing algorithm for ${slots} cards per player`;
+  console.log(`Slots are ${slots} ... ${description}`);
 
-  let slotTotal = slots[0] + slots[1] + slots[2] + slots[3]
-  if (slotTotal > 52 || slotTotal < 0 ) {
-    slots = [13,13,13,13] ; // Default if something wrong
-    slotTotal = 52 ;
-    description = `Partial Pavlicek" dealing . Defaulting to ${slots} distribution`
+  let slotTotal = slots[0] + slots[1] + slots[2] + slots[3];
+  if (slotTotal > 52 || slotTotal < 0) {
+    slots = [13, 13, 13, 13]; // Default if something wrong
+    slotTotal = 52;
+    description = `Partial Pavlicek" dealing . Defaulting to ${slots} distribution`;
   }
 
   // console.log(description)
@@ -35,25 +35,24 @@ function partialDealGenerator(slots : number[]): DealResult {
   // For a full pack the slots are [13,13,13,13]
 
   const seats: Direction[] = rpDecoder(slots, codePage);
-  
+
   const deal: DealStruct = seatDecoder(seats);
 
-  return ({algo : Algo.PARTIAL , description : description, deal : deal});
+  return { algo: Algo.PARTIAL, description: description, deal: deal };
 }
 
 // Construct the 4 hands from the array of directions.
 function seatDecoder(directions: Direction[]): DealStruct {
-
   const hands: DealStruct = createEmptyDealStruct();
 
-  const packSize :number = directions.length ;
+  const packSize: number = directions.length;
 
   // Place each card one at a time into an array for each suit in each hand
   for (let i = 0; i < packSize; i++) {
-    const direction : Direction = directions[i];
-    const suit : Suit = Object.values(Suit)[Math.floor(i / 13)];
-    const rank : Rank = Object.values(Rank)[i % 13];
-    
+    const direction: Direction = directions[i];
+    const suit: Suit = Object.values(Suit)[Math.floor(i / 13)];
+    const rank: Rank = Object.values(Rank)[i % 13];
+
     hands[direction][suit].push(rank);
   }
 
