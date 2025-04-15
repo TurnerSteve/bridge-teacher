@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import HandComponent from "../../components/dealDisplay/Hand";
 import SingleDealController from "./SingleDealGenerator";
@@ -18,20 +18,20 @@ export type DealResult = {
 };
 
 export type StoredDeal = {
-  dealId: number ;
-  algo: Algo ;
-  description: string ;
-  deal: DealStruct ;
+  dealId: number;
+  algo: Algo;
+  description: string;
+  deal: DealStruct;
 };
 
 function DealComponent() {
-  const {storedDeal} = useGlobalData();
-  const {dealCount} = useGlobalData();
-  const {dealingAlgo } = useGlobalSettings();
+  const { storedDeal } = useGlobalData();
+  const { dealCount } = useGlobalData();
+  const { dealingAlgo } = useGlobalSettings();
 
-   const { dealingSlots } = useGlobalSettings();
+  const { dealingSlots } = useGlobalSettings();
 
-      // We probably dont need to do a deal here. Just initialise an empty deal
+  // We probably dont need to do a deal here. Just initialise an empty deal
   // useEffect(() => {
 
   //   console.log(`The first deal is a partial "${Algo.PARTIAL}" of size [11,6,15,5]`);
@@ -46,8 +46,10 @@ function DealComponent() {
   return (
     <>
       <div className="flex flex-col items-center justify-center min-h-screen w-full">
-        [{dealingAlgo}] dealing Algo 
         <div className="grid grid-cols-3 grid-rows-3 gap-4 w-full max-w-screen-xl">
+          <div className="flex items-center row-start-1 col-start-1">
+            [{dealingAlgo}] dealing Algo
+          </div>
           <div className="flex justify-center items-center row-start-1 col-start-2">
             <HandComponent direction="North" hand={storedDeal.deal.North} />
           </div>
@@ -58,7 +60,7 @@ function DealComponent() {
             <HandComponent direction="West" hand={storedDeal.deal.West} />
           </div>
           <div className="flex justify-center items-center row-start-2 col-start-2">
-            <CentreBoard boardId={dealCount} size={200}/>
+            <CentreBoard boardId={dealCount} size={200} />
           </div>
           <div className="flex justify-center items-center row-start-2 col-start-3">
             <HandComponent direction="East" hand={storedDeal.deal.East} />
@@ -73,5 +75,3 @@ function DealComponent() {
 }
 
 export default DealComponent;
-
-
