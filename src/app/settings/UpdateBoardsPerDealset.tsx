@@ -7,7 +7,7 @@ import { useGlobalSettings } from "@/context/SettingsContextProvider";
   const { boardsPerDealset, setBoardsPerDealset} = useGlobalSettings();
 
   const selectedNumber = boardsPerDealset 
-  const numbers = [32,64,128,1024,10000,]; // The set of numbers to choose from
+  const numbers = [4,8,16,24,32,48, 1024,]; // The set of numbers to choose from
 
   const handleSelect = (number: number) => {
     setBoardsPerDealset(number); // Notify the Global store

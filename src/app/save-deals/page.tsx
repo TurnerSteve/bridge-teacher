@@ -1,5 +1,6 @@
 "use client"
 import { useState } from "react";
+import ExportDeals from "./ExportDeals";
 
 export default function SaveDealsPage() {
     const [pbnContent, setPbnContent] = useState("");
@@ -15,7 +16,8 @@ export default function SaveDealsPage() {
 
     return (
         <div>
-            <h1>Save Deals in PBN Format</h1>
+            <ExportDeals />          
+             <h1>Save Deals in PBN Format</h1>
             <textarea
                 rows={10}
                 cols={50}

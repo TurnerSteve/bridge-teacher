@@ -1,0 +1,124 @@
+import { StoredDeal } from "@/lib/types";
+
+
+export const exportDeals = {
+  toJSON: (deals: StoredDeal[]) => {
+    // Export as JSON
+    return JSON.stringify(deals, null, 2);
+  },
+
+  toCSV: (deals: StoredDeal[]) => {
+    // Export as CSV
+    const headers = ['dealId', 'algo', 'description', 'hands'];
+    const rows = deals.map(deal => {
+      // Serialize hands structure into a string for CSV
+      const hands = Object.entries(deal.deal)
+        .map(
+          ([direction, hand]) =>
+            `${direction}: ${Object.entries(hand)
+              .map(([suit, ranks]) => `${suit}(${ranks.join('')})`)
+              .join(' ')}`
+        )
+        .join('; ');
+      return `"${deal.dealId}","${deal.algo}","${deal.description}","${hands}"`;
+    });
+    return [headers.join(','), ...rows].join('\n');
+  },
+
+  toTEXT: (deals: StoredDeal[]) => {
+    // Export as readable text
+    return deals
+      .map(
+        deal =>
+          `Deal ID: ${deal.dealId}\nAlgo: ${deal.algo}\nDescription: ${deal.description}\n` +
+          Object.entries(deal.deal)
+            .map(
+              ([direction, hand]) =>
+                `${direction}:\n` +
+                Object.entries(hand)
+                  .map(([suit, ranks]) => `  ${suit}: ${ranks.join(' ')}`)
+                  .join('\n')
+            )
+            .join('\n')
+      )
+      .join('\n\n');
+  },
+
+  toXML: (deals: StoredDeal[]) => {
+    // Export as XML
+    const escapeXml = (unsafe: string) =>
+      unsafe.replace(/[<>&'"]/g, c => {
+        switch (c) {
+          case '<':
+            return '&lt;';
+          case '>':
+            return '&gt;';
+          case '&':
+            return '&amp;';
+          case "'":
+            return '&apos;';
+          case '"':
+            return '&quot;';
+          default:
+            return c;
+        }
+      });
+
+    return `<Deals>\n${deals
+      .map(
+        deal =>
+          `  <Deal id="${deal.dealId}" algo="${escapeXml(
+            deal.algo
+          )}" description="${escapeXml(deal.description)}">\n` +
+          Object.entries(deal.deal)
+            .map(
+              ([direction, hand]) =>
+                `    <Hand direction="${direction}">\n` +
+                Object.entries(hand)
+                  .map(
+                    ([suit, ranks]) =>
+                      `      <Suit name="${suit}">${ranks.join(' ')}</Suit>`
+                  )
+                  .join('\n') +
+                `\n    </Hand>`
+            )
+            .join('\n') +
+          `\n  </Deal>`
+      )
+      .join('\n')}\n</Deals>`;
+  },
+
+  toPBN: (deals: StoredDeal[]) => {
+    // Export as PBN
+    return deals
+      .map(deal => {
+        const hands = Object.entries(deal.deal)
+          .map(([direction, hand]) =>
+            `${direction}` +  // Should not be here
+            Object.entries(hand)
+              .map(([suit, ranks]) => `${suit}(${ranks.join('')})`)
+              .join(' ')
+          )
+          .join('; ');
+        return `[Deal "${deal.dealId}"]\n[Algo "${deal.algo}"]\n[Description "${deal.description}"]\n${hands}`;
+      })
+      .join('\n\n');
+  },
+
+  toLIN: (deals: StoredDeal[]) => {
+    // Export as LIN (assuming a LIN-like format)
+    return deals
+      .map(deal => {
+        const hands = Object.entries(deal.deal)
+          .map(([direction, hand]) =>
+            `${direction}: ` +  // Should not be here
+            Object.entries(hand)
+              .map(([suit, ranks]) => `${suit}(${ranks.join('')})`)
+              .join(' ')
+          )
+          .join('; ');
+        return `Deal#${deal.dealId}|Algo:${deal.algo}|Desc:${deal.description}|Hands:${hands}`;
+      })
+      .join('\n');
+  }
+};

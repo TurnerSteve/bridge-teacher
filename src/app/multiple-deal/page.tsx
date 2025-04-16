@@ -10,8 +10,6 @@ import HandComponent from "@/components/dealDisplay/Hand";
 import MultiDealGenerator from "@/app/multiple-deal/MultiDealGenerator";
 import { CentreBoard } from "@/components/dealDisplay/CentreBoard";
 
-
-
 // interface DealInputProps {
 //   slots: number[];
 // }
