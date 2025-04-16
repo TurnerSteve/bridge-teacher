@@ -1,8 +1,9 @@
 
-import { DealResult } from "@/app/single-deal/page";
+
 import { Algo } from "../../enums";
 import { fisherYatesDeal, nsewDeal } from ".";
 import partialDealGenerator from "./partialDealGenerator";
+import { DealResult } from "@/lib/types";
 
 
 function executeAlgo(algo: Algo, slots: number[]): DealResult {

@@ -1,6 +1,8 @@
 import { FiSettings, FiLayers } from "react-icons/fi";
 import { CgShapeRhombus } from "react-icons/cg";
 import { GoHomeFill } from "react-icons/go";
+import { GiSave } from "react-icons/gi";
+
 import Link from "next/link";
 
 
@@ -12,6 +14,14 @@ export default function Navbar() {
        justify-between items-center py-4">
         <div className="text-lg font-bold">Bridge Teacher</div>
         <ul className="flex space-x-6">
+        <li>
+            <Link
+              href="/save-deals"
+              className="hover:text-black transition-colors duration-200 items-center"
+            >
+              <SaveIcon />
+            </Link>
+          </li>          
           <li>
             <Link
               href="/single-deal"
@@ -90,6 +100,17 @@ const HomeIcon = () => {
       aria-label="Settings"
     >
       <GoHomeFill className="w-6 h-6" />
+    </button>
+  );
+};
+
+const SaveIcon = () => {
+  return (
+    <button
+      className="inline-flex items-center justify-center p-2 text-black-600 transition-all hover:text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      aria-label="Settings"
+    >
+      <GiSave className="w-6 h-6" />
     </button>
   );
 };

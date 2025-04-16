@@ -1,5 +1,4 @@
-
-import { DealResult } from "@/app/single-deal/page";
+import { DealResult } from "@/lib/types";
 import { createEmptyDealStruct } from "@/lib/constants";
 import { Algo, Direction, Rank, Suit } from "@/lib/enums";
 import { DealStruct } from "@/lib/types";

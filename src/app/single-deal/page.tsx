@@ -3,26 +3,13 @@
 import HandComponent from "../../components/dealDisplay/Hand";
 import SingleDealController from "./SingleDealGenerator";
 import { useGlobalData } from "@/context/DataContextProvider";
-import { Algo } from "@/lib/enums";
-import { DealStruct } from "@/lib/types";
 import { useGlobalSettings } from "@/context/SettingsContextProvider";
 import { CentreBoard } from "@/components/dealDisplay/CentreBoard";
 
 // Partial deal generator will generate
 // slots [n1,n2,n3,n4] Cards n1=North, n2=East, n3=South, n4 West
 
-export type DealResult = {
-  algo: Algo;
-  description: string;
-  deal: DealStruct;
-};
 
-export type StoredDeal = {
-  dealId: number;
-  algo: Algo;
-  description: string;
-  deal: DealStruct;
-};
 
 function DealComponent() {
   const { storedDeal } = useGlobalData();

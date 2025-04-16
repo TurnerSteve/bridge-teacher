@@ -1,7 +1,7 @@
 
 import { Algo, Direction, Rank, Suit } from "../../enums";
-import { DealResult } from "@/app/single-deal/page";
-import { DealStruct } from "@/lib/types";
+
+import { DealStruct, DealResult} from "@/lib/types";
 import { createEmptyDealStruct } from "@/lib/constants";
 import { maxCodePage, randomBigInt } from "@/lib/math";
 

@@ -1,6 +1,6 @@
 
 "use client"
-import { StoredDeal } from "@/app/single-deal/page";
+import { StoredDeal} from "@/lib/types";
 import { Algo } from "@/lib/enums";
 import {
   createContext,
