@@ -1,5 +1,4 @@
 
-
 import { Algo } from "../../enums";
 import { fisherYatesDeal, nsewDeal } from ".";
 import partialDealGenerator from "./partialDealGenerator";

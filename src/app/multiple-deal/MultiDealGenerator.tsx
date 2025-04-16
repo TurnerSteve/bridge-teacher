@@ -5,12 +5,13 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import { DealResult, StoredDeal } from "../single-deal/page";
+
 import { useGlobalData } from "@/context/DataContextProvider";
 import { useState } from "react";
 
 import executeAlgo from "@/lib/bridge/deal-generators/executeAlgo";
 import { useGlobalSettings } from "@/context/SettingsContextProvider";
+import { DealResult, StoredDeal } from "@/lib/types";
 
 interface Props {
   slots: number[];
@@ -25,7 +26,7 @@ function MultiDealGenerator({ slots }: Props) {
   const addDeal = () => {
     const deal: DealResult = executeAlgo(dealingAlgo, slots);
     const dealId = storedDeals.length + 1;
-    const newDeal: StoredDeal = {
+    const newDeal: StoredDeal= {
       dealId: dealId,
       algo: deal.algo,
       description: deal.description,

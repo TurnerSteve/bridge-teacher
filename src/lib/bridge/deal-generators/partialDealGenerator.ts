@@ -3,7 +3,9 @@ import { Algo, Direction, Rank, Suit } from "../../enums";
 
 import { DealStruct, DealResult} from "@/lib/types";
 import { createEmptyDealStruct } from "@/lib/constants";
-import { maxCodePage, randomBigInt } from "@/lib/math";
+import maxCodePage from "@/lib/math/maxCodePage";
+import randomBigInt from "@/lib/math/randomBigInt";
+
 
 export default function partialDealGenerator(slots: number[]): DealResult {
   // Initialize an array to represent a deck of up to cards (52 cards).

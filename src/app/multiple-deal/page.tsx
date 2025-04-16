@@ -4,12 +4,12 @@ import { useGlobalData } from "@/context/DataContextProvider";
 import { useGlobalSettings } from "@/context/SettingsContextProvider";
 
 import { Algo } from "@/lib/enums";
-import { DealStruct } from "@/lib/types";
+import { DealStruct, StoredDeal } from "@/lib/types";
 import { useState } from "react";
 import HandComponent from "@/components/dealDisplay/Hand";
 import MultiDealGenerator from "@/app/multiple-deal/MultiDealGenerator";
 import { CentreBoard } from "@/components/dealDisplay/CentreBoard";
-import { StoredDeal } from "../single-deal/page";
+
 
 
 // interface DealInputProps {
