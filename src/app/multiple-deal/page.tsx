@@ -3,7 +3,7 @@ import DealSelectorComponent from "@/components/dealDisplay/DealSelector";
 import { useGlobalData } from "@/context/DataContextProvider";
 import { useGlobalSettings } from "@/context/SettingsContextProvider";
 
-import { Algo } from "@/lib/enums";
+import { Algo, Direction } from "@/lib/enums";
 import { DealStruct, StoredDeal } from "@/lib/types";
 import { useState } from "react";
 import HandComponent from "@/components/dealDisplay/Hand";
@@ -46,25 +46,25 @@ function MultiDealComponent() {
             <DealSelectorComponent maxDeal={dealsMade} onUpdateBoardId={setBoardId}/>
           </div>
           <div className="flex justify-center items-center row-start-1 col-start-2">
-            <HandComponent direction="North" hand={deal.deal.North} />
+            <HandComponent direction={Direction.North} hand={deal.deal.N} />
           </div>
           <div className="flex justify-center items-center row-start-1 col-start-3">
             <MultiDealGenerator slots={dealingSlots} />
           </div>
           <div className="flex justify-center items-center row-start-2 col-start-1">
-            <HandComponent direction="West" hand={deal.deal.West} />
+            <HandComponent direction={Direction.West} hand={deal.deal.W} />
           </div>
           <div className="flex justify-center items-center row-start-2 col-start-2">
             <CentreBoard boardId={boardId} size={200}/>
           </div>
           <div className="flex justify-center items-center row-start-2 col-start-3">
-            <HandComponent direction="East" hand={deal.deal.East} />
+            <HandComponent direction={Direction.East} hand={deal.deal.E} />
           </div>
           <div className="flex justify-center items-center row-start-3 col-start-1">
             Dealing  Algo : {deal.algo}
           </div>
           <div className="flex justify-center items-center row-start-3 col-start-2">
-            <HandComponent direction="South" hand={deal.deal.South} />
+            <HandComponent direction={Direction.South} hand={deal.deal.S} />
           </div>
         </div>
       </div>

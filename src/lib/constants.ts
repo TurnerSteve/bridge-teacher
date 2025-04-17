@@ -1,5 +1,5 @@
 
-import { Direction, Hand, Rank, Suit } from "./enums";
+import { Direction, Rank, Suit } from "./enums";
 import { DealStruct, HandStruct } from "./types";
 
 export const handStruct: DealStruct = {
@@ -37,10 +37,10 @@ const createEmptyHandStruct = (): HandStruct=> ({
 
 // Helper function to create an empty DealStruct
 const createEmptyDealStruct = (): DealStruct => ({
-  [Hand.North]: createEmptyHandStruct(),
-  [Hand.East]: createEmptyHandStruct(),
-  [Hand.South]: createEmptyHandStruct(),
-  [Hand.West]: createEmptyHandStruct(),
+  [Direction.North]: createEmptyHandStruct(),
+  [Direction.East]: createEmptyHandStruct(),
+  [Direction.South]: createEmptyHandStruct(),
+  [Direction.West]: createEmptyHandStruct(),
 });
 
 export { createEmptyHandStruct, createEmptyDealStruct }

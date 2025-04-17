@@ -4,12 +4,11 @@ import { useGlobalData } from "@/context/DataContextProvider";
 import { exportDeals } from "@/lib/bridge/utils/exportDeals";
 import { FaFileExport } from "react-icons/fa6";
 
-
-export default function ExportDeals  () {
+export default function ExportDeals() {
   const { storedDeals } = useGlobalData();
 
   const handleExport = (
-    format: "JSON" | "CSV" | "TEXT" | "XML" | "PBN" | "LIN"
+    format: "JSON" | "CSV" | "TEXT" | "XML" | "PBN" | "LIN" |  "DUP" | "BRI" | "DGE" 
   ) => {
     let output = "";
     switch (format) {
@@ -30,6 +29,15 @@ export default function ExportDeals  () {
         break;
       case "LIN":
         output = exportDeals.toLIN(storedDeals);
+        break;
+      case "DGE":
+        output = exportDeals.toDGE(storedDeals);
+        break;
+      case "DUP":
+        output = exportDeals.toDUP(storedDeals);
+        break;
+      case "BRI":
+        output = exportDeals.toBRI(storedDeals);
         break;
       default:
         break;
@@ -54,10 +62,13 @@ export default function ExportDeals  () {
         <SaveButton onClick={() => handleExport("XML")}>XML</SaveButton>
         <SaveButton onClick={() => handleExport("TEXT")}>TEXT</SaveButton>
         <SaveButton onClick={() => handleExport("JSON")}>JSON</SaveButton>
+        <SaveButton onClick={() => handleExport("DGE")}>DGE</SaveButton>
+        <SaveButton onClick={() => handleExport("BRI")}>BRI</SaveButton>
+        <SaveButton onClick={() => handleExport("DUP")}>DUP</SaveButton>
       </CardContent>
     </Card>
   );
-};
+}
 
 import { ReactNode } from "react";
 
@@ -95,7 +106,7 @@ function SaveButton({
       onClick={onClick}
       disabled={disabled}
     >
-       {children} <FaFileExport />
+      {children} <FaFileExport />
     </Button>
   );
 }

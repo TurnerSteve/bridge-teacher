@@ -5,6 +5,7 @@ import SingleDealController from "./SingleDealGenerator";
 import { useGlobalData } from "@/context/DataContextProvider";
 import { useGlobalSettings } from "@/context/SettingsContextProvider";
 import { CentreBoard } from "@/components/dealDisplay/CentreBoard";
+import { Direction } from "@/lib/enums";
 
 // Partial deal generator will generate
 // slots [n1,n2,n3,n4] Cards n1=North, n2=East, n3=South, n4 West
@@ -38,22 +39,22 @@ function DealComponent() {
             [{dealingAlgo}] dealing Algo
           </div>
           <div className="flex justify-center items-center row-start-1 col-start-2">
-            <HandComponent direction="North" hand={storedDeal.deal.North} />
+            <HandComponent direction={Direction.North} hand={storedDeal.deal.N} />
           </div>
           <div className="flex justify-center items-center row-start-1 col-start-3">
             <SingleDealController slots={dealingSlots} />
           </div>
           <div className="flex justify-center items-center row-start-2 col-start-1">
-            <HandComponent direction="West" hand={storedDeal.deal.West} />
+            <HandComponent direction={Direction.West} hand={storedDeal.deal.W} />
           </div>
           <div className="flex justify-center items-center row-start-2 col-start-2">
             <CentreBoard boardId={dealCount} size={200} />
           </div>
           <div className="flex justify-center items-center row-start-2 col-start-3">
-            <HandComponent direction="East" hand={storedDeal.deal.East} />
+            <HandComponent direction={Direction.East} hand={storedDeal.deal.E} />
           </div>
           <div className="flex justify-center items-center row-start-3 col-start-2">
-            <HandComponent direction="South" hand={storedDeal.deal.South} />
+            <HandComponent direction={Direction.South} hand={storedDeal.deal.S} />
           </div>
         </div>
       </div>

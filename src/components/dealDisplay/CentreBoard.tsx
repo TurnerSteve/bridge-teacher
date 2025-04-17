@@ -1,5 +1,5 @@
 import { getTrayInfo, LookupEntry } from "@/lib/bridge/utils";
-import { Dealer, Vulnerability } from "@/lib/enums";
+import { Vulnerability , Direction} from "@/lib/enums";
 
 
 type Props = {
@@ -21,10 +21,10 @@ export function CentreBoard(props: Props) {
   // Determine arrow visibility and color based on dealer and vulnerability
   const getArrow = () => {
     const color =
-      (dealer === Dealer.North || dealer === Dealer.South) &&
+      (dealer === Direction.North || dealer === Direction.South) &&
       (vul === Vulnerability.NS || vul === Vulnerability.Both)
         ? "red"
-        : (dealer === Dealer.East || dealer === Dealer.West) &&
+        : (dealer === Direction.East || dealer === Direction.West) &&
           (vul === Vulnerability.EW || vul === Vulnerability.Both)
         ? "red"
         : "green";
@@ -36,14 +36,10 @@ export function CentreBoard(props: Props) {
     };
 
     switch (dealer) {
-      case Dealer.North:
-        return <polygon points="50,12 70,25 30,25" {...arrowProps} />;
-      case Dealer.East:
-        return <polygon points="88,50 75,30 75,70" {...arrowProps} />;
-      case Dealer.South:
-        return <polygon points="50,88 70,75 30,75" {...arrowProps} />;
-      case Dealer.West:
-        return <polygon points="12,50 25,30 25,70" {...arrowProps} />;
+      case Direction.North : return <polygon points="50,12 70,25 30,25" {...arrowProps} />;
+      case Direction.East  : return <polygon points="88,50 75,30 75,70" {...arrowProps} />;
+      case Direction.South : return <polygon points="50,88 70,75 30,75" {...arrowProps} />;
+      case Direction.West  : return <polygon points="12,50 25,30 25,70" {...arrowProps} />;
       default:
         return null;
     }
@@ -61,7 +57,7 @@ export function CentreBoard(props: Props) {
         {/* North and South Perimeters */}
         <rect x="0" y="0" width="100" height="10" fill={nsColor} />
         <rect x="0" y="90" width="100" height="10" fill={nsColor} />
-        {dealer === Dealer.North && (
+        {dealer === Direction.North && (
           <text
             x="50"
             y="8"
@@ -73,7 +69,7 @@ export function CentreBoard(props: Props) {
             DEALER
           </text>
         )}
-        {dealer === Dealer.South && (
+        {dealer === Direction.South && (
           <text
             x="50"
             y="98"
@@ -89,7 +85,7 @@ export function CentreBoard(props: Props) {
         {/* East and West Perimeters */}
         <rect x="90" y="0" width="10" height="100" fill={ewColor} />
         <rect x="0" y="0" width="10" height="100" fill={ewColor} />
-        {dealer === Dealer.East && (
+        {dealer === Direction.East && (
           <text
             x="95"
             y="50"
@@ -103,7 +99,7 @@ export function CentreBoard(props: Props) {
             DEALER
           </text>
         )}
-        {dealer === Dealer.West && (
+        {dealer === Direction.West && (
           <text
             x="5"
             y="50"

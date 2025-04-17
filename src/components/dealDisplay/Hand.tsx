@@ -1,10 +1,10 @@
 
-import { Rank, Suit } from '@/lib/enums';
+import { Direction, Rank, Suit } from '@/lib/enums';
 import SuitComponent from './Suit';
 import { Card } from '../ui/card';   // Shadcn card
 
 interface HandProps {
-  direction: string;
+  direction: Direction;
   hand: { [key in Suit]: Rank[] };
 }
 

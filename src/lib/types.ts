@@ -1,5 +1,5 @@
 
-import { Direction, Rank, Suit, Hand, Algo} from "./enums";
+import { Direction, Rank, Suit, Algo} from "./enums";
 type HandStruct = {
     [Suit.Spades]: Rank[];
     [Suit.Hearts]: Rank[];
@@ -8,10 +8,10 @@ type HandStruct = {
   }
   
 type DealStruct = {
-    [Hand.North]: HandStruct;
-    [Hand.East]: HandStruct;
-    [Hand.South]: HandStruct;
-    [Hand.West]: HandStruct;
+    [Direction.North]: HandStruct;
+    [Direction.East]: HandStruct;
+    [Direction.South]: HandStruct;
+    [Direction.West]: HandStruct;
 }
 
 type DealResult = {

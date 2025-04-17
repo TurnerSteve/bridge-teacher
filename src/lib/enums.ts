@@ -1,42 +1,46 @@
-export { Rank, Suit, Hand, Direction, Dealer, Vulnerability}
+export { Rank, Suit, Direction, Vulnerability}
 export { Algo }
 
 enum Algo 
 {
   FISHERYATES = "Fisher-Yates",
-  PARTIAL = "Partial Pavlicek" ,
+  PARTIAL = "Pavlicek" ,
   HOMEGROWN = "Home Grown",
 }
 
 enum Direction {
-  North = "North",
-  East = "East",
-  South = "South",
-  West = "West"
+  North = "N",
+  East = "E",
+  South = "S",
+  West = "W"
 }
-// Probably dont meed Direction and Deal
+// enum DirectionString {
+//   North = "North",
+//   East = "East",
+//   South = "South",
+//   West = "West"
+// }
 
-enum Hand{
-  North = Direction.North,
-  East = Direction.East,
-  South = Direction.South,
-  West = Direction.West
-}
+// enum Hand{
+//   North = CompassPoint.North,
+//   East = CompassPoint.East,
+//   South = CompassPoint.South,
+//   West = CompassPoint.West
+// }
 
-enum Dealer {
-  North = Direction.North,
-  East = Direction.East,
-  South = Direction.South,
-  West = Direction.West,
-}
-
+// enum Dealer {
+//   North = Direction.North,
+//   East = Direction.East,
+//   South = Direction.South,
+//   West = Direction.West,
+// }
 
 // Define the enumerated types
 enum Vulnerability {
   None = "None",
-  NS = "N-S",
-  EW = "E-W",
-  Both = "Both",
+  NS = "NS",
+  EW = "EW",
+  Both = "All",
 }
 
 // Enum for Suits (with suit icons)
