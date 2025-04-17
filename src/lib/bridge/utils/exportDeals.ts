@@ -4,8 +4,15 @@ import getTrayInfo, { LookupEntry } from "./getTrayInfo";
 
 export const exportDeals = {
   toJSON: (deals: StoredDeal[]) => {
-    // Export as JSON
-    return JSON.stringify(deals, null, 2);
+    return deals
+      .map((deal) => {
+        const hands = Object.entries(deal.deal)
+          .map(([direction, hand]) => `"${direction}": ${JSON.stringify(hand)}`)
+          .join("\n"); // Each hand is on its own line
+
+        return `{"dealId": ${deal.dealId}, "algo": "${deal.algo}", "description": "${deal.description}",\n${hands}\n}`;
+      })
+      .join("\n\n"); // Separate each deal with a blank line
   },
 
   toCSV: (deals: StoredDeal[]) => {
@@ -14,17 +21,17 @@ export const exportDeals = {
       "algo",
       "description",
       "North",
-      "",
-      "",
-      "",
+      ,
+      ,
+      ,
       "East",
-      "",
-      "",
-      "",
+      ,
+      ,
+      ,
       "South",
-      "",
-      "",
-      "",
+      ,
+      ,
+      ,
       "West",
       ,
       ,
@@ -86,19 +93,20 @@ export const exportDeals = {
       .join("\n\n");
   },
 
-  toBRI: (deals: StoredDeal[]) => { // Basic - space separated without Board no.
-    return deals
-      .map((deal) => `${formatDeal(deal, " ")}`)
-      .join("\n");
+  toBRI: (deals: StoredDeal[]) => {
+    // Basic - space separated without Board no.
+    return deals.map((deal) => `${formatDeal(deal, " ")}`).join("\n");
   },
 
-  toDGE: (deals: StoredDeal[]) => { // Board no. and "space" separated 
+  toDGE: (deals: StoredDeal[]) => {
+    // Board no. and "space" separated
     return deals
       .map((deal) => `${deal.dealId} ${formatDeal(deal, " ")}`)
       .join("\n");
   },
 
-  toDUP: (deals: StoredDeal[]) => { // Board no. and "Pipe" separated 
+  toDUP: (deals: StoredDeal[]) => {
+    // Board no. and "Pipe" separated
     return deals
       .map((deal) => `${deal.dealId} ${formatDeal(deal, " ")}`)
       .join("\n");
@@ -194,8 +202,8 @@ export const exportDeals = {
 
 const formatDeal = (deal: StoredDeal, separator: " " | "|"): string => {
   const entry: LookupEntry = getTrayInfo(deal.dealId); // Gets the dealer and vul
-  const dealer = entry.dealer; 
-  const vulnerability = entry.vulnerability; 
+  const dealer = entry.dealer;
+  const vulnerability = entry.vulnerability;
 
   // Format hands: Spades, Hearts, Diamonds, Clubs concatenated with "."
   const hands = Object.entries(deal.deal)
