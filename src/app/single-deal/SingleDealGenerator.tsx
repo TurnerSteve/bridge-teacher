@@ -1,9 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { DealResult } from "./page";
+
 import { useGlobalData } from "@/context/DataContextProvider";
 import executeAlgo from "@/lib/bridge/deal-generators/executeAlgo";
 import { useGlobalSettings } from "@/context/SettingsContextProvider";
+import { DealResult } from "@/lib/types";
 
 interface Props {
   slots: number[];

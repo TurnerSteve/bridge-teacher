@@ -5,26 +5,26 @@ import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from "lucide-r
 
 interface DealSelectorProps {
     maxDeal : number , 
-    onUpdateDealId : (newDeal: number) => void
+    onUpdateBoardId : (newDeal: number) => void
 }
 
-const DealSelectorComponent = ({maxDeal, onUpdateDealId} : DealSelectorProps) => {
+const DealSelectorComponent = ({maxDeal, onUpdateBoardId} : DealSelectorProps) => {
 
       // State to manage the dealId
-  const [dealId, setDealId] = useState<number>(0);
+  const [boardId, setBoardId] = useState<number>(1);
 
-    const handleUpdate = (dealId : number) => {
-        setDealId(dealId)
-        onUpdateDealId(dealId); // Call the function passed from the parent
+    const handleUpdate = (boardId : number) => {
+        setBoardId(boardId)
+        onUpdateBoardId(boardId); // Call the function passed from the parent
       };
 
   // Define min and max integer values
-  const MIN_INT = 0 ;
+  const MIN_INT = 1 ;
   const MAX_INT = maxDeal;
 
   // Handlers for buttons
-  const increment = () => handleUpdate(dealId + 1);
-  const decrement = () => handleUpdate(dealId - 1 );
+  const increment = () => handleUpdate(boardId + 1);
+  const decrement = () => handleUpdate(boardId - 1 );
   const goToMaxInt = () => handleUpdate(MAX_INT);
   const goToMinInt = () => handleUpdate(MIN_INT);
 
@@ -36,26 +36,26 @@ const DealSelectorComponent = ({maxDeal, onUpdateDealId} : DealSelectorProps) =>
       {/* Buttons for Counter Control */}
       <div className="flex space-x-2">
         {/* Go to Minimum */}
-        <Button onClick={goToMinInt} variant="outline" disabled={dealId == MIN_INT}>
+        <Button onClick={goToMinInt} variant="outline" disabled={boardId == MIN_INT}>
           <ChevronsLeft className="w-5 h-5" />
         </Button>
 
         {/* Decrement */}
-        <Button onClick={decrement} variant="outline" disabled={dealId == MIN_INT}>
+        <Button onClick={decrement} variant="outline" disabled={boardId == MIN_INT}>
           <ChevronLeft className="w-5 h-5" />
         </Button>
 
         <Badge  variant="outline">
-          {dealId}
+          {boardId}
         </Badge>
 
         {/* Increment */}
-        <Button onClick={increment} variant="outline" disabled={dealId == MAX_INT}>
+        <Button onClick={increment} variant="outline" disabled={boardId == MAX_INT}>
           <ChevronRight className="w-5 h-5" />
         </Button>
 
         {/* Go to Maximum */}
-        <Button onClick={goToMaxInt} variant="outline" disabled={dealId == MAX_INT}>
+        <Button onClick={goToMaxInt} variant="outline" disabled={boardId == MAX_INT}>
           <ChevronsRight className="w-5 h-5" />
         </Button>
       </div>

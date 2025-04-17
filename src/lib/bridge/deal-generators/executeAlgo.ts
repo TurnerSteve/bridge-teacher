@@ -6,7 +6,7 @@ import { DealResult } from "@/lib/types";
 
 
 function executeAlgo(algo: Algo, slots: number[]): DealResult {
-    console.log(`Executing algo "${algo}" to decode \[${slots}\] slots`);
+    // console.log(`Executing algo "${algo}" to decode \[${slots}\] slots`);
   
     let deal: DealResult;
   

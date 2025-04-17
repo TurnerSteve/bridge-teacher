@@ -23,24 +23,38 @@ function MultiDealGenerator({ slots }: Props) {
   const { dealingAlgo, boardsPerDealset} = useGlobalSettings() ;
   const [dealTime, setDealTime] = useState<string>("None");
 
-  const addDeal = () => {
-    const deal: DealResult = executeAlgo(dealingAlgo, slots);
-    const dealId = storedDeals.length + 1;
-    const newDeal: StoredDeal= {
-      dealId: dealId,
-      algo: deal.algo,
-      description: deal.description,
-      deal: deal.deal,
-    };
-    console.log(`Adding deal \[${dealId}\]} which uses algo "${deal.algo}"`);
+  const addDeal = (index: number) => {
 
+    // If array is of length 1 and boardId=0 we delete the board which
+    // was only created (empty) for initialisation purposes    
+    // We write it as board 1.
+
+    const arrayLength = storedDeals.length ;
+
+    let boardId : number = 0;
+    if (arrayLength > 0) {
+      boardId = storedDeals[arrayLength-1].dealId;
+
+      if (boardId === 0)
+        storedDeals.splice(0, 1);   // delete the empty deal
+    }
+    boardId += ++index ;
+    const nextDeal: DealResult = executeAlgo(dealingAlgo, slots);
+    console.log(`MultiDealGenerator: Writing boardId: ${boardId}`);
+    const newDeal: StoredDeal = {
+      dealId: boardId,
+      algo: nextDeal.algo,
+      description: nextDeal.description,
+      deal: nextDeal.deal,
+    };
     addStoredDeal(newDeal);
+
   };
 
   const addDeals = () => {
     const startTime: number = performance.now();
     for (let index = 0; index < boardsPerDealset ; index++) {
-      addDeal();
+      addDeal(index);
     }
     const dealingTime: number = performance.now() - startTime;
     setDealTime(dealingTime.toFixed(3));
@@ -52,7 +66,7 @@ function MultiDealGenerator({ slots }: Props) {
     <div className="w-full px-5">
       <Card className="w-full px-5">
         <CardHeader>
-          Deal {boardsPerDealset} boards. Currently [{storedDeals.length - 1}] deals
+          Deal {boardsPerDealset} boards. Currently [{storedDeals.length}] deals
         </CardHeader>
         <CardContent className="flex items-center gap-2">
           <span><ButtonElement addDeals={addDeals} />  </span>

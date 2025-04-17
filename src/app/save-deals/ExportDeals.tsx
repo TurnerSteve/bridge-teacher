@@ -1,51 +1,101 @@
-import { useGlobalData } from '@/context/DataContextProvider';
-import { exportDeals } from '@/lib/bridge/utils/exportDeals';
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { useGlobalData } from "@/context/DataContextProvider";
+import { exportDeals } from "@/lib/bridge/utils/exportDeals";
+import { FaFileExport } from "react-icons/fa6";
 
-const ExportDeals = () => {
-  const { storedDeals } = useGlobalData(); 
 
-  const handleExport = (format: 'JSON' | 'CSV' | 'TEXT' | 'XML' | 'PBN' | 'LIN') => {
-    let output = '';
+export default function ExportDeals  () {
+  const { storedDeals } = useGlobalData();
+
+  const handleExport = (
+    format: "JSON" | "CSV" | "TEXT" | "XML" | "PBN" | "LIN"
+  ) => {
+    let output = "";
     switch (format) {
-      case 'JSON':
+      case "JSON":
         output = exportDeals.toJSON(storedDeals);
         break;
-      case 'CSV':
+      case "CSV":
         output = exportDeals.toCSV(storedDeals);
         break;
-      case 'TEXT':
+      case "TEXT":
         output = exportDeals.toTEXT(storedDeals);
         break;
-      case 'XML':
+      case "XML":
         output = exportDeals.toXML(storedDeals);
         break;
-      case 'PBN':
+      case "PBN":
         output = exportDeals.toPBN(storedDeals);
         break;
-      case 'LIN':
+      case "LIN":
         output = exportDeals.toLIN(storedDeals);
         break;
       default:
         break;
     }
-    const blob = new Blob([output], { type: 'text/plain;charset=utf-8' });
+    const blob = new Blob([output], { type: "text/plain;charset=utf-8" });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
+    const a = document.createElement("a");
     a.href = url;
     a.download = `deals.${format.toLowerCase()}`;
     a.click();
   };
 
   return (
-    <div>
-      <button onClick={() => handleExport('JSON')}>Export as JSON</button>
-      <button onClick={() => handleExport('CSV')}>Export as CSV</button>
-      <button onClick={() => handleExport('TEXT')}>Export as TEXT</button>
-      <button onClick={() => handleExport('XML')}>Export as XML</button>
-      <button onClick={() => handleExport('PBN')}>Export as PBN</button>
-      <button onClick={() => handleExport('LIN')}>Export as LIN</button>
-    </div>
+    <Card className="px-5">
+      <CardHeader className="text-lg font-bold mb-4">
+        Export Deals in chosen format.
+      </CardHeader>
+      <CardContent className="flex flex-col gap-2">
+        <SaveButton onClick={() => handleExport("PBN")}>PBN</SaveButton>
+        <SaveButton onClick={() => handleExport("LIN")}>LIN</SaveButton>
+        <SaveButton onClick={() => handleExport("CSV")}>CSV</SaveButton>
+        <SaveButton onClick={() => handleExport("XML")}>XML</SaveButton>
+        <SaveButton onClick={() => handleExport("TEXT")}>TEXT</SaveButton>
+        <SaveButton onClick={() => handleExport("JSON")}>JSON</SaveButton>
+      </CardContent>
+    </Card>
   );
 };
 
-export default ExportDeals;
+import { ReactNode } from "react";
+
+type ButtonProps = {
+  children: ReactNode;
+  onClick?: () => void;
+  variant?: "primary" | "secondary" | "danger"; // Define button variants
+  disabled?: boolean;
+};
+
+function SaveButton({
+  children,
+  onClick,
+  variant = "primary",
+  disabled = false,
+}: ButtonProps) {
+  const getButtonStyle = () => {
+    switch (variant) {
+      case "primary":
+        return "bg-blue-600 text-white  hover:text-gray-800 hover:bg-blue-500";
+      case "secondary":
+        return "bg-gray-600 text-white  hover:text-gray-800 hover:bg-gray-500";
+      case "danger":
+        return "bg-red-600 text-white  hover:text-gray-800 hover:bg-red-500";
+      default:
+        return "bg-blue-600 text-white  hover:text-gray-800 hover:bg-red-500";
+    }
+  };
+
+  return (
+    <Button
+      className={`w-30 px-4 py-2 rounded ${getButtonStyle()} ${
+        disabled ? "opacity-50 cursor-not-allowed" : ""
+      }`}
+      onClick={onClick}
+      disabled={disabled}
+    >
+       {children} <FaFileExport />
+    </Button>
+  );
+}

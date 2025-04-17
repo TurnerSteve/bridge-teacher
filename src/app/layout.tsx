@@ -6,11 +6,10 @@ import NavBar from "./NavBar";
 
 export const metadata = {
   title: "Bridge Teacher",
-  description: "A simple appliction to display a randomly dealt bridge deal.",
+  description: "Let us generate some randomly dealt bridge deals.",
 };
 
 import { ReactNode } from "react";
-
 
 type RootLayoutProps = {
   children: ReactNode;
