@@ -95,7 +95,7 @@ export const exportDeals = {
 
   toBRI: (deals: StoredDeal[]) => {
     // Basic - space separated without Board no.
-    return deals.map((deal) => `${formatDeal(deal, " ")}`).join("\n");
+    return deals.map((deal) => `${deal.dealId}|${formatDeal(deal, "|")}`).join("\n");
   },
 
   toDGE: (deals: StoredDeal[]) => {
@@ -108,7 +108,7 @@ export const exportDeals = {
   toDUP: (deals: StoredDeal[]) => {
     // Board no. and "Pipe" separated
     return deals
-      .map((deal) => `${deal.dealId} ${formatDeal(deal, " ")}`)
+      .map((deal) => `${formatDeal(deal, "|")}`)
       .join("\n");
   },
 
