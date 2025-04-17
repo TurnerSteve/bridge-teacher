@@ -1,4 +1,4 @@
 export {default as executeAlgo} from "./executeAlgo"
-export {default as nsewDeal} from "./frawdoDealGenerator";
-export {default as fisherYatesDeal} from "./fisherYatesDealGenerator";
-export {default as partialDeal} from "./partialDealGenerator";
+export {default as homegrownDealGenerator} from "./homegrownDealGenerator";
+export {default as fisherYatesDealGenerator} from "./fisherYatesDealGenerator";
+export {default as pavlicekDealGenerator} from "./pavlicekDealGenerator";

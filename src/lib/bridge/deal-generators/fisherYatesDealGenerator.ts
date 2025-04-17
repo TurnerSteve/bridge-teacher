@@ -1,24 +1,30 @@
 import { createEmptyDealStruct, RankOrder } from "@/lib/constants";
-import { Algo, Hand, Suit, Rank, Direction} from "../../enums";
+import { Algo, Hand, Suit, Rank, Direction } from "../../enums";
 import { DealResult, DealStruct } from "@/lib/types";
 
-export function generateDeal(slots : number[]): DealResult {
+export function generateDeal(slots: number[]): DealResult {
   // Initialize an array to represent the deck of cards (up to) 52 cards).
   // Need to check slots (cards dealt to each player) are n1=n2=n3=n4
   // Otherwise default to 13 each for a full pack
 
   // assumes all slots the same so we  can perform the algo.
-  let description = "Fisher Yates dealing algorithm for ${slots} cards per player"
-  let slotTotal = slots[0] * 4 ; 
+  let description = "Fisher Yates Algo dealer. ";
 
-  if (slots[0] !== slots[1] || slots[1] !== slots[2] ||  slots[2] !== slots[3]) {
-    slots = [13,13,13,13] ; // Default if something wrong
-    slotTotal = 52 ;
-    description = "Bad distribution. Defaulting to Fisher Yates dealing algorithm for ${slots} distribution"
-  }
+  const slotTotal = slots[0] + slots[1] + slots[2] + slots[3];
+  if (slotTotal < 52 || slotTotal > 52)
+    description += `Cannot deal [${slots}].`;
+  else if (
+    slots[0] !== slots[1] ||
+    slots[1] !== slots[2] ||
+    slots[2] !== slots[3]
+  )
+    description += `Cannot deal [${slots}].`;
+  else description += `Partial deal [${slots}].`;
 
-  const deck: number[] = Array.from({ length: slotTotal }, (_, i) => i );
-  
+  console.log(description);
+
+  const deck: number[] = Array.from({ length: slotTotal }, (_, i) => i);
+
   // Shuffle the deck using Fisher-Yates algorithm.
   for (let i = deck.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -32,23 +38,26 @@ export function generateDeal(slots : number[]): DealResult {
 
   const hands: DealStruct = createEmptyDealStruct();
 
-  const directions = Object.values(Direction)
+  const directions = Object.values(Direction);
 
-  // Place each card one at a time into an array for each suit in each hand
   // Place each card one at a time into an array for each suit in each hand
   for (let i = 0; i < slotTotal; i++) {
-    const card = deck[i]
+    const card = deck[i];
 
-    const direction : Direction = directions[i % 4];
-    const suit : Suit = Object.values(Suit)[Math.floor(card / 13)];
-    const rank : Rank = Object.values(Rank)[i % 13];
+    const direction: Direction = directions[i % 4];
+    const suit: Suit = Object.values(Suit)[Math.floor(card / 13)];
+    const rank: Rank = Object.values(Rank)[i % 13];
 
-    hands[direction][suit].push(rank); 
+    hands[direction][suit].push(rank);
   }
 
   const sortedHands = sortDeal(hands);
 
-  return ({algo : Algo.FISHERYATES, description : description, deal : sortedHands});
+  return {
+    algo: Algo.FISHERYATES,
+    description: description,
+    deal: sortedHands,
+  };
 }
 export default generateDeal;
 
@@ -65,13 +74,11 @@ function sortDeal(deal: DealStruct): DealStruct {
       const ranks = deal[hand][suit];
 
       // Sort each array of Rank using the custom RankOrder
-      sortedDeal[hand][suit] = [...ranks].sort((a, b) => RankOrder[a] - RankOrder[b]);
+      sortedDeal[hand][suit] = [...ranks].sort(
+        (a, b) => RankOrder[a] - RankOrder[b]
+      );
     }
   }
 
   return sortedDeal;
 }
-
-
-
-

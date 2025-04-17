@@ -30,7 +30,7 @@ export function UpdateSelectedDealingAlgo() {
           {/* Option 1 */}
           <div className="flex items-center space-x-2">
             <RadioGroupItem value={Algo.PARTIAL} id="option-1" />
-            <Label htmlFor="option-1">Pavlicek (Partial)</Label>
+            <Label htmlFor="option-1">Pavlicek</Label>
           </div>
           {/* Option 2 */}
           <div className="flex items-center space-x-2">

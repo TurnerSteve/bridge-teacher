@@ -1,28 +1,22 @@
-
 import { Algo, Direction, Rank, Suit } from "../../enums";
 
-import { DealStruct, DealResult} from "@/lib/types";
+import { DealStruct, DealResult } from "@/lib/types";
 import { createEmptyDealStruct } from "@/lib/constants";
 import maxCodePage from "@/lib/math/maxCodePage";
 import randomBigInt from "@/lib/math/randomBigInt";
-
 
 export default function partialDealGenerator(slots: number[]): DealResult {
   // Initialize an array to represent a deck of up to cards (52 cards).
   // The slots are n1=n2=n3=n4  cards per player ... Sum <= 52
   // Otherwise default to 13 each for a full pack
 
-  let description = `Partial "Pavlicek" dealing algorithm for ${slots} cards per player`;
-  console.log(`Slots are ${slots} ... ${description}`);
+  const slotTotal = slots[0] + slots[1] + slots[2] + slots[3];
 
-  let slotTotal = slots[0] + slots[1] + slots[2] + slots[3];
-  if (slotTotal > 52 || slotTotal < 0) {
-    slots = [13, 13, 13, 13]; // Default if something wrong
-    slotTotal = 52;
-    description = `Partial Pavlicek" dealing . Defaulting to ${slots} distribution`;
-  }
+  let description = `Pavlicek Algo dealer. `;
+  if (slotTotal < 0 || slotTotal > 52) description += `Cannot deal [${slots}].`;
+  if (slotTotal < 52) description += `Partial deal [${slots}].`;
 
-  // console.log(description)
+  console.log(description);
 
   const lastPage = maxCodePage(slots); // Maximum integer needed to represent a deal
   const codePage = randomBigInt(lastPage); // Generate the unique "codepage"
@@ -114,4 +108,3 @@ function rpDecoder(slots: number[], codePage: bigint): Direction[] {
 
   return directionAssignments;
 }
-
