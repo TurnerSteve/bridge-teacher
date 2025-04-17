@@ -1,5 +1,5 @@
+import { Hand, Suit } from "@/lib/enums";
 import { StoredDeal } from "@/lib/types";
-
 
 export const exportDeals = {
   toJSON: (deals: StoredDeal[]) => {
@@ -8,24 +8,61 @@ export const exportDeals = {
   },
 
   toCSV: (deals: StoredDeal[]) => {
-    // Export as CSV
-    const headers = ['dealId', 'algo', 'description', 'hands'];
+    const headers = [
+      'dealId',
+      'algo',
+      'description',
+      'North',
+      'North',
+      'North',
+      'North',
+      'East',
+      'East',
+      'East',
+      'East',
+      'South',
+      'South',
+      'South',
+      'South',
+      'West',
+      'West',
+      'West',
+      'West',
+    ];
+
     const rows = deals.map(deal => {
-      // Serialize hands structure into a string for CSV
-      const hands = Object.entries(deal.deal)
-        .map(
-          ([direction, hand]) =>
-            `${direction}: ${Object.entries(hand)
-              .map(([suit, ranks]) => `${suit}(${ranks.join('')})`)
-              .join(' ')}`
-        )
-        .join('; ');
-      return `"${deal.dealId}","${deal.algo}","${deal.description}","${hands}"`;
+      const handsData = [
+        `${Suit.Spades} ${deal.deal[Hand.North][Suit.Spades].join(' ')}`,
+        `${Suit.Hearts} ${deal.deal[Hand.North][Suit.Hearts].join(' ')}`,
+        `${Suit.Diamonds} ${deal.deal[Hand.North][Suit.Diamonds].join(' ')}`,
+        `${Suit.Clubs} ${deal.deal[Hand.North][Suit.Clubs].join(' ')}`,
+        `${Suit.Spades} ${deal.deal[Hand.East][Suit.Spades].join(' ')}`,
+        `${Suit.Hearts} ${deal.deal[Hand.East][Suit.Hearts].join(' ')}`,
+        `${Suit.Diamonds} ${deal.deal[Hand.East][Suit.Diamonds].join(' ')}`,
+        `${Suit.Clubs} ${deal.deal[Hand.East][Suit.Clubs].join(' ')}`,
+        `${Suit.Spades} ${deal.deal[Hand.South][Suit.Spades].join(' ')}`,
+        `${Suit.Hearts} ${deal.deal[Hand.South][Suit.Hearts].join(' ')}`,
+        `${Suit.Diamonds} ${deal.deal[Hand.South][Suit.Diamonds].join(' ')}`,
+        `${Suit.Clubs} ${deal.deal[Hand.South][Suit.Clubs].join(' ')}`,
+        `${Suit.Spades} ${deal.deal[Hand.West][Suit.Spades].join(' ')}`,
+        `${Suit.Hearts} ${deal.deal[Hand.West][Suit.Hearts].join(' ')}`,
+        `${Suit.Diamonds} ${deal.deal[Hand.West][Suit.Diamonds].join(' ')}`,
+        `${Suit.Clubs} ${deal.deal[Hand.West][Suit.Clubs].join(' ')}`,
+      ];
+      return [
+        deal.dealId,
+        deal.algo,
+        deal.description,
+        ...handsData,
+      ]
+        .map(field => `"${field}"`) // Quote each field
+        .join(',');
     });
+
     return [headers.join(','), ...rows].join('\n');
   },
 
-  toTEXT: (deals: StoredDeal[]) => {
+  toTEXT: (deals: StoredDeal[]) => {  // Outputs suits using a suit symbol 
     // Export as readable text
     return deals
       .map(
