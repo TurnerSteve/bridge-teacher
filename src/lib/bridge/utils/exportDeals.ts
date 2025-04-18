@@ -1,8 +1,10 @@
-import { Direction, Suit } from "@/lib/enums";
-import { StoredDeal } from "@/lib/types";
+import { DefaultSeparators, Direction, Suit } from "@/lib/enums";
+import {  Separators, StoredDeal } from "@/lib/types";
 import getTrayInfo, { LookupEntry } from "./getTrayInfo";
+import { stringifyDeal } from "./stringify";
 
 export const exportDeals = {
+
   toJSON: (deals: StoredDeal[]) => {
     return deals
       .map((deal) => {
@@ -94,22 +96,15 @@ export const exportDeals = {
   },
 
   toBRI: (deals: StoredDeal[]) => {
-    // Basic - space separated without Board no.
-    return deals.map((deal) => `${deal.dealId}|${formatDeal(deal, "|")}`).join("\n");
+    return  deals.map((deal) => formatBRIDeal(deal)).join('\n')
   },
 
   toDGE: (deals: StoredDeal[]) => {
-    // Board no. and "space" separated
-    return deals
-      .map((deal) => `${deal.dealId} ${formatDeal(deal, " ")}`)
-      .join("\n");
+    return  deals.map((deal) => formatDGEDeal(deal)).join('\n')
   },
 
   toDUP: (deals: StoredDeal[]) => {
-    // Board no. and "Pipe" separated
-    return deals
-      .map((deal) => `${formatDeal(deal, "|")}`)
-      .join("\n");
+    return  deals.map((deal) => formatDUPDeal(deal)).join('\n')
   },
 
   toXML: (deals: StoredDeal[]) => {
@@ -157,21 +152,37 @@ export const exportDeals = {
   },
 
   toPBN: (deals: StoredDeal[]) => {
-    // Export as PBN
+
     return deals
-      .map((deal) => {
-        const hands = Object.entries(deal.deal)
-          .map(
-            ([direction, hand]) =>
-              `${direction}` + // Should not be here
-              Object.entries(hand)
-                .map(([suit, ranks]) => `${suit}(${ranks.join("")})`)
-                .join(" ")
-          )
-          .join("; ");
-        return `[Deal "${deal.dealId}"]\n[Algo "${deal.algo}"]\n[Description "${deal.description}"]\n${hands}`;
+      .map(deal => {
+        const entry: LookupEntry = getTrayInfo(deal.dealId); // Gets the dealer and vul
+        const nCards = deal.deal.N["♠"];
+        const eCards = deal.deal.E["♥"];
+        const sCards = deal.deal.S["♦"];
+        const wCards = deal.deal.W["♣"];
+        console.log("N",deal.deal.N, nCards)
+        console.log("E",deal.deal.E, eCards)
+        console.log("S",deal.deal.S, sCards)
+        console.log("W",deal.deal.W, wCards)
+
+        // Metadata for the deal (customize as needed)
+        const metadata = [
+          `[Event "Sample Event"]`,
+          `[Site "Sample Site"]`,
+          `[Date "2025.04.17"]`,
+          `[Board "${deal.dealId}"]`,
+          `[Dealer ${entry.dealer}]`, // Assign dealer (modify if dynamically set)
+          `[Vulnerable ${entry.vulnerability}]`, // Assign vulnerability (modify if dynamically set)
+          `[Deal "N:${formatHand(deal.deal.N)} ${formatHand(deal.deal.E)} ${formatHand(deal.deal.S)} ${formatHand(deal.deal.W)}"]`,
+          `[Scoring "IMP"]`,
+          `[Declarer ""]`,
+          `[Contract ""]`,
+          `[Result ""]`
+        ];
+
+        return metadata.join('\n') + '\n';
       })
-      .join("\n\n");
+      .join('\n'); // Separate deals with a blank line
   },
 
   toLIN: (deals: StoredDeal[]) => {
@@ -191,8 +202,21 @@ export const exportDeals = {
       })
       .join("\n");
   },
+
 };
 
+/**
+ * Helper function to format a single hand for PBN notation.
+ * @param hand The hand object (North, East, South, West).
+ * @returns A formatted string in PBN notation.
+ */
+const formatHand = (hand: { [key: string]: string[] }): string => {
+  return ['Spades', 'Hearts', 'Diamonds', 'Clubs']
+    .map(suit => (hand[suit] ? hand[suit].join('') : '-')) // Join cards in each suit or use "-" if empty
+    .join('.');
+};
+
+  
 /**
  * Formats a single deal into a string with Dealer and Vulnerability at the front.
  * @param deal The single deal to format.
@@ -200,7 +224,7 @@ export const exportDeals = {
  * @returns A formatted string for the deal.
  */
 
-const formatDeal = (deal: StoredDeal, separator: " " | "|"): string => {
+export const formatDeal = (deal: StoredDeal, separator: " " | "|"): string => {
   const entry: LookupEntry = getTrayInfo(deal.dealId); // Gets the dealer and vul
   const dealer = entry.dealer;
   const vulnerability = entry.vulnerability;
@@ -218,3 +242,88 @@ const formatDeal = (deal: StoredDeal, separator: " " | "|"): string => {
   // Combine dealer, vulnerability, and hands into a single string
   return `${dealer}${separator}${vulnerability}${separator}${hands}`;
 };
+
+// Default method. Converts a stored deal into a string representation
+// with default delimiters and separators. 
+
+
+
+export function processStoredDeal(
+  storedDeal: StoredDeal,
+  delimiters: string,
+  separators: Separators = {
+    cardSeparator: DefaultSeparators.CardSeparator,
+    suitSeparator: DefaultSeparators.SuitSeparator,
+    handSeparator: DefaultSeparators.HandSeparator,
+  }
+): string {
+  const { dealId, algo, description, deal } = storedDeal;
+
+  // Start with dealId, algo, and description
+  const parts: string[] = [dealId.toString(), algo.toString(), description];
+
+  // Add the stringified deal
+  const dealString = stringifyDeal(deal, separators);
+  parts.push(dealString);
+
+  // Join all parts with the provided delimiter
+  return parts.join(delimiters);
+}
+
+
+
+// DUP has no board number - a raw deal
+// DUP ... Dealer Vul + PIPE separated hands
+export function formatDUPDeal(storedDeal: StoredDeal) : string {
+
+  const separators = {cardSeparator: '', suitSeparator: '.', handSeparator: '|'};
+
+  const { dealId, deal} = storedDeal;
+  const entry: LookupEntry = getTrayInfo(dealId); // Gets the dealer and vul
+
+  // Start with dealId, algo, and description
+  const parts: string[] = [];
+  parts.push(entry.dealer);
+  parts.push(entry.vulnerability);
+  parts.push(stringifyDeal(deal, separators));
+
+  // Join all parts with the provided delimiter
+  return parts.join('|');
+}
+
+// DGE and BRI both have a board number
+// DGE ... Board Dealer Vul + SPACE separated hands
+export function formatDGEDeal(storedDeal: StoredDeal) : string {
+
+  const separators = {cardSeparator: '', suitSeparator: '.', handSeparator: ' '};
+
+  const { dealId, deal} = storedDeal;
+  const entry: LookupEntry = getTrayInfo(dealId); // Gets the dealer and vul
+
+  // Start with dealId, algo, and description
+  const parts: string[] = [dealId.toString()];
+  parts.push(entry.dealer);
+  parts.push(entry.vulnerability);
+  parts.push(stringifyDeal(deal, separators));
+
+  // Join all parts with the provided delimiter
+  return parts.join(' ');
+}
+
+// BRI ... Board Dealer Vul + PIPE separated hands
+export function formatBRIDeal(storedDeal: StoredDeal) : string {
+
+  const separators = {cardSeparator: '', suitSeparator: '.', handSeparator: '|'};
+
+  const { dealId, deal} = storedDeal;
+  const entry: LookupEntry = getTrayInfo(dealId); // Gets the dealer and vul
+
+  // Start with dealId, algo, and description
+  const parts: string[] = [dealId.toString()];
+  parts.push(entry.dealer);
+  parts.push(entry.vulnerability);
+  parts.push(stringifyDeal(deal, separators));
+
+  // Join all parts with the provided delimiter
+  return parts.join('|');
+}

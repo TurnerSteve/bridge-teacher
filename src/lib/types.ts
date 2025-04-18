@@ -1,18 +1,17 @@
-
-import { Direction, Rank, Suit, Algo} from "./enums";
+import { Direction, Rank, Suit, Algo } from "./enums";
 type HandStruct = {
-    [Suit.Spades]: Rank[];
-    [Suit.Hearts]: Rank[];
-    [Suit.Diamonds]: Rank[];
-    [Suit.Clubs]: Rank[];
-  }
-  
+  [Suit.Spades]: Rank[];
+  [Suit.Hearts]: Rank[];
+  [Suit.Diamonds]: Rank[];
+  [Suit.Clubs]: Rank[];
+};
+
 type DealStruct = {
-    [Direction.North]: HandStruct;
-    [Direction.East]: HandStruct;
-    [Direction.South]: HandStruct;
-    [Direction.West]: HandStruct;
-}
+  [Direction.North]: HandStruct;
+  [Direction.East]: HandStruct;
+  [Direction.South]: HandStruct;
+  [Direction.West]: HandStruct;
+};
 
 type DealResult = {
   algo: Algo;
@@ -27,9 +26,17 @@ type StoredDeal = {
   deal: DealStruct;
 };
 
-export type {HandStruct, DealStruct, DealResult, StoredDeal}
+// Type for separators
+type Separators = {
+  cardSeparator: string;
+  suitSeparator: string;
+  handSeparator: string;
+};
 
-export type DealStructure =  Record<Direction, Record<Suit, Rank[]>> 
+
+export type { Separators, HandStruct, DealStruct, DealResult, StoredDeal };
+
 // Not sure about having Dealstruct and Dealstructure
 // Should only use one of them but this is to get Typescript working
 // The important theing is that all information is enumerated.
+ 

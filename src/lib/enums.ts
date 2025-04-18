@@ -51,6 +51,13 @@ enum Suit {
   Clubs = "♣"     // Suit symbol for Clubs
 }
 
+// Enum for default separators
+export enum DefaultSeparators {
+  CardSeparator = '',
+  SuitSeparator = '.',
+  HandSeparator = '|',
+}
+
 enum Rank {
     ACE = 'A',
     KING = 'K',
