@@ -1,4 +1,4 @@
-import { Direction, Rank, Suit, Algo } from "./enums";
+import { Direction, Rank, Suit, Algo} from "./enums";
 type HandStruct = {
   [Suit.Spades]: Rank[];
   [Suit.Hearts]: Rank[];
@@ -33,8 +33,11 @@ type Separators = {
   handSeparator: string;
 };
 
+type SuitFormat = "PBN" | "LIN" | "DUP" | "BRI" | "DGE";
 
-export type { Separators, HandStruct, DealStruct, DealResult, StoredDeal };
+export type { HandStruct, DealStruct, DealResult, StoredDeal };
+export type { SuitFormat, Separators};
+
 
 // Not sure about having Dealstruct and Dealstructure
 // Should only use one of them but this is to get Typescript working

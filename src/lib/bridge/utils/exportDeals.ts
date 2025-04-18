@@ -1,7 +1,7 @@
-import { DefaultSeparators, Direction, Suit } from "@/lib/enums";
-import {  Separators, StoredDeal } from "@/lib/types";
+import { Direction, Suit } from "@/lib/enums";
+import { StoredDeal } from "@/lib/types";
 import getTrayInfo, { LookupEntry } from "./getTrayInfo";
-import { stringifyDeal } from "./stringify";
+import { stringifyDeal } from "./stringifyDeal";
 
 export const exportDeals = {
 
@@ -156,14 +156,8 @@ export const exportDeals = {
     return deals
       .map(deal => {
         const entry: LookupEntry = getTrayInfo(deal.dealId); // Gets the dealer and vul
-        const nCards = deal.deal.N["♠"];
-        const eCards = deal.deal.E["♥"];
-        const sCards = deal.deal.S["♦"];
-        const wCards = deal.deal.W["♣"];
-        console.log("N",deal.deal.N, nCards)
-        console.log("E",deal.deal.E, eCards)
-        console.log("S",deal.deal.S, sCards)
-        console.log("W",deal.deal.W, wCards)
+        const separators = {cardSeparator: '', suitSeparator: '.', handSeparator: ' '};
+        const dealString = stringifyDeal(deal.deal, separators, "PBN");
 
         // Metadata for the deal (customize as needed)
         const metadata = [
@@ -173,7 +167,7 @@ export const exportDeals = {
           `[Board "${deal.dealId}"]`,
           `[Dealer ${entry.dealer}]`, // Assign dealer (modify if dynamically set)
           `[Vulnerable ${entry.vulnerability}]`, // Assign vulnerability (modify if dynamically set)
-          `[Deal "N:${formatHand(deal.deal.N)} ${formatHand(deal.deal.E)} ${formatHand(deal.deal.S)} ${formatHand(deal.deal.W)}"]`,
+          `[Deal "${entry.dealer}:${dealString}"]`,
           `[Scoring "IMP"]`,
           `[Declarer ""]`,
           `[Contract ""]`,
@@ -204,72 +198,6 @@ export const exportDeals = {
   },
 
 };
-
-/**
- * Helper function to format a single hand for PBN notation.
- * @param hand The hand object (North, East, South, West).
- * @returns A formatted string in PBN notation.
- */
-const formatHand = (hand: { [key: string]: string[] }): string => {
-  return ['Spades', 'Hearts', 'Diamonds', 'Clubs']
-    .map(suit => (hand[suit] ? hand[suit].join('') : '-')) // Join cards in each suit or use "-" if empty
-    .join('.');
-};
-
-  
-/**
- * Formats a single deal into a string with Dealer and Vulnerability at the front.
- * @param deal The single deal to format.
- * @param separator The separator to use between fields (" " or "|").
- * @returns A formatted string for the deal.
- */
-
-export const formatDeal = (deal: StoredDeal, separator: " " | "|"): string => {
-  const entry: LookupEntry = getTrayInfo(deal.dealId); // Gets the dealer and vul
-  const dealer = entry.dealer;
-  const vulnerability = entry.vulnerability;
-
-  // Format hands: Spades, Hearts, Diamonds, Clubs concatenated with "."
-  const hands = Object.entries(deal.deal)
-    .map(
-      ([, hand]) =>
-        Object.values(hand)
-          .map((suit) => suit.join("")) // Join ranks for each suit
-          .join(".") // Separate suits with "."
-    )
-    .join(separator); // Separate hands with the provided separator
-
-  // Combine dealer, vulnerability, and hands into a single string
-  return `${dealer}${separator}${vulnerability}${separator}${hands}`;
-};
-
-// Default method. Converts a stored deal into a string representation
-// with default delimiters and separators. 
-
-
-
-export function processStoredDeal(
-  storedDeal: StoredDeal,
-  delimiters: string,
-  separators: Separators = {
-    cardSeparator: DefaultSeparators.CardSeparator,
-    suitSeparator: DefaultSeparators.SuitSeparator,
-    handSeparator: DefaultSeparators.HandSeparator,
-  }
-): string {
-  const { dealId, algo, description, deal } = storedDeal;
-
-  // Start with dealId, algo, and description
-  const parts: string[] = [dealId.toString(), algo.toString(), description];
-
-  // Add the stringified deal
-  const dealString = stringifyDeal(deal, separators);
-  parts.push(dealString);
-
-  // Join all parts with the provided delimiter
-  return parts.join(delimiters);
-}
-
 
 
 // DUP has no board number - a raw deal
