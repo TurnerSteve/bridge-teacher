@@ -2,7 +2,7 @@ import { Char, Direction, FileType, Suit } from "@/lib/enums";
 import { StoredDeal } from "@/lib/types";
 import getTrayInfo, { LookupEntry } from "./getTrayInfo";
 import { stringifyDeal } from "./stringifyDeal";
-import { Cardinal } from "@/lib/constants";
+import { Cardinal, SuitSymbol } from "@/lib/constants";
 
 export const exportDeals = {
   toJSON: (deals: StoredDeal[]) => {
@@ -87,7 +87,7 @@ export const exportDeals = {
               ([direction, hand]) =>
                 `${direction}:\n` +
                 Object.entries(hand)
-                  .map(([suit, ranks]) => `  ${suit}: ${ranks.join(" ")}`)
+                  .map(([suit, ranks]) => `  ${SuitSymbol[suit as keyof typeof SuitSymbol]}: ${ranks.join(" ")}`)
                   .join("\n")
             )
             .join("\n")

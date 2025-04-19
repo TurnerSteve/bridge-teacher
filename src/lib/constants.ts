@@ -45,7 +45,7 @@ const createEmptyDealStruct = (): DealStruct => ({
 
 
 
-// Define an enumerated type for suits
+
 export const SuitSymbol = {
   [Suit.SPADES] : '♠',
   [Suit.HEARTS] : '♥',
@@ -53,7 +53,6 @@ export const SuitSymbol = {
   [Suit.CLUBS] : '♣'
 }
 
-// Enum for Suits (with suit icons)
 export const  SuitLetter ={
   [Suit.SPADES] : 'S',
   [Suit.HEARTS] : 'H',
@@ -61,8 +60,7 @@ export const  SuitLetter ={
   [Suit.CLUBS] : 'C'
 }
 
-// Enum for Suits (with suit icons)
-export const  Cardinal ={
+export const  Cardinal = {
   [Direction.NORTH] : 'N',
   [Direction.SOUTH] : 'S',
   [Direction.EAST] : 'E',
