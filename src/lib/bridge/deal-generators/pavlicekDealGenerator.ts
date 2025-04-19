@@ -75,7 +75,7 @@ function rpDecoder(slots: number[], codePage: bigint): Direction[] {
       // Found in Quadrant 1
       slotsRemaining[0]--;
       K = X1;
-      directionAssignments[index] = Direction.North;
+      directionAssignments[index] = Direction.NORTH;
       continue;
     }
 
@@ -85,7 +85,7 @@ function rpDecoder(slots: number[], codePage: bigint): Direction[] {
       // Found in Quadrant 2
       slotsRemaining[1]--;
       K = X2;
-      directionAssignments[index] = Direction.East;
+      directionAssignments[index] = Direction.EAST;
       continue;
     }
 
@@ -95,7 +95,7 @@ function rpDecoder(slots: number[], codePage: bigint): Direction[] {
       // Found in Quadrant 3
       slotsRemaining[2]--;
       K = X3;
-      directionAssignments[index] = Direction.South;
+      directionAssignments[index] = Direction.SOUTH;
       continue;
     }
     // Default to Quadrant 4
@@ -103,7 +103,7 @@ function rpDecoder(slots: number[], codePage: bigint): Direction[] {
     pageIndex -= X3;
     slotsRemaining[3]--;
     K = X4;
-    directionAssignments[index] = Direction.West;
+    directionAssignments[index] = Direction.WEST;
   }
 
   return directionAssignments;

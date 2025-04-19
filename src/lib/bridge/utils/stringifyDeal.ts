@@ -1,33 +1,33 @@
-import { Direction, Rank, Suit } from "@/lib/enums";
-import { DealStruct, HandStruct, Separators, SuitFormat } from "@/lib/types";
+import { Char, Direction, FileType, Rank, Suit } from "@/lib/enums";
+import { DealStruct, HandStruct, Separators } from "@/lib/types";
 
-// Updated stringifyDeal using handSeparator
+// Updated stringifyDeal using handSeparator and FileType
 export function stringifyDeal(
   deal: DealStruct,
   separators: Separators,
-  suitFormat?: SuitFormat,
+  fileType?: FileType
 ): string {
   const directions = [
-    Direction.North,
-    Direction.East,
-    Direction.South,
-    Direction.West,
+    Direction.NORTH,
+    Direction.EAST,
+    Direction.SOUTH,
+    Direction.WEST,
   ];
   return directions
-    .map((direction) => stringifyHand(deal[direction], separators, suitFormat))
+    .map((direction) => stringifyHand(deal[direction], separators, fileType))
     .join(separators.handSeparator);
 }
 
-// Updated stringifyHand using suitSeparator
+// Updated stringifyHand using suitSeparator and SuitType
 function stringifyHand(
   hand: HandStruct,
   separators: Separators,
-  suitFormat?: SuitFormat
+  fileType?: FileType
 ): string {
-  const suits = [Suit.Spades, Suit.Hearts, Suit.Diamonds, Suit.Clubs];
+  const suits = [Suit.SPADES, Suit.HEARTS, Suit.DIAMONDS, Suit.CLUBS];
   return suits
     .map((suit) =>
-      stringifySuit(hand[suit], separators.cardSeparator, suitFormat)
+      stringifySuit(hand[suit], separators.cardSeparator, fileType)
     )
     .join(separators.suitSeparator);
 }
@@ -35,10 +35,10 @@ function stringifyHand(
 // Function to stringify a single suit
 function stringifySuit(
   ranks: Rank[],
-  cardSeparator: string,
-  suitFormat?: SuitFormat
+  cardSeparator: Char,
+  fileType?: FileType
 ): string {
-  if (suitFormat === "PBN" && ranks.length === 0) {
+  if (fileType === FileType.PBN && ranks.length === 0) {
     return "-"; // Return "-" if suitFormat is PBN and the ranks array is empty
   }
   return ranks.join(cardSeparator); // Join ranks using the provided cardSeparator

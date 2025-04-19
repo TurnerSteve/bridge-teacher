@@ -21,11 +21,11 @@ export function CentreBoard(props: Props) {
   // Determine arrow visibility and color based on dealer and vulnerability
   const getArrow = () => {
     const color =
-      (dealer === Direction.North || dealer === Direction.South) &&
-      (vul === Vulnerability.NS || vul === Vulnerability.Both)
+      (dealer === Direction.NORTH || dealer === Direction.SOUTH) &&
+      (vul === Vulnerability.NS || vul === Vulnerability.ALL)
         ? "red"
-        : (dealer === Direction.East || dealer === Direction.West) &&
-          (vul === Vulnerability.EW || vul === Vulnerability.Both)
+        : (dealer === Direction.EAST || dealer === Direction.WEST) &&
+          (vul === Vulnerability.EW || vul === Vulnerability.ALL)
         ? "red"
         : "green";
 
@@ -36,10 +36,10 @@ export function CentreBoard(props: Props) {
     };
 
     switch (dealer) {
-      case Direction.North : return <polygon points="50,12 70,25 30,25" {...arrowProps} />;
-      case Direction.East  : return <polygon points="88,50 75,30 75,70" {...arrowProps} />;
-      case Direction.South : return <polygon points="50,88 70,75 30,75" {...arrowProps} />;
-      case Direction.West  : return <polygon points="12,50 25,30 25,70" {...arrowProps} />;
+      case Direction.NORTH : return <polygon points="50,12 70,25 30,25" {...arrowProps} />;
+      case Direction.EAST  : return <polygon points="88,50 75,30 75,70" {...arrowProps} />;
+      case Direction.SOUTH : return <polygon points="50,88 70,75 30,75" {...arrowProps} />;
+      case Direction.WEST  : return <polygon points="12,50 25,30 25,70" {...arrowProps} />;
       default:
         return null;
     }
@@ -48,16 +48,16 @@ export function CentreBoard(props: Props) {
   // Determine the perimeter color and text based on vulnerability
   const getPerimeter = () => {
     const nsColor =
-      vul === Vulnerability.NS || vul === Vulnerability.Both ? "red" : "green";
+      vul === Vulnerability.NS || vul === Vulnerability.ALL ? "red" : "green";
     const ewColor =
-      vul === Vulnerability.EW || vul === Vulnerability.Both ? "red" : "green";
+      vul === Vulnerability.EW || vul === Vulnerability.ALL ? "red" : "green";
 
     return (
       <>
         {/* North and South Perimeters */}
         <rect x="0" y="0" width="100" height="10" fill={nsColor} />
         <rect x="0" y="90" width="100" height="10" fill={nsColor} />
-        {dealer === Direction.North && (
+        {dealer === Direction.NORTH && (
           <text
             x="50"
             y="8"
@@ -69,7 +69,7 @@ export function CentreBoard(props: Props) {
             DEALER
           </text>
         )}
-        {dealer === Direction.South && (
+        {dealer === Direction.SOUTH && (
           <text
             x="50"
             y="98"
@@ -85,7 +85,7 @@ export function CentreBoard(props: Props) {
         {/* East and West Perimeters */}
         <rect x="90" y="0" width="10" height="100" fill={ewColor} />
         <rect x="0" y="0" width="10" height="100" fill={ewColor} />
-        {dealer === Direction.East && (
+        {dealer === Direction.EAST && (
           <text
             x="95"
             y="50"
@@ -99,7 +99,7 @@ export function CentreBoard(props: Props) {
             DEALER
           </text>
         )}
-        {dealer === Direction.West && (
+        {dealer === Direction.WEST && (
           <text
             x="5"
             y="50"

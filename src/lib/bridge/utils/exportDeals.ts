@@ -1,10 +1,9 @@
-import { Direction, Suit } from "@/lib/enums";
+import { Char, Direction, FileType, Suit } from "@/lib/enums";
 import { StoredDeal } from "@/lib/types";
 import getTrayInfo, { LookupEntry } from "./getTrayInfo";
 import { stringifyDeal } from "./stringifyDeal";
 
 export const exportDeals = {
-
   toJSON: (deals: StoredDeal[]) => {
     return deals
       .map((deal) => {
@@ -42,30 +41,30 @@ export const exportDeals = {
 
     const rows = deals.map((deal) => {
       const handsData = [
-        `${Suit.Spades} ${deal.deal[Direction.North][Suit.Spades].join(" ")}`,
-        `${Suit.Hearts} ${deal.deal[Direction.North][Suit.Hearts].join(" ")}`,
-        `${Suit.Diamonds} ${deal.deal[Direction.North][Suit.Diamonds].join(
+        `${Suit.SPADES} ${deal.deal[Direction.NORTH][Suit.SPADES].join(" ")}`,
+        `${Suit.HEARTS} ${deal.deal[Direction.NORTH][Suit.HEARTS].join(" ")}`,
+        `${Suit.DIAMONDS} ${deal.deal[Direction.NORTH][Suit.DIAMONDS].join(
           " "
         )}`,
-        `${Suit.Clubs} ${deal.deal[Direction.North][Suit.Clubs].join(" ")}`,
-        `${Suit.Spades} ${deal.deal[Direction.East][Suit.Spades].join(" ")}`,
-        `${Suit.Hearts} ${deal.deal[Direction.East][Suit.Hearts].join(" ")}`,
-        `${Suit.Diamonds} ${deal.deal[Direction.East][Suit.Diamonds].join(
+        `${Suit.CLUBS} ${deal.deal[Direction.NORTH][Suit.CLUBS].join(" ")}`,
+        `${Suit.SPADES} ${deal.deal[Direction.EAST][Suit.SPADES].join(" ")}`,
+        `${Suit.HEARTS} ${deal.deal[Direction.EAST][Suit.HEARTS].join(" ")}`,
+        `${Suit.DIAMONDS} ${deal.deal[Direction.EAST][Suit.DIAMONDS].join(
           " "
         )}`,
-        `${Suit.Clubs} ${deal.deal[Direction.East][Suit.Clubs].join(" ")}`,
-        `${Suit.Spades} ${deal.deal[Direction.South][Suit.Spades].join(" ")}`,
-        `${Suit.Hearts} ${deal.deal[Direction.South][Suit.Hearts].join(" ")}`,
-        `${Suit.Diamonds} ${deal.deal[Direction.South][Suit.Diamonds].join(
+        `${Suit.CLUBS} ${deal.deal[Direction.EAST][Suit.CLUBS].join(" ")}`,
+        `${Suit.SPADES} ${deal.deal[Direction.SOUTH][Suit.SPADES].join(" ")}`,
+        `${Suit.HEARTS} ${deal.deal[Direction.SOUTH][Suit.HEARTS].join(" ")}`,
+        `${Suit.DIAMONDS} ${deal.deal[Direction.SOUTH][Suit.DIAMONDS].join(
           " "
         )}`,
-        `${Suit.Clubs} ${deal.deal[Direction.South][Suit.Clubs].join(" ")}`,
-        `${Suit.Spades} ${deal.deal[Direction.West][Suit.Spades].join(" ")}`,
-        `${Suit.Hearts} ${deal.deal[Direction.West][Suit.Hearts].join(" ")}`,
-        `${Suit.Diamonds} ${deal.deal[Direction.West][Suit.Diamonds].join(
+        `${Suit.CLUBS} ${deal.deal[Direction.SOUTH][Suit.CLUBS].join(" ")}`,
+        `${Suit.SPADES} ${deal.deal[Direction.WEST][Suit.SPADES].join(" ")}`,
+        `${Suit.HEARTS} ${deal.deal[Direction.WEST][Suit.HEARTS].join(" ")}`,
+        `${Suit.DIAMONDS} ${deal.deal[Direction.WEST][Suit.DIAMONDS].join(
           " "
         )}`,
-        `${Suit.Clubs} ${deal.deal[Direction.West][Suit.Clubs].join(" ")}`,
+        `${Suit.CLUBS} ${deal.deal[Direction.WEST][Suit.CLUBS].join(" ")}`,
       ];
       return [deal.dealId, deal.algo, deal.description, ...handsData]
         .map((field) => `"${field}"`) // Quote each field
@@ -96,15 +95,15 @@ export const exportDeals = {
   },
 
   toBRI: (deals: StoredDeal[]) => {
-    return  deals.map((deal) => formatBRIDeal(deal)).join('\n')
+    return deals.map((deal) => formatBRIDeal(deal)).join("\n");
   },
 
   toDGE: (deals: StoredDeal[]) => {
-    return  deals.map((deal) => formatDGEDeal(deal)).join('\n')
+    return deals.map((deal) => formatDGEDeal(deal)).join("\n");
   },
 
   toDUP: (deals: StoredDeal[]) => {
-    return  deals.map((deal) => formatDUPDeal(deal)).join('\n')
+    return deals.map((deal) => formatDUPDeal(deal)).join("\n");
   },
 
   toXML: (deals: StoredDeal[]) => {
@@ -152,12 +151,15 @@ export const exportDeals = {
   },
 
   toPBN: (deals: StoredDeal[]) => {
-
     return deals
-      .map(deal => {
+      .map((deal) => {
         const entry: LookupEntry = getTrayInfo(deal.dealId); // Gets the dealer and vul
-        const separators = {cardSeparator: '', suitSeparator: '.', handSeparator: ' '};
-        const dealString = stringifyDeal(deal.deal, separators, "PBN");
+        const separators = {
+          cardSeparator: Char.NONE,
+          suitSeparator: Char.DOT,
+          handSeparator: Char.NONE,
+        };
+        const dealString = stringifyDeal(deal.deal, separators, FileType.PBN);
 
         // Metadata for the deal (customize as needed)
         const metadata = [
@@ -171,12 +173,12 @@ export const exportDeals = {
           `[Scoring "IMP"]`,
           `[Declarer ""]`,
           `[Contract ""]`,
-          `[Result ""]`
+          `[Result ""]`,
         ];
 
-        return metadata.join('\n') + '\n';
+        return metadata.join("\n") + "\n";
       })
-      .join('\n'); // Separate deals with a blank line
+      .join("\n"); // Separate deals with a blank line
   },
 
   toLIN: (deals: StoredDeal[]) => {
@@ -196,17 +198,18 @@ export const exportDeals = {
       })
       .join("\n");
   },
-
 };
-
 
 // DUP has no board number - a raw deal
 // DUP ... Dealer Vul + PIPE separated hands
-export function formatDUPDeal(storedDeal: StoredDeal) : string {
+export function formatDUPDeal(storedDeal: StoredDeal): string {
+  const separators = {
+    cardSeparator: Char.NONE,
+    suitSeparator: Char.DOT,
+    handSeparator: Char.PIPE,
+  };
 
-  const separators = {cardSeparator: '', suitSeparator: '.', handSeparator: '|'};
-
-  const { dealId, deal} = storedDeal;
+  const { dealId, deal } = storedDeal;
   const entry: LookupEntry = getTrayInfo(dealId); // Gets the dealer and vul
 
   // Start with dealId, algo, and description
@@ -216,16 +219,19 @@ export function formatDUPDeal(storedDeal: StoredDeal) : string {
   parts.push(stringifyDeal(deal, separators));
 
   // Join all parts with the provided delimiter
-  return parts.join('|');
+  return parts.join("|");
 }
 
 // DGE and BRI both have a board number
 // DGE ... Board Dealer Vul + SPACE separated hands
-export function formatDGEDeal(storedDeal: StoredDeal) : string {
+export function formatDGEDeal(storedDeal: StoredDeal): string {
+  const separators = {
+    cardSeparator: Char.NONE,
+    suitSeparator: Char.DOT,
+    handSeparator: Char.SPACE,
+  };
 
-  const separators = {cardSeparator: '', suitSeparator: '.', handSeparator: ' '};
-
-  const { dealId, deal} = storedDeal;
+  const { dealId, deal } = storedDeal;
   const entry: LookupEntry = getTrayInfo(dealId); // Gets the dealer and vul
 
   // Start with dealId, algo, and description
@@ -235,15 +241,18 @@ export function formatDGEDeal(storedDeal: StoredDeal) : string {
   parts.push(stringifyDeal(deal, separators));
 
   // Join all parts with the provided delimiter
-  return parts.join(' ');
+  return parts.join(" ");
 }
 
 // BRI ... Board Dealer Vul + PIPE separated hands
-export function formatBRIDeal(storedDeal: StoredDeal) : string {
+export function formatBRIDeal(storedDeal: StoredDeal): string {
+  const separators = {
+    cardSeparator: Char.NONE,
+    suitSeparator: Char.DOT,
+    handSeparator: Char.PIPE,
+  };
 
-  const separators = {cardSeparator: '', suitSeparator: '.', handSeparator: '|'};
-
-  const { dealId, deal} = storedDeal;
+  const { dealId, deal } = storedDeal;
   const entry: LookupEntry = getTrayInfo(dealId); // Gets the dealer and vul
 
   // Start with dealId, algo, and description
@@ -253,5 +262,5 @@ export function formatBRIDeal(storedDeal: StoredDeal) : string {
   parts.push(stringifyDeal(deal, separators));
 
   // Join all parts with the provided delimiter
-  return parts.join('|');
+  return parts.join("|");
 }

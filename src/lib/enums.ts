@@ -9,53 +9,61 @@ enum Algo
 }
 
 enum Direction {
-  North = "N",
-  East = "E",
-  South = "S",
-  West = "W"
+  NORTH = "North",
+  EAST = "East",
+  SOUTH = "South",
+  WEST = "West"
 }
-// enum DirectionString {
-//   North = "North",
-//   East = "East",
-//   South = "South",
-//   West = "West"
-// }
-
-// enum Hand{
-//   North = CompassPoint.North,
-//   East = CompassPoint.East,
-//   South = CompassPoint.South,
-//   West = CompassPoint.West
-// }
-
-// enum Dealer {
-//   North = Direction.North,
-//   East = Direction.East,
-//   South = Direction.South,
-//   West = Direction.West,
-// }
 
 // Define the enumerated types
 enum Vulnerability {
-  None = "None",
+  NONE = "None",
   NS = "NS",
   EW = "EW",
-  Both = "All",
+  ALL = "All",
 }
 
 // Enum for Suits (with suit icons)
 enum Suit {
-  Spades = "♠",   // Suit symbol for Spades
-  Hearts = "\u2665",   // Suit symbol for Hearts
-  Diamonds = "♦", // Suit symbol for Diamonds
-  Clubs = "♣"     // Suit symbol for Clubs
+  SPADES = "Spades",   // Suit symbol for Spades
+  HEARTS = "Hearts",   // Suit symbol for Hearts
+  DIAMONDS = "Diamonds", // Suit symbol for Diamonds
+  CLUBS = "Clubs"     // Suit symbol for Clubs
 }
 
-// Enum for default separators
-export enum DefaultSeparators {
-  CardSeparator = '',
-  SuitSeparator = '.',
-  HandSeparator = '|',
+
+// Define an enumerated type for separators
+export enum Char {
+  NONE = "",
+  COMMA = ",",
+  PIPE = "|",
+  SPACE = " ",
+  DOT = ".",
+  DASH = "-",
+  SLASH = "/",
+  COLON = ":",
+  SEMICOLON = ";",
+  UNDERLINE = "_",
+  EQUAL = "=",
+  PLUS = "+",
+  ASTERISK = "*",
+  EXCLAMATION = "!",
+  AT = "@",
+  PERCENT = "%",
+
+}
+
+// Define an enumerated type for file types
+export enum FileType {
+  PBN = "PBN",
+  LIN = "LIN",
+  CSV = "CSV",
+  XML = "XML",
+  TXT = "TXT",
+  JSON = "JSON",
+  DGE = "DGE",
+  BRI = "BRI",
+  DUP = "DUP"
 }
 
 enum Rank {

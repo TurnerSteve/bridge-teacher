@@ -1,16 +1,16 @@
-import { Direction, Rank, Suit, Algo} from "./enums";
+import { Direction, Rank, Suit, Algo, Char} from "./enums";
 type HandStruct = {
-  [Suit.Spades]: Rank[];
-  [Suit.Hearts]: Rank[];
-  [Suit.Diamonds]: Rank[];
-  [Suit.Clubs]: Rank[];
+  [Suit.SPADES]: Rank[];
+  [Suit.HEARTS]: Rank[];
+  [Suit.DIAMONDS]: Rank[];
+  [Suit.CLUBS]: Rank[];
 };
 
 type DealStruct = {
-  [Direction.North]: HandStruct;
-  [Direction.East]: HandStruct;
-  [Direction.South]: HandStruct;
-  [Direction.West]: HandStruct;
+  [Direction.NORTH]: HandStruct;
+  [Direction.EAST]: HandStruct;
+  [Direction.SOUTH]: HandStruct;
+  [Direction.WEST]: HandStruct;
 };
 
 type DealResult = {
@@ -26,20 +26,14 @@ type StoredDeal = {
   deal: DealStruct;
 };
 
-// Type for separators
-type Separators = {
-  cardSeparator: string;
-  suitSeparator: string;
-  handSeparator: string;
-};
-
-type SuitFormat = "PBN" | "LIN" | "DUP" | "BRI" | "DGE";
+// Updated Separators type to use the enumerated SeparatorType
+interface Separators {
+  handSeparator: Char;
+  suitSeparator: Char;
+  cardSeparator: Char;
+}
 
 export type { HandStruct, DealStruct, DealResult, StoredDeal };
-export type { SuitFormat, Separators};
+export type { Separators};
 
-
-// Not sure about having Dealstruct and Dealstructure
-// Should only use one of them but this is to get Typescript working
-// The important theing is that all information is enumerated.
  
