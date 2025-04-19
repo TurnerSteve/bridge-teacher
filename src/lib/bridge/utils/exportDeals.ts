@@ -2,6 +2,7 @@ import { Char, Direction, FileType, Suit } from "@/lib/enums";
 import { StoredDeal } from "@/lib/types";
 import getTrayInfo, { LookupEntry } from "./getTrayInfo";
 import { stringifyDeal } from "./stringifyDeal";
+import { Cardinal } from "@/lib/constants";
 
 export const exportDeals = {
   toJSON: (deals: StoredDeal[]) => {
@@ -157,19 +158,23 @@ export const exportDeals = {
         const separators = {
           cardSeparator: Char.NONE,
           suitSeparator: Char.DOT,
-          handSeparator: Char.NONE,
+          handSeparator: Char.SPACE,
         };
         const dealString = stringifyDeal(deal.deal, separators, FileType.PBN);
+
+        const dealer = Cardinal[entry.dealer as keyof typeof Cardinal];
+        const vul = entry.vulnerability;
+        const board = deal.dealId;
 
         // Metadata for the deal (customize as needed)
         const metadata = [
           `[Event "Sample Event"]`,
           `[Site "Sample Site"]`,
           `[Date "2025.04.17"]`,
-          `[Board "${deal.dealId}"]`,
-          `[Dealer ${entry.dealer}]`, // Assign dealer (modify if dynamically set)
-          `[Vulnerable ${entry.vulnerability}]`, // Assign vulnerability (modify if dynamically set)
-          `[Deal "${entry.dealer}:${dealString}"]`,
+          `[Board "${board}"]`,
+          `[Dealer ${dealer}]`, // Assign dealer (modify if dynamically set)
+          `[Vulnerable ${vul}]`, // Assign vulnerability (modify if dynamically set)
+          `[Deal "${dealer}:${dealString}"]`,
           `[Scoring "IMP"]`,
           `[Declarer ""]`,
           `[Contract ""]`,

@@ -60,4 +60,13 @@ export const  SuitLetter ={
   [Suit.DIAMONDS] : 'D',
   [Suit.CLUBS] : 'C'
 }
+
+// Enum for Suits (with suit icons)
+export const  Cardinal ={
+  [Direction.NORTH] : 'N',
+  [Direction.SOUTH] : 'S',
+  [Direction.EAST] : 'E',
+  [Direction.WEST] : 'W'
+}
+
 export { createEmptyHandStruct, createEmptyDealStruct }

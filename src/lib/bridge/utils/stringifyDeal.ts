@@ -39,7 +39,7 @@ function stringifySuit(
   fileType?: FileType
 ): string {
   if (fileType === FileType.PBN && ranks.length === 0) {
-    return "-"; // Return "-" if suitFormat is PBN and the ranks array is empty
+    return ""; // Return "-" if suitFormat is PBN and the ranks array is empty
   }
   return ranks.join(cardSeparator); // Join ranks using the provided cardSeparator
 }
