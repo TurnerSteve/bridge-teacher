@@ -43,9 +43,6 @@ const createEmptyDealStruct = (): DealStruct => ({
   [Direction.WEST]: createEmptyHandStruct(),
 });
 
-
-
-
 export const SuitSymbol = {
   [Suit.SPADES] : '♠',
   [Suit.HEARTS] : '♥',

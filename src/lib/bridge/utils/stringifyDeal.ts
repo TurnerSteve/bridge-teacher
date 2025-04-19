@@ -1,3 +1,4 @@
+import { SuitLetter } from "@/lib/constants";
 import { Char, Direction, FileType, Rank, Suit } from "@/lib/enums";
 import { DealStruct, HandStruct, Separators } from "@/lib/types";
 
@@ -27,6 +28,7 @@ function stringifyHand(
   const suits = [Suit.SPADES, Suit.HEARTS, Suit.DIAMONDS, Suit.CLUBS];
   return suits
     .map((suit) =>
+      SuitLetter[suit] + 
       stringifySuit(hand[suit], separators.cardSeparator, fileType)
     )
     .join(separators.suitSeparator);
