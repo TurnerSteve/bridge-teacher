@@ -27,10 +27,10 @@ function stringifyHand(
 ): string {
   const suits = [Suit.SPADES, Suit.HEARTS, Suit.DIAMONDS, Suit.CLUBS];
   return suits
-    .map((suit) =>
-      SuitLetter[suit] + 
-      stringifySuit(hand[suit], separators.cardSeparator, fileType)
-    )
+    .map((suit) => {
+      const suitString = stringifySuit(hand[suit], separators.cardSeparator, fileType)
+      return (fileType === FileType.LIN) ? SuitLetter[suit] + suitString : suitString;
+    })
     .join(separators.suitSeparator);
 }
 

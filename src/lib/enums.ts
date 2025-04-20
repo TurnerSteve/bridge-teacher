@@ -71,7 +71,7 @@ enum Rank {
     KING = 'K',
     QUEEN = 'Q',
     JACK = 'J',
-    TEN = '10',
+    TEN = 'T',
     NINE = '9',
     EIGHT = '8',
     SEVEN = '7',
