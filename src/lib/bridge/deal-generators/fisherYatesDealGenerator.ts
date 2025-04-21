@@ -1,5 +1,5 @@
 import { createEmptyDealStruct, RankOrder } from "@/lib/constants";
-import { Algo, Hand, Suit, Rank, Direction } from "../../enums";
+import { Algo, Suit, Rank, Direction } from "@/lib/enums";
 import { DealResult, DealStruct } from "@/lib/types";
 
 export function generateDeal(slots: number[]): DealResult {
@@ -66,7 +66,7 @@ function sortDeal(deal: DealStruct): DealStruct {
   const sortedDeal: DealStruct = {} as DealStruct;
 
   for (const handKey in deal) {
-    const hand = handKey as Hand;
+    const hand = handKey as Direction;
     sortedDeal[hand] = {} as Record<Suit, Rank[]>;
 
     for (const suitKey in deal[hand]) {

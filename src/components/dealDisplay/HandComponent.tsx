@@ -1,6 +1,6 @@
 import { Direction, Rank, Suit } from "@/lib/enums";
 import { Card } from "../ui/card"; // Shadcn card
-import { SuitSymbol } from "@/lib/constants";
+import { suitSymbols } from "@/lib/constants";
 
 interface HandProps {
   direction: Direction;
@@ -25,7 +25,7 @@ export default function HandComponent({ direction, hand, showSuitSymbols = true 
             <div key={suit} className="flex items-center space-x-2">
               {showSuitSymbols && (
                 <div className={`${suitColors[suit as Suit]} w-3 text-lg`}>
-                  {SuitSymbol[suit as Suit] || "?"} {/* Display suit symbol */}
+                  {suitSymbols[suit as Suit] || "?"} {/* Display suit symbol */}
                 </div>
               )}
               <SuitComponent suit={suit as Suit} cards={cards} />

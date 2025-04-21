@@ -43,25 +43,92 @@ const createEmptyDealStruct = (): DealStruct => ({
   [Direction.WEST]: createEmptyHandStruct(),
 });
 
-export const SuitSymbol = {
-  [Suit.SPADES] : '♠',
-  [Suit.HEARTS] : '♥',
-  [Suit.DIAMONDS] : '♦',
-  [Suit.CLUBS] : '♣'
-}
+// Unicode suit symbols
+export const suitSymbols: Record<Suit, string> = {
+  [Suit.SPADES]: "♠",
+  [Suit.HEARTS]: "♥",
+  [Suit.DIAMONDS]: "♦",
+  [Suit.CLUBS]: "♣",
+};
 
-export const  SuitLetter ={
-  [Suit.SPADES] : 'S',
-  [Suit.HEARTS] : 'H',
-  [Suit.DIAMONDS] : 'D',
-  [Suit.CLUBS] : 'C'
-}
+// Unicode card icons
+export const cardUnicode: Record<Suit, Record<Rank, string>> = {
+  [Suit.SPADES]: {
+    [Rank.ACE]: "🂡",
+    [Rank.KING]: "🂮",
+    [Rank.QUEEN]: "🂭",
+    [Rank.JACK]: "🂫",
+    [Rank.TEN]: "🂪",
+    [Rank.NINE]: "🂩",
+    [Rank.EIGHT]: "🂨",
+    [Rank.SEVEN]: "🂧",
+    [Rank.SIX]: "🂦",
+    [Rank.FIVE]: "🂥",
+    [Rank.FOUR]: "🂤",
+    [Rank.THREE]: "🂣",
+    [Rank.TWO]: "🂢",
+  },
+  [Suit.HEARTS]: {
+    [Rank.ACE]: "🂱",
+    [Rank.KING]: "🂾",
+    [Rank.QUEEN]: "🂽",
+    [Rank.JACK]: "🂻",
+    [Rank.TEN]: "🂺",
+    [Rank.NINE]: "🂹",
+    [Rank.EIGHT]: "🂸",
+    [Rank.SEVEN]: "🂷",
+    [Rank.SIX]: "🂶",
+    [Rank.FIVE]: "🂵",
+    [Rank.FOUR]: "🂴",
+    [Rank.THREE]: "🂳",
+    [Rank.TWO]: "🂲",
+  },
+  [Suit.DIAMONDS]: {
+    [Rank.ACE]: "🃁",
+    [Rank.KING]: "🃎",
+    [Rank.QUEEN]: "🃍",
+    [Rank.JACK]: "🃋",
+    [Rank.TEN]: "🃊",
+    [Rank.NINE]: "🃉",
+    [Rank.EIGHT]: "🃈",
+    [Rank.SEVEN]: "🃇",
+    [Rank.SIX]: "🃆",
+    [Rank.FIVE]: "🃅",
+    [Rank.FOUR]: "🃄",
+    [Rank.THREE]: "🃃",
+    [Rank.TWO]: "🃂",
+  },
+  [Suit.CLUBS]: {
+    [Rank.ACE]: "🃑",
+    [Rank.KING]: "🃞",
+    [Rank.QUEEN]: "🃝",
+    [Rank.JACK]: "🃛",
+    [Rank.TEN]: "🃚",
+    [Rank.NINE]: "🃙",
+    [Rank.EIGHT]: "🃘",
+    [Rank.SEVEN]: "🃗",
+    [Rank.SIX]: "🃖",
+    [Rank.FIVE]: "🃕",
+    [Rank.FOUR]: "🃔",
+    [Rank.THREE]: "🃓",
+    [Rank.TWO]: "🃒",
+  },
+};
 
-export const  Cardinal = {
-  [Direction.NORTH] : 'N',
-  [Direction.SOUTH] : 'S',
-  [Direction.EAST] : 'E',
-  [Direction.WEST] : 'W'
-}
+// Display order for suits
+export const suitOrder: Suit[] = [
+  Suit.SPADES,
+  Suit.HEARTS,
+  Suit.DIAMONDS,
+  Suit.CLUBS,
+];
+
+// Display order for directions
+export const directions: Direction[] = [
+  Direction.NORTH,
+  Direction.EAST,
+  Direction.SOUTH,
+  Direction.WEST,
+];
 
 export { createEmptyHandStruct, createEmptyDealStruct }

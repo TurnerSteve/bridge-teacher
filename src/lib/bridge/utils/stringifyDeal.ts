@@ -1,4 +1,4 @@
-import { SuitLetter } from "@/lib/constants";
+
 import { Char, Direction, FileType, Rank, Suit } from "@/lib/enums";
 import { DealStruct, HandStruct, Separators } from "@/lib/types";
 
@@ -29,7 +29,7 @@ function stringifyHand(
   return suits
     .map((suit) => {
       const suitString = stringifySuit(hand[suit], separators.cardSeparator, fileType)
-      return (fileType === FileType.LIN) ? SuitLetter[suit] + suitString : suitString;
+      return (fileType === FileType.LIN) ? suit[0] + suitString : suitString; // First suit character S,H,D,C
     })
     .join(separators.suitSeparator);
 }

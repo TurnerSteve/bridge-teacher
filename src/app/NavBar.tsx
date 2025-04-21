@@ -40,6 +40,14 @@ export default function Navbar() {
           </li>
           <li>
             <Link
+              href="/single-deal-graphics"
+              className="hover:text-black transition-colors duration-200 items-center"
+            >
+              <MultiIcon />
+            </Link>
+          </li>
+          <li>
+            <Link
               href="/settings"
               className="hover:text-black transition-colors duration-200"
             >

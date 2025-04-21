@@ -19,15 +19,6 @@ function DealComponent() {
 
   const { dealingSlots } = useGlobalSettings();
 
-  // We probably dont need to do a deal here. Just initialise an empty deal
-  // useEffect(() => {
-
-  //   console.log(`The first deal is a partial "${Algo.PARTIAL}" of size [11,6,15,5]`);
-  //   const deal: DealResult = executeAlgo(Algo.PARTIAL, [11, 6, 9, 5]);
-  //   appendDeal(deal.algo, deal.description, deal.deal);
-
-  // }, []);
-
   if (!storedDeal) {
     return <div> Loading... </div>; // Render fallback UI ... Needs a Skeleton
   }

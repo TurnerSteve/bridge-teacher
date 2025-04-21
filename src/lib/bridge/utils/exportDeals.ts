@@ -2,7 +2,8 @@ import { Char, Direction, FileType, Suit } from "@/lib/enums";
 import { StoredDeal } from "@/lib/types";
 import getTrayInfo, { LookupEntry } from "./getTrayInfo";
 import { stringifyDeal } from "./stringifyDeal";
-import { Cardinal, SuitSymbol } from "@/lib/constants";
+import { suitSymbols} from "@/lib/constants";
+
 
 export const exportDeals = {
   toJSON: (deals: StoredDeal[]) => {
@@ -42,52 +43,52 @@ export const exportDeals = {
 
     const rows = deals.map((deal) => {
       const handsData = [
-        `${SuitSymbol[Suit.SPADES]} ${deal.deal[Direction.NORTH][
+        `${suitSymbols[Suit.SPADES]} ${deal.deal[Direction.NORTH][
           Suit.SPADES
         ].join(" ")}`,
-        `${SuitSymbol[Suit.HEARTS]} ${deal.deal[Direction.NORTH][
+        `${suitSymbols[Suit.HEARTS]} ${deal.deal[Direction.NORTH][
           Suit.HEARTS
         ].join(" ")}`,
-        `${SuitSymbol[Suit.DIAMONDS]} ${deal.deal[Direction.NORTH][
+        `${suitSymbols[Suit.DIAMONDS]} ${deal.deal[Direction.NORTH][
           Suit.DIAMONDS
         ].join(" ")}`,
-        `${SuitSymbol[Suit.CLUBS]} ${deal.deal[Direction.NORTH][
+        `${suitSymbols[Suit.CLUBS]} ${deal.deal[Direction.NORTH][
           Suit.CLUBS
         ].join(" ")}`,
-        `${SuitSymbol[Suit.SPADES]} ${deal.deal[Direction.EAST][
+        `${suitSymbols[Suit.SPADES]} ${deal.deal[Direction.EAST][
           Suit.SPADES
         ].join(" ")}`,
-        `${SuitSymbol[Suit.HEARTS]} ${deal.deal[Direction.EAST][
+        `${suitSymbols[Suit.HEARTS]} ${deal.deal[Direction.EAST][
           Suit.HEARTS
         ].join(" ")}`,
-        `${SuitSymbol[Suit.DIAMONDS]} ${deal.deal[Direction.EAST][
+        `${suitSymbols[Suit.DIAMONDS]} ${deal.deal[Direction.EAST][
           Suit.DIAMONDS
         ].join(" ")}`,
-        `${SuitSymbol[Suit.CLUBS]} ${deal.deal[Direction.EAST][Suit.CLUBS].join(
+        `${suitSymbols[Suit.CLUBS]} ${deal.deal[Direction.EAST][Suit.CLUBS].join(
           " "
         )}`,
-        `${SuitSymbol[Suit.SPADES]} ${deal.deal[Direction.SOUTH][
+        `${suitSymbols[Suit.SPADES]} ${deal.deal[Direction.SOUTH][
           Suit.SPADES
         ].join(" ")}`,
-        `${SuitSymbol[Suit.HEARTS]} ${deal.deal[Direction.SOUTH][
+        `${suitSymbols[Suit.HEARTS]} ${deal.deal[Direction.SOUTH][
           Suit.HEARTS
         ].join(" ")}`,
-        `${SuitSymbol[Suit.DIAMONDS]} ${deal.deal[Direction.SOUTH][
+        `${suitSymbols[Suit.DIAMONDS]} ${deal.deal[Direction.SOUTH][
           Suit.DIAMONDS
         ].join(" ")}`,
-        `${SuitSymbol[Suit.CLUBS]} ${deal.deal[Direction.SOUTH][
+        `${suitSymbols[Suit.CLUBS]} ${deal.deal[Direction.SOUTH][
           Suit.CLUBS
         ].join(" ")}`,
-        `${SuitSymbol[Suit.SPADES]} ${deal.deal[Direction.WEST][
+        `${suitSymbols[Suit.SPADES]} ${deal.deal[Direction.WEST][
           Suit.SPADES
         ].join(" ")}`,
-        `${SuitSymbol[Suit.HEARTS]} ${deal.deal[Direction.WEST][
+        `${suitSymbols[Suit.HEARTS]} ${deal.deal[Direction.WEST][
           Suit.HEARTS
         ].join(" ")}`,
-        `${SuitSymbol[Suit.DIAMONDS]} ${deal.deal[Direction.WEST][
+        `${suitSymbols[Suit.DIAMONDS]} ${deal.deal[Direction.WEST][
           Suit.DIAMONDS
         ].join(" ")}`,
-        `${SuitSymbol[Suit.CLUBS]} ${deal.deal[Direction.WEST][Suit.CLUBS].join(
+        `${suitSymbols[Suit.CLUBS]} ${deal.deal[Direction.WEST][Suit.CLUBS].join(
           " "
         )}`,
       ];
@@ -114,7 +115,7 @@ export const exportDeals = {
                   .map(
                     ([suit, ranks]) =>
                       `  ${
-                        SuitSymbol[suit as keyof typeof SuitSymbol]
+                        suitSymbols[suit as keyof typeof suitSymbols]
                       }: ${ranks.join(" ")}`
                   )
                   .join("\n")
@@ -191,7 +192,7 @@ export const exportDeals = {
         };
         const dealString = stringifyDeal(deal.deal, separators, FileType.PBN);
 
-        const dealer = Cardinal[entry.dealer as keyof typeof Cardinal];
+        const dealChar = entry.dealer[0]; // The first letter ie N,S,E,W
         const vul = entry.vulnerability;
         const board = deal.dealId;
 
@@ -201,9 +202,9 @@ export const exportDeals = {
           `[Site "Sample Site"]`,
           `[Date "2025.04.17"]`,
           `[Board "${board}"]`,
-          `[Dealer "${dealer}"]`, // Assign dealer (modify if dynamically set)
+          `[Dealer "${dealChar}"]`, // Assign dealer (modify if dynamically set)
           `[Vulnerable "${vul}"]`, // Assign vulnerability (modify if dynamically set)
-          `[Deal "${dealer}:${dealString}"]`,
+          `[Deal "${dealChar}:${dealString}"]`,
           `[Scoring "IMP"]`,
           `[Declarer ""]`,
           `[Contract ""]`,
@@ -267,11 +268,11 @@ export function formatDUPDeal(storedDeal: StoredDeal): string {
 
   const { dealId, deal } = storedDeal;
   const entry: LookupEntry = getTrayInfo(dealId); // Gets the dealer and vul
-  const dealer = Cardinal[entry.dealer as keyof typeof Cardinal];
+  const dealChar = entry.dealer[0];
 
   // Start with dealId, algo, and description
   const parts: string[] = [];
-  parts.push(dealer);
+  parts.push(dealChar);
   parts.push(entry.vulnerability);
   parts.push(stringifyDeal(deal, separators));
 
@@ -290,11 +291,11 @@ export function formatDGEDeal(storedDeal: StoredDeal): string {
 
   const { dealId, deal } = storedDeal;
   const entry: LookupEntry = getTrayInfo(dealId); // Gets the dealer and vul
-  const dealer = Cardinal[entry.dealer as keyof typeof Cardinal];
+  const dealChar = entry.dealer[0]; // The first letter ie N,S,E,W
 
   // Start with dealId, algo, and description
   const parts: string[] = [dealId.toString()];
-  parts.push(dealer);
+  parts.push(dealChar);
   parts.push(entry.vulnerability);
   parts.push(stringifyDeal(deal, separators));
 
@@ -312,11 +313,11 @@ export function formatBRIDeal(storedDeal: StoredDeal): string {
 
   const { dealId, deal } = storedDeal;
   const entry: LookupEntry = getTrayInfo(dealId); // Gets the dealer and vul
-  const dealer = Cardinal[entry.dealer as keyof typeof Cardinal];
+  const dealChar = entry.dealer[0];
 
   // Start with dealId, algo, and description
   const parts: string[] = [dealId.toString()];
-  parts.push(dealer);
+  parts.push(dealChar); // The first letter ie N,S,E,W
   parts.push(entry.vulnerability);
   parts.push(stringifyDeal(deal, separators));
 
