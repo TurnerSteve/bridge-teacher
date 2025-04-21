@@ -1,8 +1,8 @@
-import { Char, Direction, FileType, Suit } from "@/lib/enums";
+import { Char, Direction, FileType, Suit } from "@/types/cards";
 import { StoredDeal } from "@/lib/types";
 import getTrayInfo, { LookupEntry } from "./getTrayInfo";
 import { stringifyDeal } from "./stringifyDeal";
-import { suitSymbols} from "@/lib/constants";
+import { suitSymbols} from "@/types/constants";
 
 
 export const exportDeals = {

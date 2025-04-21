@@ -5,7 +5,7 @@ import SingleDealController from "./SingleDealGenerator";
 import { useGlobalData } from "@/context/DataContextProvider";
 import { useGlobalSettings } from "@/context/SettingsContextProvider";
 import { CentreBoard } from "@/components/dealDisplay/CentreBoard";
-import { Direction } from "@/lib/enums";
+import { Direction } from "@/types/cards";
 
 // Partial deal generator will generate
 // slots [n1,n2,n3,n4] Cards n1=North, n2=East, n3=South, n4 West

@@ -1,4 +1,4 @@
-import { Direction } from "@/lib/enums";
+import { Direction } from "@/types/cards";
 
 
 export default function elementCount(arr: Direction[]): {

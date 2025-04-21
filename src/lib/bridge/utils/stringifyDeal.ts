@@ -1,5 +1,5 @@
 
-import { Char, Direction, FileType, Rank, Suit } from "@/lib/enums";
+import { Char, Direction, FileType, Rank, Suit } from "@/types/cards";
 import { DealStruct, HandStruct, Separators } from "@/lib/types";
 
 // Updated stringifyDeal using handSeparator and FileType

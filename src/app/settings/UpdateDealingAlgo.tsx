@@ -2,7 +2,7 @@
 
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import { Algo } from "@/lib/enums";
+import { Algo } from "@/types/cards";
 import { useGlobalSettings } from "@/context/SettingsContextProvider";
 
 

@@ -1,5 +1,15 @@
 export { Rank, Suit, Direction, Vulnerability}
-export { Algo }
+export { Algo, Char, FileType}
+
+export type DisplayMode = "icon" | "symbol" | "svg";
+export type { Separators};
+
+// Updated Separators type to use the enumerated SeparatorType
+interface Separators {
+  handSeparator: Char;
+  suitSeparator: Char;
+  cardSeparator: Char;
+}
 
 enum Algo 
 {
@@ -33,7 +43,7 @@ enum Suit {
 
 
 // Define an enumerated type for separators
-export enum Char {
+enum Char {
   NONE = "",
   COMMA = ",",
   PIPE = "|",
@@ -54,7 +64,7 @@ export enum Char {
 }
 
 // Define an enumerated type for file types
-export enum FileType {
+enum FileType {
   PBN = "PBN",
   LIN = "LIN",
   CSV = "CSV",

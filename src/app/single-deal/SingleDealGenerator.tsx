@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { useGlobalData } from "@/context/DataContextProvider";
 import executeAlgo from "@/lib/bridge/deal-generators/executeAlgo";
 import { useGlobalSettings } from "@/context/SettingsContextProvider";
-import { DealResult } from "@/lib/types";
+import { DealResult } from "@/types/structs";
 
 interface Props {
   slots: number[];

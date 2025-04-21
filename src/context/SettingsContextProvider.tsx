@@ -1,5 +1,5 @@
 "use client"
-import { Algo } from "@/lib/enums";
+import { Algo } from "@/types/cards";
 import {
   createContext,
   useContext,

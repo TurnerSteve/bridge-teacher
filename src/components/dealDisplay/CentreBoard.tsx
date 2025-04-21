@@ -1,5 +1,5 @@
 import { getTrayInfo, LookupEntry } from "@/lib/bridge/utils";
-import { Vulnerability , Direction} from "@/lib/enums";
+import { Vulnerability , Direction} from "@/types/cards";
 
 
 type Props = {

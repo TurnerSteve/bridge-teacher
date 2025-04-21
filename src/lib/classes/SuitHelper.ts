@@ -1,4 +1,4 @@
-import { Suit } from "../enums";
+import { Suit } from "@/types/cards";
 
 export class SuitHelper {
     private static readonly suitDetails = {

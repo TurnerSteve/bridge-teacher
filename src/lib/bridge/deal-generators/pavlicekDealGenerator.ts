@@ -1,7 +1,6 @@
-import { Algo, Direction, Rank, Suit } from "../../enums";
+import { Algo, Direction, Rank, Suit } from "../../../types/cards";
 
-import { DealStruct, DealResult } from "@/lib/types";
-import { createEmptyDealStruct } from "@/lib/constants";
+import { DealStruct, DealResult, createEmptyDealStruct} from "@/types/structs";
 import maxCodePage from "@/lib/math/maxCodePage";
 import randomBigInt from "@/lib/math/randomBigInt";
 

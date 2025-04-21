@@ -3,8 +3,8 @@ import DealSelectorComponent from "@/components/dealDisplay/DealSelector";
 import { useGlobalData } from "@/context/DataContextProvider";
 import { useGlobalSettings } from "@/context/SettingsContextProvider";
 
-import { Algo, Direction } from "@/lib/enums";
-import { DealStruct, StoredDeal } from "@/lib/types";
+import { Algo, Direction } from "@/types/cards";
+import { DealStruct, StoredDeal } from "@/types/structs";
 import { useState } from "react";
 import HandComponent from "@/components/dealDisplay/HandComponent";
 import MultiDealGenerator from "@/app/multiple-deal/MultiDealGenerator";

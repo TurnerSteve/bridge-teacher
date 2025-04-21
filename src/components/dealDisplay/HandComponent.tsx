@@ -1,6 +1,6 @@
-import { Direction, Rank, Suit } from "@/lib/enums";
+import { Direction, Rank, Suit } from "@/types/cards";
 import { Card } from "../ui/card"; // Shadcn card
-import { suitSymbols } from "@/lib/constants";
+import { suitSymbols } from "@/types/constants";
 
 interface HandProps {
   direction: Direction;

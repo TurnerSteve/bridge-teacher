@@ -1,9 +1,11 @@
 
 "use client"
 import { useGlobalData } from "@/context/DataContextProvider";
-import { cardUnicode, directions, suitOrder, suitSymbols } from "@/lib/constants";
-import { Rank, Suit } from "@/lib/enums";
-import { HandStruct} from "@/lib/types";
+import { directions, suitOrder, suitSymbols } from "@/types/constants";
+import { cardUnicode} from "@/data/cardUnicode";
+
+import { Rank, Suit } from "@/types/cards";
+import { HandStruct} from "@/types/structs";
 
 // 1. Simple text hand
 function SimpleTextHand(props: { hand: HandStruct }) {

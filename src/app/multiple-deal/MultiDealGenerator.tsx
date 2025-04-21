@@ -11,7 +11,8 @@ import { useState } from "react";
 
 import executeAlgo from "@/lib/bridge/deal-generators/executeAlgo";
 import { useGlobalSettings } from "@/context/SettingsContextProvider";
-import { DealResult, StoredDeal } from "@/lib/types";
+import { DealResult, StoredDeal } from "@/types/structs";
+
 
 interface Props {
   slots: number[];
