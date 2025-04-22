@@ -1,8 +1,3 @@
-import { IconType } from "react-icons";
-import { Suit, Rank}  from "@/types/cards";
-
-// 52 Card Icons from the React Icons library
-
 import {
   GiCardAceSpades,
   GiCardKingSpades,
@@ -58,7 +53,13 @@ import {
   GiCard2Clubs,
 } from "react-icons/gi";
 
-export const cardIcons: Record<Suit, Record<Rank, IconType>> = {
+import { Suit, Rank } from "@/types/cards"; // Adjust path as needed
+import { IconType } from "react-icons";
+
+export const bridgeIcons: Record<
+  Suit,
+  Record<Rank, IconType>
+> = {
   [Suit.SPADES]: {
     [Rank.ACE]: GiCardAceSpades,
     [Rank.KING]: GiCardKingSpades,
@@ -120,67 +121,3 @@ export const cardIcons: Record<Suit, Record<Rank, IconType>> = {
     [Rank.TWO]: GiCard2Clubs,
   },
 };
-
-// Unicode card icons
-export const cardUnicode: Record<Suit, Record<Rank, string>> = {
-    [Suit.SPADES]: {
-      [Rank.ACE]: "🂡",
-      [Rank.KING]: "🂮",
-      [Rank.QUEEN]: "🂭",
-      [Rank.JACK]: "🂫",
-      [Rank.TEN]: "🂪",
-      [Rank.NINE]: "🂩",
-      [Rank.EIGHT]: "🂨",
-      [Rank.SEVEN]: "🂧",
-      [Rank.SIX]: "🂦",
-      [Rank.FIVE]: "🂥",
-      [Rank.FOUR]: "🂤",
-      [Rank.THREE]: "🂣",
-      [Rank.TWO]: "🂢",
-    },
-    [Suit.HEARTS]: {
-      [Rank.ACE]: "🂱",
-      [Rank.KING]: "🂾",
-      [Rank.QUEEN]: "🂽",
-      [Rank.JACK]: "🂻",
-      [Rank.TEN]: "🂺",
-      [Rank.NINE]: "🂹",
-      [Rank.EIGHT]: "🂸",
-      [Rank.SEVEN]: "🂷",
-      [Rank.SIX]: "🂶",
-      [Rank.FIVE]: "🂵",
-      [Rank.FOUR]: "🂴",
-      [Rank.THREE]: "🂳",
-      [Rank.TWO]: "🂲",
-    },
-    [Suit.DIAMONDS]: {
-      [Rank.ACE]: "🃁",
-      [Rank.KING]: "🃎",
-      [Rank.QUEEN]: "🃍",
-      [Rank.JACK]: "🃋",
-      [Rank.TEN]: "🃊",
-      [Rank.NINE]: "🃉",
-      [Rank.EIGHT]: "🃈",
-      [Rank.SEVEN]: "🃇",
-      [Rank.SIX]: "🃆",
-      [Rank.FIVE]: "🃅",
-      [Rank.FOUR]: "🃄",
-      [Rank.THREE]: "🃃",
-      [Rank.TWO]: "🃂",
-    },
-    [Suit.CLUBS]: {
-      [Rank.ACE]: "🃑",
-      [Rank.KING]: "🃞",
-      [Rank.QUEEN]: "🃝",
-      [Rank.JACK]: "🃛",
-      [Rank.TEN]: "🃚",
-      [Rank.NINE]: "🃙",
-      [Rank.EIGHT]: "🃘",
-      [Rank.SEVEN]: "🃗",
-      [Rank.SIX]: "🃖",
-      [Rank.FIVE]: "🃕",
-      [Rank.FOUR]: "🃔",
-      [Rank.THREE]: "🃓",
-      [Rank.TWO]: "🃒",
-    },
-  };

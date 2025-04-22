@@ -1,25 +1,27 @@
 "use client";
 
-import HandComponent from "../../components/dealDisplay/HandComponent";
 import SingleDealController from "./SingleDealGenerator";
 import { useGlobalData } from "@/context/DataContextProvider";
 import { useGlobalSettings } from "@/context/SettingsContextProvider";
 import { CentreBoard } from "@/components/dealDisplay/CentreBoard";
-import { Direction } from "@/types/cards";
+import { Direction, DisplayMode } from "@/types/cards";
+import { HandRenderer } from "@/components/HandRenderer";
 
 // Partial deal generator will generate
 // slots [n1,n2,n3,n4] Cards n1=North, n2=East, n3=South, n4 West
 
-
-
 function DealComponent() {
-  const { storedDeal } = useGlobalData();
+  const { storedDeal : dealData } = useGlobalData();
   const { dealCount } = useGlobalData();
   const { dealingAlgo } = useGlobalSettings();
 
   const { dealingSlots } = useGlobalSettings();
+  const northHand = dealData.deal[Direction.NORTH];
+  const southHand = dealData.deal[Direction.SOUTH];
+  const eastHand = dealData.deal[Direction.EAST];
+  const westHand = dealData.deal[Direction.WEST];
 
-  if (!storedDeal) {
+  if (!dealData) {
     return <div> Loading... </div>; // Render fallback UI ... Needs a Skeleton
   }
   return (
@@ -30,22 +32,38 @@ function DealComponent() {
             [{dealingAlgo}] dealing Algo
           </div>
           <div className="flex justify-center items-center row-start-1 col-start-2">
-            <HandComponent direction={Direction.NORTH} hand={storedDeal.deal.East} />
+            <HandRenderer
+              hand={northHand}
+              displayMode={DisplayMode.TEXT} // or .TEXT, .SYMBOL, .ICON
+              direction={Direction.NORTH}
+            />
           </div>
           <div className="flex justify-center items-center row-start-1 col-start-3">
             <SingleDealController slots={dealingSlots} />
           </div>
           <div className="flex justify-center items-center row-start-2 col-start-1">
-            <HandComponent direction={Direction.WEST} hand={storedDeal.deal.West} />
+          <HandRenderer
+              hand={eastHand}
+              displayMode={DisplayMode.SYMBOL} // or .TEXT, .SYMBOL, .ICON
+              direction={Direction.EAST}
+            />
           </div>
           <div className="flex justify-center items-center row-start-2 col-start-2">
             <CentreBoard boardId={dealCount} size={200} />
           </div>
           <div className="flex justify-center items-center row-start-2 col-start-3">
-            <HandComponent direction={Direction.EAST} hand={storedDeal.deal.East} />
+          <HandRenderer
+              hand={southHand}
+              displayMode={DisplayMode.ICON} // or .TEXT, .SYMBOL, .ICON
+              direction={Direction.SOUTH}
+            />
           </div>
           <div className="flex justify-center items-center row-start-3 col-start-2">
-            <HandComponent direction={Direction.SOUTH} hand={storedDeal.deal.South} />
+          <HandRenderer
+              hand={westHand}
+              displayMode={DisplayMode.IMAGE} // or .TEXT, .SYMBOL, .ICON
+              direction={Direction.WEST}
+            />
           </div>
         </div>
       </div>

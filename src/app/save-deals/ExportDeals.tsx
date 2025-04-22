@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { useGlobalData } from "@/context/DataContextProvider";
-import { exportDeals } from "@/lib/bridge/utils/exportDeals";
+import { exportDeals } from "@/lib/bridge/file-generation/exportDeals";
 import { FaFileExport } from "react-icons/fa6";
 
 export default function ExportDeals() {

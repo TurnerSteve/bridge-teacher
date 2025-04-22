@@ -1,10 +1,11 @@
-import { Algo } from "../../../types/cards";
+
 import {
   fisherYatesDealGenerator,
   homegrownDealGenerator,
   pavlicekDealGenerator,
 } from ".";
 import { DealResult } from "@/types/structs";
+import { Algo } from "@/types/bridge";
 
 function executeAlgo(algo: Algo, slots: number[]): DealResult {
   // console.log(`Executing algo "${algo}" to decode \[${slots}\] slots`);

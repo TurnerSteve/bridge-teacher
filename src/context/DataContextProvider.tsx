@@ -1,7 +1,7 @@
 
 "use client"
 import { StoredDeal} from "@/types/structs";
-import { Algo } from "@/types/cards";
+
 import {
   createContext,
   Dispatch,
@@ -11,6 +11,7 @@ import {
   useState,
 } from "react";
 import { createEmptyDealStruct } from "@/types/structs";
+import { Algo } from "@/types/bridge";
 
 // Step 1: Define the Context Type
 interface GlobalDataContextType {

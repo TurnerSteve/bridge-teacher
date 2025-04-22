@@ -1,5 +1,5 @@
-import { Algo, Direction, Rank, Suit } from "../../../types/cards";
-
+import { Direction, Rank, Suit } from "../../../types/cards";
+import { Algo} from "@/types/bridge";
 import { DealStruct, DealResult, createEmptyDealStruct} from "@/types/structs";
 import maxCodePage from "@/lib/math/maxCodePage";
 import randomBigInt from "@/lib/math/randomBigInt";

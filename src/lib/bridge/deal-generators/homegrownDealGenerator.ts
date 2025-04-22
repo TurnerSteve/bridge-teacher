@@ -1,6 +1,7 @@
 import { DealResult, createEmptyDealStruct} from "@/types/structs";
-import { Algo, Direction, Rank, Suit } from "@/types/cards";
+import {  Direction, Rank, Suit } from "@/types/cards";
 import { DealStruct } from "@/types/structs";
+import { Algo} from "@/types/bridge";
 
 // Function to generate a random bridge deal
 function generateDeal(slots : number[]): DealResult {

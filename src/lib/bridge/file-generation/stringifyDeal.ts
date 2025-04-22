@@ -1,6 +1,7 @@
 
-import { Char, Direction, FileType, Rank, Suit } from "@/types/cards";
-import { DealStruct, HandStruct, Separators } from "@/lib/types";
+import {  Direction, Rank, Suit } from "@/types/cards";
+import { DealStruct, HandStruct} from "@/types/structs";
+import { Char, FileType, Separators } from "../../../types/bridge";
 
 // Updated stringifyDeal using handSeparator and FileType
 export function stringifyDeal(

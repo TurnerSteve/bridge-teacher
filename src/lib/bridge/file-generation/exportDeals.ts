@@ -1,10 +1,9 @@
-import { Char, Direction, FileType, Suit } from "@/types/cards";
-import { StoredDeal } from "@/lib/types";
-import getTrayInfo, { LookupEntry } from "./getTrayInfo";
-import { stringifyDeal } from "./stringifyDeal";
+import { Direction, Suit } from "@/types/cards";
+import getTrayInfo, { LookupEntry } from "../utils/getTrayInfo";
+import { stringifyDeal } from "../file-generation/stringifyDeal";
 import { suitSymbols} from "@/types/constants";
-
-
+import { StoredDeal } from "@/types/structs";
+import { Char, FileType } from "../../../types/bridge";
 export const exportDeals = {
   toJSON: (deals: StoredDeal[]) => {
     return deals

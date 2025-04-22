@@ -1,5 +1,6 @@
 "use client"
-import { Algo } from "@/types/cards";
+
+import { Algo } from "@/types/bridge";
 import {
   createContext,
   useContext,

@@ -2,9 +2,8 @@
 
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import { Algo } from "@/types/cards";
 import { useGlobalSettings } from "@/context/SettingsContextProvider";
-
+import { Algo} from "@/types/bridge";
 
 export function UpdateSelectedDealingAlgo() {
   // State to manage the selected option locally

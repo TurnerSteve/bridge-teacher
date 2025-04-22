@@ -1,4 +1,5 @@
-import { Algo, Direction, Rank, Suit } from "./cards";
+import { Algo } from "@/types/bridge";
+import { Direction, Rank, Suit } from "./cards";
 
 export type { HandStruct , DealStruct}
 
@@ -9,21 +10,22 @@ export type DealResult = {
   deal: DealStruct;
 };
 
-// 
-export type StoredDeal = {
-  dealId: number;
-  algo: Algo;
-  description: string;
-  deal: DealStruct;
-}
+// We store a board number and the algorithm used to generate the deal
+// Description is for describing key point about the deal
+// ie Balanced hands or 2 suiters 4441 and so on.
 
-// This may be a duplicate of createEmptyDealStruct
-export const handStruct: DealStruct = {
-    [Direction.NORTH]: { [Suit.SPADES]: [], [Suit.HEARTS]: [], [Suit.DIAMONDS]: [], [Suit.CLUBS]: [] },
-    [Direction.EAST]: { [Suit.SPADES]: [], [Suit.HEARTS]: [], [Suit.DIAMONDS]: [], [Suit.CLUBS]: [] },
-    [Direction.SOUTH]: { [Suit.SPADES]: [], [Suit.HEARTS]: [], [Suit.DIAMONDS]: [], [Suit.CLUBS]: [] },
-    [Direction.WEST]: { [Suit.SPADES]: [], [Suit.HEARTS]: [], [Suit.DIAMONDS]: [], [Suit.CLUBS]: [] }
-  }
+// Future expansion - PBN fields
+// Event, Site, Date, Dealer, Vul
+// Scoring, Declarer, Contract, Result, Deal
+// Dealer and Vul can be constructed from board Number 1-16
+// Bidding, Declarer, Cardplay, Result, comments - not yet. 
+
+export type StoredDeal = {
+  dealId: number;  // Usually the board number... deal[0] = board 1
+  algo: Algo;      // pavlicek, Home grown or Fisher-Yates
+  description: string;
+  deal: DealStruct; // 3D array structure using enumerated types.
+}
 
 type HandStruct = {
     [Suit.SPADES]: Rank[];
@@ -54,3 +56,12 @@ export const createEmptyDealStruct = (): DealStruct => ({
     [Direction.SOUTH]: createEmptyHandStruct(),
     [Direction.WEST]: createEmptyHandStruct(),
   });
+
+  // Need an empty structure the first board to initialise the array of dealt board.
+  // This is identical to createEmpty DealStruct. To be removed.
+export const handStruct: DealStruct = {
+  [Direction.NORTH]: { [Suit.SPADES]: [], [Suit.HEARTS]: [], [Suit.DIAMONDS]: [], [Suit.CLUBS]: [] },
+  [Direction.EAST]: { [Suit.SPADES]: [], [Suit.HEARTS]: [], [Suit.DIAMONDS]: [], [Suit.CLUBS]: [] },
+  [Direction.SOUTH]: { [Suit.SPADES]: [], [Suit.HEARTS]: [], [Suit.DIAMONDS]: [], [Suit.CLUBS]: [] },
+  [Direction.WEST]: { [Suit.SPADES]: [], [Suit.HEARTS]: [], [Suit.DIAMONDS]: [], [Suit.CLUBS]: [] }
+}

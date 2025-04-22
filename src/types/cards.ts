@@ -1,21 +1,12 @@
-export { Rank, Suit, Direction, Vulnerability}
-export { Algo, Char, FileType}
+export { Rank, Suit, Vulnerability, Direction}
+export { DisplayMode };
 
-export type DisplayMode = "icon" | "symbol" | "svg";
-export type { Separators};
-
-// Updated Separators type to use the enumerated SeparatorType
-interface Separators {
-  handSeparator: Char;
-  suitSeparator: Char;
-  cardSeparator: Char;
-}
-
-enum Algo 
+enum DisplayMode 
 {
-  FISHERYATES = "Fisher-Yates",
-  PARTIAL = "Pavlicek" ,
-  HOMEGROWN = "Home Grown",
+  TEXT   = "text" ,      // Plain text A,K,Q,J,10 etc
+  ICON   = "icon" ,     // unicode
+  SYMBOL = "symbol" ,   // react icon
+  IMAGE  = "image"      // svg
 }
 
 enum Direction {
@@ -42,39 +33,6 @@ enum Suit {
 }
 
 
-// Define an enumerated type for separators
-enum Char {
-  NONE = "",
-  COMMA = ",",
-  PIPE = "|",
-  SPACE = " ",
-  DOT = ".",
-  DASH = "-",
-  SLASH = "/",
-  COLON = ":",
-  SEMICOLON = ";",
-  UNDERLINE = "_",
-  EQUAL = "=",
-  PLUS = "+",
-  ASTERISK = "*",
-  EXCLAMATION = "!",
-  AT = "@",
-  PERCENT = "%",
-
-}
-
-// Define an enumerated type for file types
-enum FileType {
-  PBN = "PBN",
-  LIN = "LIN",
-  CSV = "CSV",
-  XML = "XML",
-  TXT = "TXT",
-  JSON = "JSON",
-  DGE = "DGE",
-  BRI = "BRI",
-  DUP = "DUP"
-}
 
 enum Rank {
     ACE = 'A',

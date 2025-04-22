@@ -1,7 +1,8 @@
 
-import { Algo, Suit, Rank, Direction } from "@/types/cards";
+import { Suit, Rank, Direction } from "@/types/cards";
+import { Algo} from "@/types/bridge";
 import { DealResult, DealStruct, createEmptyDealStruct} from "@/types/structs";
-import { RankOrder } from "@/types/constants";
+import { rankOrder } from "@/types/constants";
 
 export function generateDeal(slots: number[]): DealResult {
   // Initialize an array to represent the deck of cards (up to) 52 cards).
@@ -76,7 +77,7 @@ function sortDeal(deal: DealStruct): DealStruct {
 
       // Sort each array of Rank using the custom RankOrder
       sortedDeal[hand][suit] = [...ranks].sort(
-        (a, b) => RankOrder[a] - RankOrder[b]
+        (a, b) => rankOrder[a] - rankOrder[b]
       );
     }
   }

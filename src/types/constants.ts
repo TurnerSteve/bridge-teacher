@@ -1,9 +1,12 @@
 
 import { Direction, Rank, Suit } from "./cards";
 
-    // Define the custom order for Rank as a mapping
+export {suitSymbols, suitOrder, rankOrder }
+
+
+  // Define the custom order for Rank as a mapping
   // cannot sort enumerated string types by index
-export const RankOrder: Record<Rank, number> = {
+const rankOrder: Record<Rank, number> = {
   [Rank.ACE]: 1,
   [Rank.KING]: 2,
   [Rank.QUEEN]: 3,
@@ -19,16 +22,15 @@ export const RankOrder: Record<Rank, number> = {
   [Rank.TWO]: 13,
 };
 
-// Unicode suit symbols
-export const suitSymbols: Record<Suit, string> = {
-  [Suit.SPADES]: "♠",
-  [Suit.HEARTS]: "♥",
-  [Suit.DIAMONDS]: "♦",
-  [Suit.CLUBS]: "♣",
+const suitSymbols: Record<Suit, string> = {
+  [Suit.SPADES]: '♠',
+  [Suit.HEARTS]: '♥',
+  [Suit.DIAMONDS]: '♦',
+  [Suit.CLUBS]: '♣',
 };
 
 // Display order for suits
-export const suitOrder: Suit[] = [
+const suitOrder: Suit[] = [
   Suit.SPADES,
   Suit.HEARTS,
   Suit.DIAMONDS,
@@ -42,3 +44,4 @@ export const directions: Direction[] = [
   Direction.SOUTH,
   Direction.WEST,
 ];
+

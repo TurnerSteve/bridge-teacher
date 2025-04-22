@@ -2,10 +2,10 @@
 "use client"
 import { useGlobalData } from "@/context/DataContextProvider";
 import { directions, suitOrder, suitSymbols } from "@/types/constants";
-import { cardUnicode} from "@/data/cardUnicode";
 
 import { Rank, Suit } from "@/types/cards";
 import { HandStruct} from "@/types/structs";
+import { CardDisplay } from "@/components/CardDisplay";
 
 // 1. Simple text hand
 function SimpleTextHand(props: { hand: HandStruct }) {
@@ -37,21 +37,14 @@ function IconHand(props: { hand: HandStruct }) {
     <div>
       {suitOrder.map((suit) => (
         <div key={suit}>
-          <span
-            style={{
-              color:
-                suit === Suit.HEARTS || suit === Suit.DIAMONDS ? "red" : "black",
-              fontWeight: "bold",
-            }}
-          >
-            {suitSymbols[suit]}
-          </span>{" "}
           {hand[suit].map((rank) => (
             <span
               key={rank}
               style={{ fontSize: "1.6em", marginRight: 3, verticalAlign: "middle" }}
             >
-              {cardUnicode[suit][rank]}
+              <div>
+              <CardDisplay suit={suit} rank={rank} mode={"icon"} />
+              </div>
             </span>
           ))}
         </div>
@@ -93,7 +86,8 @@ function FanHand(props: { hand: HandStruct }) {
             }}
             title={`${card.rank} of ${card.suit}`}
           >
-            {cardUnicode[card.suit][card.rank]}
+            <CardDisplay suit={card.suit} rank={card.rank} mode="unicode" width={80} height={112} />
+
           </span>
         );
       })}
