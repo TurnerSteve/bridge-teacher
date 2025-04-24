@@ -13,13 +13,13 @@ function SingleDealController() {
   const { algorithm } = useAlgorithm();
   const { partialDealSlots } = useSettings();
   const { storedDeal, setStoredDeal } = useGlobalData();
-  const { count, setCount } = useGlobalData();
+
 
   useEffect(() => {
     // forces a single deal once at the start.
     const boardNo = 1;
     console.log(
-      `Init Deal [${count}] Board ${boardNo} uses algo "${algorithm}" and slots[${partialDealSlots}]`
+      `Board ${boardNo} uses algo "${algorithm}" and slots[${partialDealSlots}]`
     );
 
     const board = createBoard(boardNo, algorithm, partialDealSlots);
@@ -31,15 +31,13 @@ function SingleDealController() {
 
   function performDeal() {
     const newBoardNo = (storedDeal.boardNo % 16) + 1;
-    setCount(count + 1);
 
     console.log(
-      `New deal [${count + 1}] Board[${newBoardNo}] using algo "${algorithm}"`
+      `New Board[${newBoardNo}] using algo "${algorithm}"`
     );
 
     const board: Board = createBoard(newBoardNo, algorithm, partialDealSlots);
     setStoredDeal(board);
-    setCount(count + 1);
   }
 
   return (

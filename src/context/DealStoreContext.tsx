@@ -16,9 +16,6 @@ import { Algorithm } from "@/types/dealingAlgo-enum";
 
 // Step 1: Define the Context Type
 interface GlobalDataContextType {
-  count: number;
-  setCount: Dispatch<SetStateAction<number>>;
-
   storedDeal: Board;
   setStoredDeal: Dispatch<SetStateAction<Board>>;
 
@@ -42,7 +39,6 @@ type GlobalDataProviderProps = {
 };
 
 export function DealStoreProvider({ children }: GlobalDataProviderProps) {
-  const [count, setCount] = useState<number>(0);
   const [storedDeal, setStoredDeal] = useState<Board>(
     createEmptyStoredDeal
   );
@@ -57,8 +53,6 @@ export function DealStoreProvider({ children }: GlobalDataProviderProps) {
   return (
     <GlobalDataContext.Provider
       value={{
-        count,
-        setCount,
         storedDeal,
         setStoredDeal,
         dealCount,
