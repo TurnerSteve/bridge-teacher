@@ -9,42 +9,48 @@ import { Algorithm } from "@/types/dealingAlgo-enum";
 import { useSettings } from "@/context/SettingsContext";
 import { useMemo } from "react";
 
-
 function SingleDealController() {
   const { algorithm } = useAlgorithm();
   const { partialDealSlots } = useSettings();
   const { storedDeal, setStoredDeal } = useGlobalData();
   const { count, setCount } = useGlobalData();
 
+  useMemo(() => {
+    // forces a single deal once at the start.
+    const boardNo = 1;
+    console.log(
+      `Init Deal [${count}] Board ${boardNo} uses algo "${algorithm}" and slots[${partialDealSlots}]`
+    );
 
-  useMemo(() => {  // forces a single deal once at the start.
-    const boardNo = 1 ;
-    console.log( `Init Deal [${count}] Board ${boardNo} uses algo "${algorithm}" and slots[${partialDealSlots}]`)
+    const board = createBoard(boardNo, algorithm, partialDealSlots);
 
-    const board = createBoard (boardNo,  algorithm, partialDealSlots) 
+    setStoredDeal(board);
 
-    setStoredDeal(board) ;
-
-    return board
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])  // THIS IS OK : No dependancies. Forces one deal on initialisation.
+    return board;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // THIS IS OK : No dependancies. Forces one deal on initialisation.
 
   function performDeal() {
-    const newBoardNo = (storedDeal.boardNo ) % 16 + 1; 
-    setCount(count + 1)
-
-    console.log(`New deal [${count+1}] Board[${newBoardNo}] using algo "${algorithm}"`);
-
-    const board : Board = createBoard (newBoardNo,  algorithm, partialDealSlots) 
-    setStoredDeal(board) ;
+    const newBoardNo = (storedDeal.boardNo % 16) + 1;
     setCount(count + 1);
-  };
+
+    console.log(
+      `New deal [${count + 1}] Board[${newBoardNo}] using algo "${algorithm}"`
+    );
+
+    const board: Board = createBoard(newBoardNo, algorithm, partialDealSlots);
+    setStoredDeal(board);
+    setCount(count + 1);
+  }
 
   return (
     <div className="w-full px-5">
       <Card className="w-full px-5">
-        <CardHeader>Single Deal</CardHeader>
+        <CardHeader>Single Deal dealing Algo[{algorithm}] </CardHeader>
         <CardContent>
+          <div className="flex items-center row-start-1 col-start-1">
+
+          </div>
           <Button
             className="mb-4 p-2 bg-blue-500 text-white rounded"
             onClick={performDeal}
@@ -59,15 +65,14 @@ function SingleDealController() {
 
 export default SingleDealController;
 
-function createBoard (boardNo: number, algo : Algorithm, slots : number[]) : Board {
+function createBoard(boardNo: number, algo: Algorithm, slots: number[]): Board {
   const deal: DealResult = executeAlgo(algo, slots);
-  const board : Board = {
-    boardNo  : boardNo,
-    algo : deal.algo,
-    description : deal.description,
-    deal : deal.deal
-  }
+  const board: Board = {
+    boardNo: boardNo,
+    algo: deal.algo,
+    description: deal.description,
+    deal: deal.deal,
+  };
 
-
-  return board ;
+  return board;
 }
