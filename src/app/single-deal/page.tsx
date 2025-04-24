@@ -1,6 +1,6 @@
 "use client";
 
-import SingleDealController from "./SingleDealGenerator";
+import SingleDealController from "./SingleDealController";
 import { useGlobalData } from "@/context/DealStoreContext";
 import { CentreBoard } from "@/components/dealDisplay/CentreBoard";
 import { Direction, DisplayMode } from "@/types/cards";

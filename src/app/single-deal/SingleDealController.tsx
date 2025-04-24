@@ -7,7 +7,7 @@ import { Board, DealResult } from "@/types/structs";
 import { useAlgorithm } from "@/context/AlgorithmContext";
 import { Algorithm } from "@/types/dealingAlgo-enum";
 import { useSettings } from "@/context/SettingsContext";
-import { useMemo } from "react";
+import { useEffect } from "react";
 
 function SingleDealController() {
   const { algorithm } = useAlgorithm();
@@ -15,7 +15,7 @@ function SingleDealController() {
   const { storedDeal, setStoredDeal } = useGlobalData();
   const { count, setCount } = useGlobalData();
 
-  useMemo(() => {
+  useEffect(() => {
     // forces a single deal once at the start.
     const boardNo = 1;
     console.log(
@@ -26,7 +26,6 @@ function SingleDealController() {
 
     setStoredDeal(board);
 
-    return board;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // THIS IS OK : No dependancies. Forces one deal on initialisation.
 
