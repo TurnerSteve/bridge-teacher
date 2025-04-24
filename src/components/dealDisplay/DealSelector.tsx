@@ -8,7 +8,7 @@ interface DealSelectorProps {
     onUpdateBoardId : (newDeal: number) => void
 }
 
-const DealSelectorComponent = ({maxDeal, onUpdateBoardId} : DealSelectorProps) => {
+export default function DealSelectorComponent ({maxDeal, onUpdateBoardId} : DealSelectorProps)  {
 
       // State to manage the dealId
   const [boardId, setBoardId] = useState<number>(1);
@@ -62,5 +62,3 @@ const DealSelectorComponent = ({maxDeal, onUpdateBoardId} : DealSelectorProps) =
     </div>
   );
 };
-
-export default DealSelectorComponent;
