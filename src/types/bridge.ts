@@ -1,13 +1,6 @@
 // Define an enumerated type for file types
-export { Algo, FileType, Char}
+export { FileType, Char}
 export type { Separators } ;
-
-enum Algo 
-{
-  FISHERYATES = "Fisher-Yates",
-  PARTIAL = "Pavlicek" ,
-  HOMEGROWN = "Home Grown",
-}
 
 enum FileType {
   PBN = "PBN",

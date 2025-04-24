@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { useGlobalData } from "@/context/DataContextProvider";
+import { useGlobalData } from "@/context/DealStoreContext";
 import { exportDeals } from "@/lib/bridge/file-generation/exportDeals";
 import { FaFileExport } from "react-icons/fa6";
 

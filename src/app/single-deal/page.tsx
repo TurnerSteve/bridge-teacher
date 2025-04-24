@@ -1,21 +1,20 @@
 "use client";
 
 import SingleDealController from "./SingleDealGenerator";
-import { useGlobalData } from "@/context/DataContextProvider";
-import { useGlobalSettings } from "@/context/SettingsContextProvider";
+import { useGlobalData } from "@/context/DealStoreContext";
 import { CentreBoard } from "@/components/dealDisplay/CentreBoard";
 import { Direction, DisplayMode } from "@/types/cards";
 import { HandRenderer } from "@/components/HandRenderer";
+import { useAlgorithm } from "@/context/AlgorithmContext";
 
 // Partial deal generator will generate
 // slots [n1,n2,n3,n4] Cards n1=North, n2=East, n3=South, n4 West
 
 function DealComponent() {
   const { storedDeal : dealData } = useGlobalData();
-  const { dealCount } = useGlobalData();
-  const { dealingAlgo } = useGlobalSettings();
+  const { algorithm  } = useAlgorithm();
 
-  const { dealingSlots } = useGlobalSettings();
+  const boardNo = dealData.boardNo ;
   const northHand = dealData.deal[Direction.NORTH];
   const southHand = dealData.deal[Direction.SOUTH];
   const eastHand = dealData.deal[Direction.EAST];
@@ -29,7 +28,7 @@ function DealComponent() {
       <div className="flex flex-col items-center justify-center min-h-screen w-full">
         <div className="grid grid-cols-3 grid-rows-3 gap-4 w-full max-w-screen-xl">
           <div className="flex items-center row-start-1 col-start-1">
-            [{dealingAlgo}] dealing Algo
+            [{algorithm}] dealing Algo
           </div>
           <div className="flex justify-center items-center row-start-1 col-start-2">
             <HandRenderer
@@ -39,7 +38,7 @@ function DealComponent() {
             />
           </div>
           <div className="flex justify-center items-center row-start-1 col-start-3">
-            <SingleDealController slots={dealingSlots} />
+            <SingleDealController />
           </div>
           <div className="flex justify-center items-center row-start-2 col-start-1">
           <HandRenderer
@@ -49,7 +48,7 @@ function DealComponent() {
             />
           </div>
           <div className="flex justify-center items-center row-start-2 col-start-2">
-            <CentreBoard boardId={dealCount} size={200} />
+            <CentreBoard boardId={boardNo} size={200} />
           </div>
           <div className="flex justify-center items-center row-start-2 col-start-3">
           <HandRenderer

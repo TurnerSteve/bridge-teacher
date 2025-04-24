@@ -1,17 +1,17 @@
 "use client"
 import { cn } from "@/utils/shadcn";
 
-import { useGlobalSettings } from "@/context/SettingsContextProvider";
+import { useSettings } from "@/context/SettingsContext";
 
 export default function UpdateDealingSlots() {
-  const { dealingSlots, setDealingSlots } = useGlobalSettings();
+  const { partialDealSlots, setPartialDealSlots } = useSettings();
 
-  const values = dealingSlots ;
+  const values = partialDealSlots ;
 
   const handleSelectorChange = (index: number, newValue: number) => {
     const updatedValues = [...values];
     updatedValues[index] = newValue;
-    setDealingSlots(updatedValues);
+    setPartialDealSlots(updatedValues);
   };
 
   return (

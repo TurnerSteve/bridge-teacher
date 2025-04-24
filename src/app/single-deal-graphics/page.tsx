@@ -1,6 +1,6 @@
 
 "use client"
-import { useGlobalData } from "@/context/DataContextProvider";
+import { useGlobalData } from "@/context/DealStoreContext";
 import { directions, suitOrder, suitSymbols } from "@/types/constants";
 
 import { Rank, Suit } from "@/types/cards";
@@ -106,7 +106,7 @@ export default function DealDisplay() {  //props: DealDisplayProps
 
   return (
     <div style={{ fontFamily: "sans-serif", maxWidth: 900, margin: "2em auto" }}>
-      <h2>Bridge Deal #{storedDeal.dealId}</h2>
+      <h2>Bridge Deal #{storedDeal.boardNo}</h2>
       <p>{storedDeal.description}</p>
       <div style={{ display: "flex", justifyContent: "space-between", gap: 20 }}>
         {directions.map((dir) => (

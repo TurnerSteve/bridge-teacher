@@ -1,8 +1,8 @@
 import { Direction, Rank, Suit } from "../../../types/cards";
-import { Algo} from "@/types/bridge";
 import { DealStruct, DealResult, createEmptyDealStruct} from "@/types/structs";
 import maxCodePage from "@/lib/math/maxCodePage";
 import randomBigInt from "@/lib/math/randomBigInt";
+import { Algorithm } from "@/types/dealingAlgo-enum";
 
 export default function partialDealGenerator(slots: number[]): DealResult {
   // Initialize an array to represent a deck of up to cards (52 cards).
@@ -34,7 +34,7 @@ export default function partialDealGenerator(slots: number[]): DealResult {
 
   const deal: DealStruct = seatDecoder(seats);
 
-  return { algo: Algo.PARTIAL, description: description, deal: deal };
+  return { algo: Algorithm, description: description, deal: deal };
 }
 
 // Construct the 4 hands from the array of directions.

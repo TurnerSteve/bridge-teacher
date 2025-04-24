@@ -1,21 +1,22 @@
 "use client"
 import DealSelectorComponent from "@/components/dealDisplay/DealSelector";
-import { useGlobalData } from "@/context/DataContextProvider";
-import { useGlobalSettings } from "@/context/SettingsContextProvider";
+import { useGlobalData } from "@/context/DealStoreContext";
 
-import { Algo, Direction } from "@/types/cards";
-import { DealStruct, StoredDeal } from "@/types/structs";
+import { Direction } from "@/types/cards";
+import { DealStruct, Board} from "@/types/structs";
 import { useState } from "react";
 import HandComponent from "@/components/dealDisplay/HandComponent";
 import MultiDealGenerator from "@/app/multiple-deal/MultiDealGenerator";
 import { CentreBoard } from "@/components/dealDisplay/CentreBoard";
+import { Algorithm } from "@/types/dealingAlgo-enum";
+
 
 // interface DealInputProps {
 //   slots: number[];
 // }
 
 export type DealResult = {
-  algo: Algo;
+  algo: Algorithm;
   description: string;
   deal: DealStruct;
 };
@@ -24,7 +25,6 @@ function MultiDealComponent() {
   const [boardId, setBoardId] = useState(1);
 
   const { storedDeals } = useGlobalData();
-  const { dealingSlots } = useGlobalSettings();
   
   const boardIndex = boardId -1 
   // const slots = [13,13,13,13]
@@ -36,7 +36,7 @@ function MultiDealComponent() {
   if (!storedDeals) {
     return <div> Loading {storedDeals} deals... </div>; // Render fallback UI ... Needs a Skeleton
   }
-  const deal : StoredDeal = storedDeals[boardIndex] ;
+  const deal : Board = storedDeals[boardIndex] ;
 
   return (
     <>
@@ -49,7 +49,7 @@ function MultiDealComponent() {
             <HandComponent direction={Direction.NORTH} hand={deal.deal.North} />
           </div>
           <div className="flex justify-center items-center row-start-1 col-start-3">
-            <MultiDealGenerator slots={dealingSlots} />
+            <MultiDealGenerator />
           </div>
           <div className="flex justify-center items-center row-start-2 col-start-1">
             <HandComponent direction={Direction.WEST} hand={deal.deal.West} />

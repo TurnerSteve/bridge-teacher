@@ -1,11 +1,12 @@
-import { Algo } from "@/types/bridge";
+
 import { Direction, Rank, Suit } from "./cards";
+import { Algorithm } from "./dealingAlgo-enum";
 
 export type { HandStruct , DealStruct}
 
 // This is the output of a deal generator so we know how a deal is created. 
 export type DealResult = {
-  algo: Algo;
+  algo: Algorithm;
   description: string;
   deal: DealStruct;
 };
@@ -20,9 +21,9 @@ export type DealResult = {
 // Dealer and Vul can be constructed from board Number 1-16
 // Bidding, Declarer, Cardplay, Result, comments - not yet. 
 
-export type StoredDeal = {
-  dealId: number;  // Usually the board number... deal[0] = board 1
-  algo: Algo;      // pavlicek, Home grown or Fisher-Yates
+export type Board = {
+  boardNo: number;  // Usually the board number... deal[0] = board 1
+  algo: Algorithm;      // pavlicek, Home grown or Fisher-Yates
   description: string;
   deal: DealStruct; // 3D array structure using enumerated types.
 }
@@ -60,7 +61,7 @@ export const createEmptyDealStruct = (): DealStruct => ({
   // Need an empty structure the first board to initialise the array of dealt board.
   // This is identical to createEmpty DealStruct. To be removed.
 export const handStruct: DealStruct = {
-  [Direction.NORTH]: { [Suit.SPADES]: [], [Suit.HEARTS]: [], [Suit.DIAMONDS]: [], [Suit.CLUBS]: [] },
+  [Direction.NORTH]: { [Suit.SPADES]: [Rank.ACE], [Suit.HEARTS]: [], [Suit.DIAMONDS]: [], [Suit.CLUBS]: [] },
   [Direction.EAST]: { [Suit.SPADES]: [], [Suit.HEARTS]: [], [Suit.DIAMONDS]: [], [Suit.CLUBS]: [] },
   [Direction.SOUTH]: { [Suit.SPADES]: [], [Suit.HEARTS]: [], [Suit.DIAMONDS]: [], [Suit.CLUBS]: [] },
   [Direction.WEST]: { [Suit.SPADES]: [], [Suit.HEARTS]: [], [Suit.DIAMONDS]: [], [Suit.CLUBS]: [] }

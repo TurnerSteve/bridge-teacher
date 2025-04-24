@@ -1,6 +1,6 @@
 
 "use client"
-import { StoredDeal} from "@/types/structs";
+import { Board} from "@/types/structs";
 
 import {
   createContext,
@@ -11,19 +11,20 @@ import {
   useState,
 } from "react";
 import { createEmptyDealStruct } from "@/types/structs";
-import { Algo } from "@/types/bridge";
+import { Algorithm } from "@/types/dealingAlgo-enum";
+
 
 // Step 1: Define the Context Type
 interface GlobalDataContextType {
   count: number;
   setCount: Dispatch<SetStateAction<number>>;
 
-  storedDeal: StoredDeal;
-  setStoredDeal: Dispatch<SetStateAction<StoredDeal>>;
+  storedDeal: Board;
+  setStoredDeal: Dispatch<SetStateAction<Board>>;
 
-  storedDeals: StoredDeal[];
-  setStoredDeals: Dispatch<SetStateAction<StoredDeal[]>>;
-  addStoredDeal: (newDeal: StoredDeal) => void;
+  storedDeals: Board[];
+  setStoredDeals: Dispatch<SetStateAction<Board[]>>;
+  addStoredDeal: (newDeal: Board) => void;
 
   dealCount: number;
   setDealCount: Dispatch<SetStateAction<number>>;
@@ -40,16 +41,16 @@ type GlobalDataProviderProps = {
   children: ReactNode;
 };
 
-export function GlobalDataProvider({ children }: GlobalDataProviderProps) {
+export function DealStoreProvider({ children }: GlobalDataProviderProps) {
   const [count, setCount] = useState<number>(0);
-  const [storedDeal, setStoredDeal] = useState<StoredDeal>(
+  const [storedDeal, setStoredDeal] = useState<Board>(
     createEmptyStoredDeal
   );
-  const [storedDeals, setStoredDeals] = useState<StoredDeal[]>([createEmptyStoredDeal()]);
+  const [storedDeals, setStoredDeals] = useState<Board[]>([createEmptyStoredDeal()]);
   const [dealCount, setDealCount] = useState<number>(0);
 
   // Function to add a single deal to the array
-  const addStoredDeal = (newDeal: StoredDeal) => {
+  const addStoredDeal = (newDeal: Board) => {
     setStoredDeals((prevDeals) => [...prevDeals, newDeal]);
   };
 
@@ -82,9 +83,9 @@ export function useGlobalData() {
 }
 
 // Helper function to create an empty StoredDeal
-const createEmptyStoredDeal = (): StoredDeal => ({
-  dealId: 0, // Default ID
-  algo: Algo.PARTIAL, // Default Algorithm
+const createEmptyStoredDeal = (): Board => ({
+  boardNo: 0, // Default ID
+  algo: Algorithm.Pavlicek, // Default Algorithm
   description: "", // Default Description
   deal: createEmptyDealStruct(), // Default DealStruct
 });

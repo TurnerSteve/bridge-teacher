@@ -1,8 +1,9 @@
 
 import { Suit, Rank, Direction } from "@/types/cards";
-import { Algo} from "@/types/bridge";
+
 import { DealResult, DealStruct, createEmptyDealStruct} from "@/types/structs";
 import { rankOrder } from "@/types/constants";
+import { Algorithm } from "@/types/dealingAlgo-enum";
 
 export function generateDeal(slots: number[]): DealResult {
   // Initialize an array to represent the deck of cards (up to) 52 cards).
@@ -23,7 +24,7 @@ export function generateDeal(slots: number[]): DealResult {
     description += `Cannot deal [${slots}].`;
   else description += `Partial deal [${slots}].`;
 
-  console.log(description);
+  // console.log(description);
 
   const deck: number[] = Array.from({ length: slotTotal }, (_, i) => i);
 
@@ -56,7 +57,7 @@ export function generateDeal(slots: number[]): DealResult {
   const sortedHands = sortDeal(hands);
 
   return {
-    algo: Algo.FISHERYATES,
+    algo: Algorithm.FisherYates,
     description: description,
     deal: sortedHands,
   };

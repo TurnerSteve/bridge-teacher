@@ -1,7 +1,8 @@
 import { DealResult, createEmptyDealStruct} from "@/types/structs";
 import {  Direction, Rank, Suit } from "@/types/cards";
 import { DealStruct } from "@/types/structs";
-import { Algo} from "@/types/bridge";
+import { Algorithm } from "@/types/dealingAlgo-enum";
+
 
 // Function to generate a random bridge deal
 function generateDeal(slots : number[]): DealResult {
@@ -46,7 +47,7 @@ function generateDeal(slots : number[]): DealResult {
   }
 
 
-  return ({algo : Algo.HOMEGROWN, description : description, deal : hands});
+  return ({algo : Algorithm.HomeGrown, description : description, deal : hands});
 }
 
 export default generateDeal

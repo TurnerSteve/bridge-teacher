@@ -6,60 +6,21 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 
-import { useGlobalData } from "@/context/DataContextProvider";
-import { useState } from "react";
+import { useGlobalData } from "@/context/DealStoreContext";
+import { useState, useEffect } from "react";
 
 import executeAlgo from "@/lib/bridge/deal-generators/executeAlgo";
-import { useGlobalSettings } from "@/context/SettingsContextProvider";
-import { DealResult, StoredDeal } from "@/types/structs";
+import { useSettings } from "@/context/SettingsContext";
+import { Board, DealResult} from "@/types/structs";
+import { useAlgorithm } from "@/context/AlgorithmContext";
 
+export default function MultiDealGenerator() {
+  const { storedDeals } = useGlobalData();
+  const { multiDealCount } = useSettings();
 
-interface Props {
-  slots: number[];
-}
+  
 
-function MultiDealGenerator({ slots }: Props) {
-
-  const { storedDeals, addStoredDeal } = useGlobalData();
-  const { dealingAlgo, boardsPerDealset} = useGlobalSettings() ;
-  const [dealTime, setDealTime] = useState<string>("None");
-
-  const addDeal = (index: number) => {
-
-    // If array is of length 1 and boardId=0 we delete the board which
-    // was only created (empty) for initialisation purposes    
-    // We write it as board 1.
-
-    const arrayLength = storedDeals.length ;
-
-    let boardId : number = 0;
-    if (arrayLength > 0) {
-      boardId = storedDeals[arrayLength-1].dealId;
-
-      if (boardId === 0)
-        storedDeals.splice(0, 1);   // delete the empty deal
-    }
-    boardId += ++index ;
-    const nextDeal: DealResult = executeAlgo(dealingAlgo, slots);
-    console.log(`MultiDealGenerator: Writing boardId: ${boardId}`);
-    const newDeal: StoredDeal = {
-      dealId: boardId,
-      algo: nextDeal.algo,
-      description: nextDeal.description,
-      deal: nextDeal.deal,
-    };
-    addStoredDeal(newDeal);
-
-  };
-
-  const addDeals = () => {
-    const startTime: number = performance.now();
-    for (let index = 0; index < boardsPerDealset ; index++) {
-      addDeal(index);
-    }
-    const dealingTime: number = performance.now() - startTime;
-    setDealTime(dealingTime.toFixed(3));
-  };
+  const [dealTime] = useState<string>("None");
 
   const timeString = `Dealing Time = ${dealTime} ms`;
 
@@ -67,11 +28,12 @@ function MultiDealGenerator({ slots }: Props) {
     <div className="w-full px-5">
       <Card className="w-full px-5">
         <CardHeader>
-          Deal {boardsPerDealset} boards. Currently [{storedDeals.length}] deals
+          Deal {multiDealCount} boards. Currently [{storedDeals.length}] deals
         </CardHeader>
         <CardContent className="flex items-center gap-2">
-          <span><ButtonElement addDeals={addDeals} />  </span>
-
+          <span>
+            <ButtonElement boards={multiDealCount} />{" "}
+          </span>
         </CardContent>
         <CardFooter>
           <div>{timeString}</div>
@@ -81,13 +43,13 @@ function MultiDealGenerator({ slots }: Props) {
   );
 }
 
-type ButtonElementProps = { addDeals: () => void };
-function ButtonElement({ addDeals }: ButtonElementProps) {
+type ButtonElementProps = { boards: number };
+function ButtonElement({ boards }: ButtonElementProps) {
   return (
     <>
       <Button
         className="mb-4 p-2 bg-blue-500 text-white rounded"
-        onClick={addDeals}
+        onClick={() => AddDeals(boards)}
       >
         Multi Redeal
       </Button>
@@ -95,4 +57,44 @@ function ButtonElement({ addDeals }: ButtonElementProps) {
   );
 }
 
-export default MultiDealGenerator;
+function AddDeals(dealCount: number) {
+  for (let index = 0; index < dealCount; index++) {
+    AddDeal();
+  }
+}
+
+function AddDeal() {
+  const { storedDeals, addStoredDeal } = useGlobalData();
+  const { algorithm } = useAlgorithm();
+  const { partialDealSlots } = useSettings();
+
+  // Unless forced a the number of a board is its position in the stored Deals array
+  // Failure to do thsi may result in duplicte board numbers. Its not an error as such.
+  const newBoardId = storedDeals.length;
+
+  useEffect(() => {
+    const algoDeal: DealResult = executeAlgo(algorithm, partialDealSlots);
+
+    const board: Board = {
+      boardNo: newBoardId,
+      algo: algoDeal.algo,
+      description: algoDeal.description,
+      deal: algoDeal.deal,
+    };
+    addStoredDeal(board);
+  }, [algorithm, partialDealSlots, newBoardId, addStoredDeal]);
+
+  console.log(newBoardId === 0, `WARNING : Storing first board [0]`);
+
+  if (newBoardId > 0) {
+    const storedId: number = storedDeals[newBoardId - 1].boardNo
+    const badBoard: boolean = newBoardId === storedId;
+
+    console.log(
+      badBoard,
+      `WARNING : Stored board[${storedId}] stored at position [${newBoardId}]`
+    );
+  }
+
+  return null;
+}

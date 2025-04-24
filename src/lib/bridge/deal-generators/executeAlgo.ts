@@ -1,25 +1,26 @@
 
+import { Algorithm } from "@/types/dealingAlgo-enum";
 import {
   fisherYatesDealGenerator,
   homegrownDealGenerator,
   pavlicekDealGenerator,
 } from ".";
 import { DealResult } from "@/types/structs";
-import { Algo } from "@/types/bridge";
 
-function executeAlgo(algo: Algo, slots: number[]): DealResult {
+
+function executeAlgo(algo: Algorithm, slots: number[]): DealResult {
   // console.log(`Executing algo "${algo}" to decode \[${slots}\] slots`);
 
   let deal: DealResult;
 
   switch (algo) {
-    case Algo.FISHERYATES:
+    case Algorithm.FisherYates:
       deal = fisherYatesDealGenerator(slots);
       break;
-    case Algo.PARTIAL:
+    case Algorithm.Pavlicek:
       deal = pavlicekDealGenerator(slots);
       break;
-    case Algo.HOMEGROWN:
+    case Algorithm.HomeGrown:
       deal = homegrownDealGenerator(slots);
       break;
     default:

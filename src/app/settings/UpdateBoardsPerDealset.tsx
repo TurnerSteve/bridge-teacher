@@ -1,16 +1,16 @@
 "use client"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { useGlobalSettings } from "@/context/SettingsContextProvider";
+import { useSettings } from "@/context/SettingsContext";
 
  function UpdateBoardsPerSet() {
 
-  const { boardsPerDealset, setBoardsPerDealset} = useGlobalSettings();
+  const { multiDealCount, setMultiDealCount} = useSettings();
 
-  const selectedNumber = boardsPerDealset 
+  const selectedNumber = multiDealCount
   const numbers = [4,8,16,24,32,48, 1024,]; // The set of numbers to choose from
 
   const handleSelect = (number: number) => {
-    setBoardsPerDealset(number); // Notify the Global store
+    setMultiDealCount(number); // Notify the Global store
   };
 
   return (
