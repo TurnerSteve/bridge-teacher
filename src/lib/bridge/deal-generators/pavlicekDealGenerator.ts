@@ -4,6 +4,7 @@ import maxCodePage from "@/lib/math/maxCodePage";
 import randomBigInt from "@/lib/math/randomBigInt";
 import { Algorithm } from "@/types/dealingAlgo-enum";
 
+
 export default function partialDealGenerator(slots: number[]): DealResult {
   // Initialize an array to represent a deck of up to cards (52 cards).
   // The slots are n1=n2=n3=n4  cards per player ... Sum <= 52
@@ -15,7 +16,7 @@ export default function partialDealGenerator(slots: number[]): DealResult {
   if (slotTotal < 0 || slotTotal > 52) description += `Cannot deal [${slots}].`;
   if (slotTotal < 52) description += `Partial deal [${slots}].`;
 
-  console.log(description);
+  // console.log(description);
 
   const lastPage = maxCodePage(slots); // Maximum integer needed to represent a deal
   const codePage = randomBigInt(lastPage); // Generate the unique "codepage"
@@ -34,7 +35,7 @@ export default function partialDealGenerator(slots: number[]): DealResult {
 
   const deal: DealStruct = seatDecoder(seats);
 
-  return { algo: Algorithm, description: description, deal: deal };
+  return { algo: Algorithm.Pavlicek, description: description, deal: deal };
 }
 
 // Construct the 4 hands from the array of directions.
