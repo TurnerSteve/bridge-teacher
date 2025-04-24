@@ -12,7 +12,7 @@ import { useEffect } from "react";
 function SingleDealController() {
   const { algorithm } = useAlgorithm();
   const { partialDealSlots } = useSettings();
-  const { storedDeal, setStoredDeal } = useGlobalData();
+  const { storedDeals, setStoredDeals } = useGlobalData();
 
 
   useEffect(() => {
@@ -24,20 +24,20 @@ function SingleDealController() {
 
     const board = createBoard(boardNo, algorithm, partialDealSlots);
 
-    setStoredDeal(board);
+    setStoredDeals([board]);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // THIS IS OK : No dependancies. Forces one deal on initialisation.
 
   function performDeal() {
-    const newBoardNo = (storedDeal.boardNo % 16) + 1;
-
+    const newBoardNo = (storedDeals[0].boardNo % 16) + 1;
+    const board: Board = createBoard(newBoardNo, algorithm, partialDealSlots);
+  
     console.log(
       `New Board[${newBoardNo}] using algo "${algorithm}"`
     );
 
-    const board: Board = createBoard(newBoardNo, algorithm, partialDealSlots);
-    setStoredDeal(board);
+    setStoredDeals([board]);
   }
 
   return (

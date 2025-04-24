@@ -16,15 +16,13 @@ import { Algorithm } from "@/types/dealingAlgo-enum";
 
 // Step 1: Define the Context Type
 interface GlobalDataContextType {
-  storedDeal: Board;
-  setStoredDeal: Dispatch<SetStateAction<Board>>;
 
   storedDeals: Board[];
   setStoredDeals: Dispatch<SetStateAction<Board[]>>;
   addStoredDeal: (newDeal: Board) => void;
 
-  dealCount: number;
-  setDealCount: Dispatch<SetStateAction<number>>;
+  dealPointer: number;
+  setDealPointer: Dispatch<SetStateAction<number>>;
 
 }
 
@@ -39,11 +37,9 @@ type GlobalDataProviderProps = {
 };
 
 export function DealStoreProvider({ children }: GlobalDataProviderProps) {
-  const [storedDeal, setStoredDeal] = useState<Board>(
-    createEmptyStoredDeal
-  );
+
   const [storedDeals, setStoredDeals] = useState<Board[]>([createEmptyStoredDeal()]);
-  const [dealCount, setDealCount] = useState<number>(0);
+  const [dealPointer, setDealPointer] = useState<number>(0);
 
   // Function to add a single deal to the array
   const addStoredDeal = (newDeal: Board) => {
@@ -53,10 +49,8 @@ export function DealStoreProvider({ children }: GlobalDataProviderProps) {
   return (
     <GlobalDataContext.Provider
       value={{
-        storedDeal,
-        setStoredDeal,
-        dealCount,
-        setDealCount,
+        dealPointer,
+        setDealPointer,
         storedDeals,
         setStoredDeals,
         addStoredDeal,

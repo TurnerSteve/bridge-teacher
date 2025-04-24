@@ -10,13 +10,13 @@ import { HandRenderer } from "@/components/HandRenderer";
 // slots [n1,n2,n3,n4] Cards n1=North, n2=East, n3=South, n4 West
 
 function DealComponent() {
-  const { storedDeal: dealData } = useGlobalData();
+  const { storedDeals: dealData } = useGlobalData();
 
-  const boardNo = dealData.boardNo;
-  const northHand = dealData.deal[Direction.NORTH];
-  const southHand = dealData.deal[Direction.SOUTH];
-  const eastHand = dealData.deal[Direction.EAST];
-  const westHand = dealData.deal[Direction.WEST];
+  const boardNo = dealData[0].boardNo;
+  const northHand = dealData[0].deal[Direction.NORTH];
+  const southHand = dealData[0].deal[Direction.SOUTH];
+  const eastHand = dealData[0].deal[Direction.EAST];
+  const westHand = dealData[0].deal[Direction.WEST];
 
   if (!dealData) {
     return <div> Loading... </div>; // Render fallback UI ... Needs a Skeleton
