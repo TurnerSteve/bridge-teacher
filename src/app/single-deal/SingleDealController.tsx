@@ -9,7 +9,7 @@ import { Algorithm } from "@/types/dealingAlgo-enum";
 import { useSettings } from "@/context/SettingsContext";
 import { useEffect } from "react";
 
-function SingleDealController() {
+export default function SingleDealController() {
   const { algorithm } = useAlgorithm();
   const { partialDealSlots } = useSettings();
   const { storedDeals, setStoredDeals } = useGlobalData();
@@ -17,7 +17,7 @@ function SingleDealController() {
 
   useEffect(() => {
     // forces a single deal once at the start.
-    const boardNo = 1;
+    const boardNo = 0;
     console.log(
       `Board ${boardNo} uses algo "${algorithm}" and slots[${partialDealSlots}]`
     );
@@ -32,9 +32,10 @@ function SingleDealController() {
   function performDeal() {
     const newBoardNo = (storedDeals[0].boardNo % 16) + 1;
     const board: Board = createBoard(newBoardNo, algorithm, partialDealSlots);
+    const len = storedDeals.length;  
   
     console.log(
-      `New Board[${newBoardNo}] using algo "${algorithm}"`
+      `New Board[${len}:${newBoardNo}] using algo "${algorithm}"`
     );
 
     setStoredDeals([board]);
@@ -59,8 +60,6 @@ function SingleDealController() {
     </div>
   );
 }
-
-export default SingleDealController;
 
 function createBoard(boardNo: number, algo: Algorithm, slots: number[]): Board {
   const deal: DealResult = executeAlgo(algo, slots);
