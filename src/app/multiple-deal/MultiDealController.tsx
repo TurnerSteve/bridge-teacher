@@ -23,8 +23,10 @@ export default function MultiDealController() {
     );
 
     const board = createBoard(boardNo, algorithm, partialDealSlots);
-
+    const storeSize = storedDeals.length; 
+   
     setStoredDeals([board]);
+    console.log(`Deleted [${storeSize}] deals and created board ${boardNo}`)
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // THIS IS OK : No dependancies. Forces one deal on initialisation.

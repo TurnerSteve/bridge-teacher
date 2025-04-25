@@ -12,7 +12,7 @@ import { createBoard } from "@/lib/bridge/utils/createBoard";
 export default function SingleDealController() {
   const { algorithm } = useAlgorithm();
   const { partialDealSlots } = useSettings();
-  const { storedDeals, setStoredDeals } = useGlobalData();
+  const { storedDeals, updateDeal } = useGlobalData();
 
 
   useEffect(() => {
@@ -24,7 +24,7 @@ export default function SingleDealController() {
 
     const board = createBoard(boardNo, algorithm, partialDealSlots);
 
-    setStoredDeals([board]);
+    updateDeal(0, board);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // THIS IS OK : No dependancies. Forces one deal on initialisation.
@@ -38,7 +38,7 @@ export default function SingleDealController() {
       `New Board[${len}:${newBoardNo}] using algo "${algorithm}"`
     );
 
-    setStoredDeals([board]);
+    updateDeal(0, board);
   }
 
   return (
