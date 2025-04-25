@@ -1,15 +1,15 @@
-"use client"
+"use client";
 import DealSelectorComponent from "@/components/dealDisplay/DealSelector";
 import { useGlobalData } from "@/context/DealStoreContext";
 
-import { Direction } from "@/types/cards";
-import { DealStruct, Board} from "@/types/structs";
+import { Direction, DisplayMode } from "@/types/cards";
+import { DealStruct, Board } from "@/types/structs";
 import { useState } from "react";
-import HandComponent from "@/components/dealDisplay/HandComponent";
+
 import { CentreBoard } from "@/components/dealDisplay/CentreBoard";
 import { Algorithm } from "@/types/dealingAlgo-enum";
 import MultiDealController from "./MultiDealController";
-
+import { HandRenderer } from "@/components/HandRenderer";
 
 // interface DealInputProps {
 //   slots: number[];
@@ -23,10 +23,8 @@ export type DealResult = {
 
 function MultiDealComponent() {
   const [boardId, setBoardId] = useState(0);
-
   const { storedDeals } = useGlobalData();
-  
-  const boardIndex = 0 ;
+  const boardIndex = 0;
 
   // We have dealt an empty deal for proper initialisation
   // This is deal[0] which on statup is an empty deal
@@ -35,35 +33,64 @@ function MultiDealComponent() {
   if (!storedDeals) {
     return <div> Loading {storedDeals} deals... </div>; // Render fallback UI ... Needs a Skeleton
   }
-  const deal : Board = storedDeals[boardIndex] ;
+  const deal: Board = storedDeals[boardIndex];
+  const northHand = deal.deal[Direction.NORTH];
+  const southHand = deal.deal[Direction.SOUTH];
+  const eastHand = deal.deal[Direction.EAST];
+  const westHand = deal.deal[Direction.WEST];
 
   return (
     <>
       <div className="flex flex-col items-center justify-center min-h-screen w-full">
         <div className="grid grid-cols-3 grid-rows-3 gap-4 w-full max-w-screen-xl">
-          <div className="flex justify-center items-center row-start-1 col-start-1">
-            <DealSelectorComponent maxDeal={dealsMade-1} onUpdateBoardId={setBoardId}/>
+          <div className="flex justify-center items-center row-start-3 col-start-1">
+            Dealing Algo : {deal.algo}
           </div>
+          <div className="flex justify-center items-center row-start-1 col-start-1">
+            <DealSelectorComponent
+              maxDeal={dealsMade - 1}
+              onUpdateBoardId={setBoardId}
+            />
+          </div>
+          <div className="flex justify-center items-center row-start-2 col-start-2">
+            <CentreBoard boardId={boardId} size={200} />
+          </div>
+
           <div className="flex justify-center items-center row-start-1 col-start-2">
-            <HandComponent direction={Direction.NORTH} hand={deal.deal.North} />
+            <HandRenderer
+              hand={northHand}
+              displayMode={DisplayMode.IMAGE}
+              direction={Direction.NORTH}
+              cardSize={40}
+            />
           </div>
           <div className="flex justify-center items-center row-start-1 col-start-3">
             <MultiDealController />
           </div>
           <div className="flex justify-center items-center row-start-2 col-start-1">
-            <HandComponent direction={Direction.WEST} hand={deal.deal.West} />
+            <HandRenderer
+              hand={eastHand}
+              displayMode={DisplayMode.IMAGE}
+              direction={Direction.WEST}
+              cardSize={40}
+            />
           </div>
-          <div className="flex justify-center items-center row-start-2 col-start-2">
-            <CentreBoard boardId={boardId} size={200}/>
-          </div>
+
           <div className="flex justify-center items-center row-start-2 col-start-3">
-            <HandComponent direction={Direction.EAST} hand={deal.deal.East} />
-          </div>
-          <div className="flex justify-center items-center row-start-3 col-start-1">
-            Dealing  Algo : {deal.algo}
+            <HandRenderer
+              hand={westHand}
+              displayMode={DisplayMode.IMAGE}
+              direction={Direction.EAST}
+              cardSize={40}
+            />
           </div>
           <div className="flex justify-center items-center row-start-3 col-start-2">
-            <HandComponent direction={Direction.SOUTH} hand={deal.deal.South} />
+            <HandRenderer
+              hand={southHand}
+              displayMode={DisplayMode.IMAGE}
+              direction={Direction.SOUTH}
+              cardSize={40}
+            />
           </div>
         </div>
       </div>

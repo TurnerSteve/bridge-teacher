@@ -2,12 +2,12 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
 import { useGlobalData } from "@/context/DealStoreContext";
-import executeAlgo from "@/lib/bridge/deal-generators/executeAlgo";
-import { Board, DealResult } from "@/types/structs";
+import { Board} from "@/types/structs";
 import { useAlgorithm } from "@/context/AlgorithmContext";
-import { Algorithm } from "@/types/dealingAlgo-enum";
+
 import { useSettings } from "@/context/SettingsContext";
 import { useEffect } from "react";
+import { createBoard } from "@/lib/bridge/utils/createBoard";
 
 export default function MultiDealController() {
   const { algorithm } = useAlgorithm();
@@ -61,14 +61,3 @@ export default function MultiDealController() {
   );
 }
 
-function createBoard(boardNo: number, algo: Algorithm, slots: number[]): Board {
-  const deal: DealResult = executeAlgo(algo, slots);
-  const board: Board = {
-    boardNo: boardNo,
-    algo: deal.algo,
-    description: deal.description,
-    deal: deal.deal,
-  };
-
-  return board;
-}
