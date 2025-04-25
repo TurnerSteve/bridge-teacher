@@ -21,6 +21,10 @@ export default function MultiDealController() {
     if (storeSize === 1) { // Only a single deal in the array;
       console.log(`Need to deal more boards`)
     }
+    if (storeSize > 1) { // Only a single deal in the array;
+      console.log(`Display board 1`)
+    }
+    
   
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // THIS IS OK : No dependancies. Forces one deal on initialisation.

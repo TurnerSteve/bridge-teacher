@@ -22,8 +22,9 @@ export type DealResult = {
 };
 
 function MultiDealComponent() {
-  const [dealPointer, setDealPointer] = useState(0);
+
   const { storedDeals } = useGlobalData();
+  const [dealPointer, setDealPointer] = useState(0);
 
   // We have dealt an empty deal for proper initialisation
   // This is deal[0] which on statup is an empty deal

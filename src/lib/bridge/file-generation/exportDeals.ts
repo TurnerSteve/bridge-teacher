@@ -7,7 +7,7 @@ import { Char, FileType } from "@/types/bridge";
 
 export const exportDeals = {
   toJSON: (deals : Board[]) => {
-    return deals
+    return deals.slice(1)
       .map((deal) => {
         const hands = Object.entries(deal)
           .map(([direction, hand]) => `"${direction}": ${JSON.stringify(hand)}`)
@@ -41,7 +41,7 @@ export const exportDeals = {
       ,
     ];
 
-    const rows = deals.map((deal) => {
+    const rows = deals.slice(1).map((deal) => {
       const handsData = [
         `${suitSymbols[Suit.SPADES]} ${deal.deal[Direction.NORTH][
           Suit.SPADES
@@ -103,7 +103,7 @@ export const exportDeals = {
   toTEXT: (deals: Board[]) => {
     // Outputs suits using a suit symbol
     // Export as readable text
-    return deals
+    return deals.slice(1)
       .map(
         (deal) =>
           `Deal ID: ${deal.boardNo}\nAlgo: ${deal.algo}\nDescription: ${deal.description}\n` +
@@ -126,15 +126,15 @@ export const exportDeals = {
   },
 
   toBRI: (deals: Board[]) => {
-    return deals.map((deal) => formatBRIDeal(deal)).join("\n");
+    return deals.slice(1).map((deal) => formatBRIDeal(deal)).join("\n");
   },
 
   toDGE: (deals: Board[]) => {
-    return deals.map((deal) => formatDGEDeal(deal)).join("\n");
+    return deals.slice(1).map((deal) => formatDGEDeal(deal)).join("\n");
   },
 
   toDUP: (deals: Board[]) => {
-    return deals.map((deal) => formatDUPDeal(deal)).join("\n");
+    return deals.slice(1).map((deal) => formatDUPDeal(deal)).join("\n");
   },
 
   toXML: (deals: Board[]) => {
@@ -157,7 +157,7 @@ export const exportDeals = {
         }
       });
 
-    return `<Deals>\n${deals
+    return `<Deals>\n${deals.slice(1)
       .map(
         (deal) =>
           `  <Deal id="${deal.boardNo}" algo="${escapeXml(
@@ -182,7 +182,7 @@ export const exportDeals = {
   },
 
   toPBN: (deals: Board[]) => {
-    return deals
+    return deals.slice(1)
       .map((deal) => {
         const entry: LookupEntry = getTrayInfo(deal.boardNo); // Gets the dealer and vul
         const separators = {
@@ -217,7 +217,7 @@ export const exportDeals = {
   },
 
   toLIN: (deals: Board[]) => {
-    return deals.map((deal) => {
+    return deals.slice(1).map((deal) => {
       // Export as LIN (assuming a LIN-like format)
       const entry: LookupEntry = getTrayInfo(deal.boardNo); // Gets the dealer and vul
       const vul: string = getLINvul(entry.vulnerability); // o,n,e,b
