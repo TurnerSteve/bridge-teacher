@@ -48,7 +48,6 @@ function SuitComponent({ suit, cards }: SuitProps) {
 
 
   const cardString = `${cards.length > 0 ? cards.join(" ") : "-"}`;
-  console.log("SuitProps:", { suit, cards });
 
   return (
     <div className="flex items-center space-x-2">

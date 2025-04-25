@@ -19,7 +19,7 @@ interface GlobalDataContextType {
 
   storedDeals: Board[];
   setStoredDeals: Dispatch<SetStateAction<Board[]>>;
-  addStoredDeal: (newDeal: Board) => void;
+  appendDeal: (newDeal: Board) => void;
 
   dealPointer: number;
   setDealPointer: Dispatch<SetStateAction<number>>;
@@ -42,7 +42,7 @@ export function DealStoreProvider({ children }: GlobalDataProviderProps) {
   const [dealPointer, setDealPointer] = useState<number>(0);
 
   // Function to add a single deal to the array
-  const addStoredDeal = (newDeal: Board) => {
+  const appendDeal = (newDeal: Board) => {
     setStoredDeals((prevDeals) => [...prevDeals, newDeal]);
   };
 
@@ -53,7 +53,7 @@ export function DealStoreProvider({ children }: GlobalDataProviderProps) {
         setDealPointer,
         storedDeals,
         setStoredDeals,
-        addStoredDeal,
+        appendDeal,
       }}
     >
       {children}

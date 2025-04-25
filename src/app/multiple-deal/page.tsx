@@ -6,9 +6,9 @@ import { Direction } from "@/types/cards";
 import { DealStruct, Board} from "@/types/structs";
 import { useState } from "react";
 import HandComponent from "@/components/dealDisplay/HandComponent";
-import MultiDealGenerator from "@/app/multiple-deal/MultiDealGenerator";
 import { CentreBoard } from "@/components/dealDisplay/CentreBoard";
 import { Algorithm } from "@/types/dealingAlgo-enum";
+import MultiDealController from "./MultiDealController";
 
 
 // interface DealInputProps {
@@ -22,13 +22,12 @@ export type DealResult = {
 };
 
 function MultiDealComponent() {
-  const [boardId, setBoardId] = useState(1);
+  const [boardId, setBoardId] = useState(0);
 
   const { storedDeals } = useGlobalData();
   
-  const boardIndex = boardId -1 
-  // const slots = [13,13,13,13]
- 
+  const boardIndex = 0 ;
+
   // We have dealt an empty deal for proper initialisation
   // This is deal[0] which on statup is an empty deal
   const dealsMade = storedDeals.length;
@@ -49,7 +48,7 @@ function MultiDealComponent() {
             <HandComponent direction={Direction.NORTH} hand={deal.deal.North} />
           </div>
           <div className="flex justify-center items-center row-start-1 col-start-3">
-            <MultiDealGenerator />
+            <MultiDealController />
           </div>
           <div className="flex justify-center items-center row-start-2 col-start-1">
             <HandComponent direction={Direction.WEST} hand={deal.deal.West} />
