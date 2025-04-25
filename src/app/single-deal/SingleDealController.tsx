@@ -44,7 +44,7 @@ export default function SingleDealController() {
   return (
     <div className="w-full px-5">
       <Card className="w-full px-5">
-        <CardHeader>Single Deal dealing Algo[{algorithm}] </CardHeader>
+        <CardHeader>[{algorithm}] Single Deal</CardHeader>
         <CardContent>
           <div className="flex items-center row-start-1 col-start-1">
 

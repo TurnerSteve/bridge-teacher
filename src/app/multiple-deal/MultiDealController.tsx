@@ -31,7 +31,7 @@ export default function MultiDealController() {
 
   function performDeals() {
     const firstBoard = storedDeals.length ;
-    const lastBoard = firstBoard + multiDealCount - 1 ;
+    const lastBoard = firstBoard + multiDealCount  ;
 
     for (let i = firstBoard ; i < lastBoard ; i++) {
       const board: Board = createBoard(i, algorithm, partialDealSlots);
@@ -44,7 +44,7 @@ export default function MultiDealController() {
   return (
     <div className="w-full px-5">
       <Card className="w-full px-5">
-        <CardHeader>Single Deal dealing Algo[{algorithm}] </CardHeader>
+        <CardHeader>{algorithm} Multi deal [{multiDealCount}:{storedDeals.length - 1}] </CardHeader>
         <CardContent>
           <div className="flex items-center row-start-1 col-start-1">
 
