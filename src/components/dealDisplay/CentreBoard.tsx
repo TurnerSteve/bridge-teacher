@@ -136,7 +136,7 @@ export function CentreBoard(props: Props) {
         fontWeight="bold"
         textAnchor="middle"
       >
-        {boardId}
+        {boardId > 0 && boardId}
       </text>
 
       {/* Arrow */}
