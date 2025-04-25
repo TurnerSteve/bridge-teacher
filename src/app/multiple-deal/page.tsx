@@ -22,18 +22,17 @@ export type DealResult = {
 };
 
 function MultiDealComponent() {
-  const [boardId, setBoardId] = useState(0);
+  const [dealPointer, setDealPointer] = useState(0);
   const { storedDeals } = useGlobalData();
-  const boardIndex = 0;
 
   // We have dealt an empty deal for proper initialisation
   // This is deal[0] which on statup is an empty deal
-  const dealsMade = storedDeals.length;
+  const previousDeals = storedDeals.length - 1;
 
   if (!storedDeals) {
     return <div> Loading {storedDeals} deals... </div>; // Render fallback UI ... Needs a Skeleton
   }
-  const deal: Board = storedDeals[boardIndex];
+  const deal: Board = storedDeals[dealPointer];
   const northHand = deal.deal[Direction.NORTH];
   const southHand = deal.deal[Direction.SOUTH];
   const eastHand = deal.deal[Direction.EAST];
@@ -48,12 +47,17 @@ function MultiDealComponent() {
           </div>
           <div className="flex justify-center items-center row-start-1 col-start-1">
             <DealSelectorComponent
-              maxDeal={dealsMade - 1}
-              onUpdateBoardId={setBoardId}
+              dealPointer={dealPointer}
+              maxDeal={previousDeals}
+              updateDealPointer={setDealPointer}
             />
           </div>
+          <div className="flex justify-center items-center row-start-1 col-start-3">
+            <MultiDealController />
+          </div>
+
           <div className="flex justify-center items-center row-start-2 col-start-2">
-            <CentreBoard boardId={boardId} size={200} />
+            <CentreBoard boardId={dealPointer} size={200} />
           </div>
 
           <div className="flex justify-center items-center row-start-1 col-start-2">
@@ -64,9 +68,7 @@ function MultiDealComponent() {
               cardSize={40}
             />
           </div>
-          <div className="flex justify-center items-center row-start-1 col-start-3">
-            <MultiDealController />
-          </div>
+
           <div className="flex justify-center items-center row-start-2 col-start-1">
             <HandRenderer
               hand={eastHand}

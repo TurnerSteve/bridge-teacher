@@ -14,7 +14,6 @@ export default function SingleDealController() {
   const { partialDealSlots } = useSettings();
   const { storedDeals, updateDeal } = useGlobalData();
 
-
   useEffect(() => {
     // forces a single deal once at the start.
     const boardNo = 0;
@@ -44,7 +43,7 @@ export default function SingleDealController() {
   return (
     <div className="w-full px-5">
       <Card className="w-full px-5">
-        <CardHeader>[{algorithm}] Single Deal</CardHeader>
+        <CardHeader>[{algorithm}] Single Deal [{storedDeals.length}]</CardHeader>
         <CardContent>
           <div className="flex items-center row-start-1 col-start-1">
 

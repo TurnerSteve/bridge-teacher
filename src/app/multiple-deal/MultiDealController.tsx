@@ -10,24 +10,18 @@ import { useEffect } from "react";
 import { createBoard } from "@/lib/bridge/utils/createBoard";
 
 export default function MultiDealController() {
+
   const { algorithm } = useAlgorithm();
   const { partialDealSlots, multiDealCount } = useSettings();
-  const { storedDeals, setStoredDeals, appendDeal } = useGlobalData();
-  const {  setDealPointer} = useGlobalData() ;
+  const { storedDeals, appendDeal } = useGlobalData();
 
   useEffect(() => {
-
-    const boardNo = 1;
-    console.log(
-      `Board ${boardNo} uses algo "${algorithm}" and slots[${partialDealSlots}]`
-    );
-
-    const board = createBoard(boardNo, algorithm, partialDealSlots);
     const storeSize = storedDeals.length; 
-   
-    setStoredDeals([board]);
-    console.log(`Deleted [${storeSize}] deals and created board ${boardNo}`)
 
+    if (storeSize === 1) { // Only a single deal in the array;
+      console.log(`Need to deal more boards`)
+    }
+  
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // THIS IS OK : No dependancies. Forces one deal on initialisation.
 
@@ -40,14 +34,13 @@ export default function MultiDealController() {
       const board: Board = createBoard(i, algorithm, partialDealSlots);
       appendDeal(board);  // Push to global store
       console.log(`New Board[${i}] using algo "${algorithm}"`)
-    }
-    setDealPointer(firstBoard) ;  
+    } 
   }
 
   return (
     <div className="w-full px-5">
       <Card className="w-full px-5">
-        <CardHeader>{algorithm} Multi deal [{multiDealCount}:{storedDeals.length - 1}] </CardHeader>
+        <CardHeader>{algorithm} Multi deal [{storedDeals.length - 1}] </CardHeader>
         <CardContent>
           <div className="flex items-center row-start-1 col-start-1">
 
@@ -56,7 +49,7 @@ export default function MultiDealController() {
             className="mb-4 p-2 bg-blue-500 text-white rounded"
             onClick={performDeals}
           >
-            Redeal
+            Redeal {multiDealCount}
           </Button>
         </CardContent>
       </Card>
