@@ -30,10 +30,11 @@ export default function MultiDealController() {
   }, []); // THIS IS OK : No dependancies. Forces one deal on initialisation.
 
   function performDeals() {
-    const firstBoard = storedDeals.length ;
-    const lastBoard = firstBoard + multiDealCount  ;
+    const firstBoard = storedDeals.length ;  /// zero indexing
+    const lastBoard = firstBoard + multiDealCount - 1  ;
 
-    for (let i = firstBoard ; i < lastBoard ; i++) {
+    console.log(`Multi dealing ${multiDealCount} boards. [${firstBoard}...${lastBoard}]`)
+    for (let i = firstBoard ; i <= lastBoard ; i++) {
       const board: Board = createBoard(i, algorithm, partialDealSlots);
       appendDeal(board);  // Push to global store
       console.log(`New Board[${i}] using algo "${algorithm}"`)

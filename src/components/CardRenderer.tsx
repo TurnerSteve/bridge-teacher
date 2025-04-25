@@ -28,28 +28,27 @@ export function CardRenderer({
     case DisplayMode.IMAGE:
       return (
         <span
+        className="relative overflow-hidden"
+        style={{
+          display: "inline-block",
+          width: size,
+          aspectRatio: "2 / 3", // or use Tailwind: aspect-[2/3]
+        }}
+      >
+        <Image
+          src={getImageFileName(suit, rank)}
+          alt={`${rank} of ${suit}`}
+          fill
           style={{
-            display: "inline-block",
-            position: "relative",
-            width: size,
-            height: size * 1.5,
-            overflow: "hidden",
+            objectFit: "contain",
+            width: "100%",
+            height: "100%",
           }}
-        >
-          <Image
-            src={getImageFileName(suit, rank)}
-            width={size}
-            height={size * 1.5}
-            alt={`${rank} of ${suit}`}
-            style={{
-              display: "block",
-              width: "100%",
-              height: "auto", // Maintain aspect ratio and fix warning
-              objectFit: "contain",
-            }}
-          />
-        </span>
-      );
+          sizes={`${size}px`}
+        />
+      </span>
+      )
+      ;
 
       case DisplayMode.ICON: {
         const Icon : IconType = bridgeIcons[suit][rank];
