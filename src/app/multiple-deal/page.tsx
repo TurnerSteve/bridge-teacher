@@ -2,7 +2,7 @@
 import DealSelectorComponent from "@/components/dealDisplay/DealSelector";
 import { useGlobalData } from "@/context/DealStoreContext";
 
-import { Direction, DeckView } from "@/types/cards";
+import { Direction} from "@/types/cards";
 import { DealStruct, Board } from "@/types/structs";
 import { useState } from "react";
 
@@ -10,6 +10,7 @@ import { CentreBoard } from "@/components/dealDisplay/CentreBoard";
 import { Algorithm } from "@/types/dealingAlgo-enum";
 import MultiDealController from "./MultiDealController";
 import { HandRenderer } from "@/components/HandRenderer";
+import { useDeckView } from "@/context/DeckViewContext";
 
 // interface DealInputProps {
 //   slots: number[];
@@ -22,7 +23,7 @@ export type DealResult = {
 };
 
 function MultiDealComponent() {
-
+  const { deckView: deckView } = useDeckView();
   const { storedDeals } = useGlobalData();
   const [dealPointer, setDealPointer] = useState(0);
 
@@ -61,7 +62,7 @@ function MultiDealComponent() {
           <div className="flex justify-center items-center row-start-1 col-start-2">
             <HandRenderer
               hand={northHand}
-              displayMode={DeckView.IMAGE}
+              displayMode={deckView}
               direction={Direction.NORTH}
               cardSize={40}
             />
@@ -70,7 +71,7 @@ function MultiDealComponent() {
           <div className="flex justify-center items-center row-start-2 col-start-1">
             <HandRenderer
               hand={eastHand}
-              displayMode={DeckView.IMAGE}
+              displayMode={deckView}
               direction={Direction.WEST}
               cardSize={40}
             />
@@ -79,7 +80,7 @@ function MultiDealComponent() {
           <div className="flex justify-center items-center row-start-2 col-start-3">
             <HandRenderer
               hand={westHand}
-              displayMode={DeckView.IMAGE}
+              displayMode={deckView}
               direction={Direction.EAST}
               cardSize={40}
             />
@@ -87,7 +88,7 @@ function MultiDealComponent() {
           <div className="flex justify-center items-center row-start-3 col-start-2">
             <HandRenderer
               hand={southHand}
-              displayMode={DeckView.IMAGE}
+              displayMode={deckView}
               direction={Direction.SOUTH}
               cardSize={40}
             />

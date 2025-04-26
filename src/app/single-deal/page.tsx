@@ -3,15 +3,17 @@
 import SingleDealController from "./SingleDealController";
 import { useGlobalData } from "@/context/DealStoreContext";
 import { CentreBoard } from "@/components/dealDisplay/CentreBoard";
-import { Direction, DeckView } from "@/types/cards";
+import { Direction} from "@/types/cards";
 import { HandRenderer } from "@/components/HandRenderer";
+import { useDeckView } from "@/context/DeckViewContext";
 
 // Partial deal generator will generate
 // slots [n1,n2,n3,n4] Cards n1=North, n2=East, n3=South, n4 West
 
 function DealComponent() {
   const { storedDeals: dealData } = useGlobalData();
-
+  const { deckView: deckView } = useDeckView();
+  
   const boardNo = dealData[0].boardNo;
   const northHand = dealData[0].deal[Direction.NORTH];
   const southHand = dealData[0].deal[Direction.SOUTH];
@@ -35,14 +37,14 @@ function DealComponent() {
           <div className="flex justify-center items-center row-start-1 col-start-2">
             <HandRenderer
               hand={northHand}
-              displayMode={DeckView.TEXT} // or .TEXT, .SYMBOL, .ICON
+              displayMode={deckView} // or .TEXT, .SYMBOL, .ICON
               direction={Direction.NORTH}
             />
           </div>
           <div className="flex justify-center items-center row-start-2 col-start-1">
             <HandRenderer
               hand={eastHand}
-              displayMode={DeckView.SYMBOL} // or .TEXT, .SYMBOL, .ICON
+              displayMode={deckView} // or .TEXT, .SYMBOL, .ICON
               direction={Direction.EAST}
             />
           </div>
@@ -50,14 +52,14 @@ function DealComponent() {
           <div className="flex justify-center items-center row-start-2 col-start-3">
             <HandRenderer
               hand={southHand}
-              displayMode={DeckView.ICON} // or .TEXT, .SYMBOL, .ICON
+              displayMode={deckView} // or .TEXT, .SYMBOL, .ICON
               direction={Direction.SOUTH}
             />
           </div>
           <div className="flex justify-center items-center row-start-3 col-start-2">
             <HandRenderer
               hand={westHand}
-              displayMode={DeckView.IMAGE} // or .TEXT, .SYMBOL, .ICON
+              displayMode={deckView} // or .TEXT, .SYMBOL, .ICON
               direction={Direction.WEST}
             />
           </div>
