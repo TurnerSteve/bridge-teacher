@@ -1,11 +1,11 @@
 'use client';
 import { DealStruct } from '@/types/structs';
 import { HandRenderer } from '@/components/HandRenderer';
-import { Direction, DisplayMode } from '@/types/cards';
+import { Direction, DeckView } from '@/types/cards';
 
 interface DealRendererProps {
   deal: DealStruct;
-  displayMode: DisplayMode;
+  displayMode: DeckView;
   cardSize?: number;
 }
 

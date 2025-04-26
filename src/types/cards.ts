@@ -1,7 +1,7 @@
 export { Rank, Suit, Vulnerability, Direction}
-export { DisplayMode };
+export { DeckView };
 
-enum DisplayMode 
+enum DeckView 
 {
   TEXT   = "text" ,      // Plain text A,K,Q,J,10 etc
   ICON   = "icon" ,     // unicode

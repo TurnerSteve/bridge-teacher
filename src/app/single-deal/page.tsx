@@ -3,7 +3,7 @@
 import SingleDealController from "./SingleDealController";
 import { useGlobalData } from "@/context/DealStoreContext";
 import { CentreBoard } from "@/components/dealDisplay/CentreBoard";
-import { Direction, DisplayMode } from "@/types/cards";
+import { Direction, DeckView } from "@/types/cards";
 import { HandRenderer } from "@/components/HandRenderer";
 
 // Partial deal generator will generate
@@ -35,14 +35,14 @@ function DealComponent() {
           <div className="flex justify-center items-center row-start-1 col-start-2">
             <HandRenderer
               hand={northHand}
-              displayMode={DisplayMode.TEXT} // or .TEXT, .SYMBOL, .ICON
+              displayMode={DeckView.TEXT} // or .TEXT, .SYMBOL, .ICON
               direction={Direction.NORTH}
             />
           </div>
           <div className="flex justify-center items-center row-start-2 col-start-1">
             <HandRenderer
               hand={eastHand}
-              displayMode={DisplayMode.SYMBOL} // or .TEXT, .SYMBOL, .ICON
+              displayMode={DeckView.SYMBOL} // or .TEXT, .SYMBOL, .ICON
               direction={Direction.EAST}
             />
           </div>
@@ -50,14 +50,14 @@ function DealComponent() {
           <div className="flex justify-center items-center row-start-2 col-start-3">
             <HandRenderer
               hand={southHand}
-              displayMode={DisplayMode.ICON} // or .TEXT, .SYMBOL, .ICON
+              displayMode={DeckView.ICON} // or .TEXT, .SYMBOL, .ICON
               direction={Direction.SOUTH}
             />
           </div>
           <div className="flex justify-center items-center row-start-3 col-start-2">
             <HandRenderer
               hand={westHand}
-              displayMode={DisplayMode.IMAGE} // or .TEXT, .SYMBOL, .ICON
+              displayMode={DeckView.IMAGE} // or .TEXT, .SYMBOL, .ICON
               direction={Direction.WEST}
             />
           </div>

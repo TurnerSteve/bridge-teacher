@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Suit, Rank, DisplayMode } from "@/types/cards";
+import { Suit, Rank, DeckView } from "@/types/cards";
 import { bridgeIcons } from "@/lib/reactIconCards";
 import { getImageFileName } from "@/lib/getImageFileName";
 import { unicodeCards } from "@/lib/unicodeCards";
@@ -10,7 +10,7 @@ import { IconType } from "react-icons";
 interface CardRendererProps {
   suit: Suit;
   rank: Rank;
-  displayMode: DisplayMode;
+  displayMode: DeckView;
   size?: number;
 }
 
@@ -22,10 +22,10 @@ export function CardRenderer({
 }: CardRendererProps) {
 
   switch (displayMode) {
-    case DisplayMode.TEXT: // Text although we have a symbol for the suit
+    case DeckView.TEXT: // Text although we have a symbol for the suit
       return <span className="font-mono">{rank}</span>;
 
-    case DisplayMode.IMAGE:
+    case DeckView.IMAGE:
       return (
         <span
         className="relative overflow-hidden"
@@ -50,7 +50,7 @@ export function CardRenderer({
       )
       ;
 
-      case DisplayMode.ICON: {
+      case DeckView.ICON: {
         const Icon : IconType = bridgeIcons[suit][rank];
         return (
           <Icon
@@ -61,7 +61,7 @@ export function CardRenderer({
         );
       }
     
-      case DisplayMode.SYMBOL: {
+      case DeckView.SYMBOL: {
         // Define color based on suit
         const isRed = suit === Suit.HEARTS || suit === Suit.DIAMONDS;
         const color = isRed ? '#c00' : '#222'; // red or black

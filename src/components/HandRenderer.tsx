@@ -2,12 +2,12 @@
 
 import { HandStruct } from '@/types/structs';
 import { CardRenderer } from '@/components/CardRenderer';
-import { Direction, DisplayMode, Suit } from '@/types/cards';
+import { Direction, DeckView, Suit } from '@/types/cards';
 import { suitOrder, suitSymbols } from '@/types/constants';
 
 interface HandRendererProps {
   hand: HandStruct;
-  displayMode: DisplayMode;
+  displayMode: DeckView;
   direction: Direction;
   cardSize?: number;
 }
@@ -26,7 +26,7 @@ export function HandRenderer({
       <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
         {suitOrder.map((suit) => (
           <div key={suit} style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-           {displayMode === DisplayMode.TEXT && (
+           {displayMode === DeckView.TEXT && (
               <span style={{
                 width: 16,
                 textAlign: 'center',

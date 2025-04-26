@@ -2,7 +2,7 @@
 import DealSelectorComponent from "@/components/dealDisplay/DealSelector";
 import { useGlobalData } from "@/context/DealStoreContext";
 
-import { Direction, DisplayMode } from "@/types/cards";
+import { Direction, DeckView } from "@/types/cards";
 import { DealStruct, Board } from "@/types/structs";
 import { useState } from "react";
 
@@ -61,7 +61,7 @@ function MultiDealComponent() {
           <div className="flex justify-center items-center row-start-1 col-start-2">
             <HandRenderer
               hand={northHand}
-              displayMode={DisplayMode.IMAGE}
+              displayMode={DeckView.IMAGE}
               direction={Direction.NORTH}
               cardSize={40}
             />
@@ -70,7 +70,7 @@ function MultiDealComponent() {
           <div className="flex justify-center items-center row-start-2 col-start-1">
             <HandRenderer
               hand={eastHand}
-              displayMode={DisplayMode.IMAGE}
+              displayMode={DeckView.IMAGE}
               direction={Direction.WEST}
               cardSize={40}
             />
@@ -79,7 +79,7 @@ function MultiDealComponent() {
           <div className="flex justify-center items-center row-start-2 col-start-3">
             <HandRenderer
               hand={westHand}
-              displayMode={DisplayMode.IMAGE}
+              displayMode={DeckView.IMAGE}
               direction={Direction.EAST}
               cardSize={40}
             />
@@ -87,7 +87,7 @@ function MultiDealComponent() {
           <div className="flex justify-center items-center row-start-3 col-start-2">
             <HandRenderer
               hand={southHand}
-              displayMode={DisplayMode.IMAGE}
+              displayMode={DeckView.IMAGE}
               direction={Direction.SOUTH}
               cardSize={40}
             />
