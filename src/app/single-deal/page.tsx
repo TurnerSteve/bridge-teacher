@@ -43,24 +43,24 @@ function DealComponent() {
           </div>
           <div className="flex justify-center items-center row-start-2 col-start-1">
             <HandRenderer
-              hand={eastHand}
+              hand={westHand}
               displayMode={deckView} // or .TEXT, .SYMBOL, .ICON
-              direction={Direction.EAST}
+              direction={Direction.WEST}
             />
           </div>
 
           <div className="flex justify-center items-center row-start-2 col-start-3">
             <HandRenderer
-              hand={southHand}
+              hand={eastHand}
               displayMode={deckView} // or .TEXT, .SYMBOL, .ICON
-              direction={Direction.SOUTH}
+              direction={Direction.EAST}
             />
           </div>
           <div className="flex justify-center items-center row-start-3 col-start-2">
             <HandRenderer
-              hand={westHand}
+              hand={southHand}
               displayMode={deckView} // or .TEXT, .SYMBOL, .ICON
-              direction={Direction.WEST}
+              direction={Direction.SOUTH}
             />
           </div>
         </div>

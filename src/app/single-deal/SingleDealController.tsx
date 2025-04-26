@@ -22,9 +22,10 @@ export default function SingleDealController() {
       `Board ${boardNo} uses algo "${algorithm}" and slots[${partialDealSlots}]`
     );
 
+    if (storedDeals.length === 0) {
     const board = createBoard(boardNo, algorithm, partialDealSlots);
-
     updateDeal(0, board);
+  }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // THIS IS OK : No dependancies. Forces one deal on initialisation.
@@ -40,6 +41,8 @@ export default function SingleDealController() {
 
     updateDeal(0, board);
   }
+
+
 
   return (
     <div className="w-full px-5">
