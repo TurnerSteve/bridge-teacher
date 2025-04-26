@@ -18,7 +18,7 @@ export function DeckViewDropdown() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="mb-4 p-2 rounded bg-blue-500 text-white">
-        Display deck as {deckView}s
+        Display card as {deckView}s
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuLabel>Select Deck View</DropdownMenuLabel>

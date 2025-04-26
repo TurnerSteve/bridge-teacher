@@ -1,3 +1,4 @@
+import { DeckViewDropdown } from "@/components/DeckViewDropdown";
 import UpdateBoardsPerDealset from "./UpdateBoardsPerDealset";
 import UpdateSelectedDealingAlgo from "./UpdateDealingAlgo";
 import UpdateDealingSlots from "./UpdateDealingSlots";
@@ -16,6 +17,7 @@ export default function SettingsPage() {
           <Card className="flex-1 px-5">
             <CardHeader className="text-0xl font-bold px-4">Boards per deal set</CardHeader>
             <UpdateBoardsPerDealset />
+            <DeckViewDropdown />
           </Card>
           <Card className="flex-1 px-5">
             <CardHeader className="text-0xl font-bold">Dealing Algoritm</CardHeader>
