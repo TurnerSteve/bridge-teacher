@@ -41,9 +41,11 @@ function MultiDealComponent() {
   const westHand = deal.deal[Direction.WEST];
 
   return (
-    <>
+    <>       Multi Dealer
       <div className="flex flex-col items-center justify-center min-h-screen w-full">
+
         <div className="grid grid-cols-3 grid-rows-3 gap-4 w-full max-w-screen-xl">
+      
           <div className="flex justify-center items-center row-start-1 col-start-1">
             <DealSelectorComponent
               dealPointer={dealPointer}
