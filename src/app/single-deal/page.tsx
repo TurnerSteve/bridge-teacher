@@ -4,8 +4,9 @@ import SingleDealController from "./SingleDealController";
 import { useGlobalData } from "@/context/DealStoreContext";
 import { CentreBoard } from "@/components/dealDisplay/CentreBoard";
 import { Direction} from "@/types/cards";
-import { HandRenderer } from "@/components/HandRenderer";
 import { useDeckView } from "@/context/DeckViewContext";
+import CompactHandRenderer from "@/components/CompactHandRenderer";
+
 
 // Partial deal generator will generate
 // slots [n1,n2,n3,n4] Cards n1=North, n2=East, n3=South, n4 West
@@ -35,14 +36,14 @@ function DealComponent() {
           </div>
 
           <div className="flex justify-center items-center row-start-1 col-start-2">
-            <HandRenderer
+            <CompactHandRenderer
               hand={northHand}
               displayMode={deckView} // or .TEXT, .SYMBOL, .ICON
               direction={Direction.NORTH}
             />
           </div>
           <div className="flex justify-center items-center row-start-2 col-start-1">
-            <HandRenderer
+            <CompactHandRenderer
               hand={westHand}
               displayMode={deckView} // or .TEXT, .SYMBOL, .ICON
               direction={Direction.WEST}
@@ -50,14 +51,14 @@ function DealComponent() {
           </div>
 
           <div className="flex justify-center items-center row-start-2 col-start-3">
-            <HandRenderer
+            <CompactHandRenderer
               hand={eastHand}
               displayMode={deckView} // or .TEXT, .SYMBOL, .ICON
               direction={Direction.EAST}
             />
           </div>
           <div className="flex justify-center items-center row-start-3 col-start-2">
-            <HandRenderer
+            <CompactHandRenderer
               hand={southHand}
               displayMode={deckView} // or .TEXT, .SYMBOL, .ICON
               direction={Direction.SOUTH}

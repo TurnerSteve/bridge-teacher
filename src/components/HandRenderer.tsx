@@ -5,7 +5,7 @@ import { CardRenderer } from '@/components/CardRenderer';
 import { Direction, DeckView, Suit } from '@/types/cards';
 import { suitOrder, suitSymbols } from '@/types/constants';
 
-interface HandRendererProps {
+export interface HandRendererProps {
   hand: HandStruct;
   displayMode: DeckView;
   direction: Direction;
