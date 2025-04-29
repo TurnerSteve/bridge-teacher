@@ -19,7 +19,7 @@ export default function CompactHandRenderer(props: CompactHandRendererProps) {
     displayMode,
     direction,
     cardSize = 50,
-    overlapPercent = 12,
+    overlapPercent = 15,
   } = props;
 
   return (

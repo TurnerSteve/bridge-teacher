@@ -17,7 +17,7 @@ export default function CompactSuitRow(props: CompactSuitRowProps) {
     cards,
     displayMode,
     cardSize = 40,
-    overlapPercent = 20, // Show 80% overlap, 20% visible
+    overlapPercent = 16, // Show 80% overlap, 20% visible
   } = props;
 
   const totalCards = cards.length;
