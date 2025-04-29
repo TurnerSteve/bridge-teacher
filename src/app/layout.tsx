@@ -33,7 +33,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           </AppProviders>
         </Theme>
       </body>
-      <Script defer src="http://bridge-teacher-umami-1e59c0-157-90-170-219.traefik.me/script.js" data-website-id="84498c6d-8a51-4bc2-8337-8e47f56022c7"></Script>
+      <Script async src="https://umami.bridgequarter.net/script.js" data-website-id="3d025299-4371-47d5-b7cc-0138d815b570"></Script>
     </html>
   );
 }
