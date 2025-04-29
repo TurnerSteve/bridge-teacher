@@ -16,7 +16,7 @@ type RootLayoutProps = {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
-      <script defer src="http://bridge-teacher-umami-1e59c0-157-90-170-219.traefik.me/script.js" data-website-id="84498c6d-8a51-4bc2-8337-8e47f56022c7"></script>
+      <script async src="http://bridge-teacher-umami-1e59c0-157-90-170-219.traefik.me/script.js" data-website-id="84498c6d-8a51-4bc2-8337-8e47f56022c7"></script>
       <body className="height: 100% margin: h-0 overflow-y-auto">
         <Theme>
           <AppProviders>
