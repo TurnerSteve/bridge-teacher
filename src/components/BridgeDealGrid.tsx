@@ -6,11 +6,11 @@ interface BridgeDealGridProps {
   south: React.ReactNode;
   west: React.ReactNode;
   center: React.ReactNode; // Vulnerability & Dealer
-  redealButton: React.ReactNode;
-  infoTopLeft: React.ReactNode;
-  infoTopRight: React.ReactNode;
-  infoBottomLeft: React.ReactNode;
-  infoBottomRight: React.ReactNode;
+  redealButton?: React.ReactNode;
+  infoTopLeft?: React.ReactNode;
+  infoTopRight?: React.ReactNode;
+  infoBottomLeft?: React.ReactNode;
+  infoBottomRight?: React.ReactNode;
 }
 
 export function BridgeDealGrid({

@@ -8,7 +8,6 @@ import { useAlgorithm } from "@/context/AlgorithmContext";
 import { useSettings } from "@/context/SettingsContext";
 import { useEffect } from "react";
 import { createBoard } from "@/lib/bridge/utils/createBoard";
-import { DeckViewDropdown } from "@/components/DeckViewDropdown";
 
 export default function MultiDealController() {
 
@@ -54,9 +53,7 @@ export default function MultiDealController() {
           >
             Redeal {multiDealCount}
           </Button>
-          <div className="flex items-center row-start-1 col-start-1">
-            <DeckViewDropdown />
-          </div>
+
         </CardContent>
       </Card>
     </div>
